@@ -21,9 +21,18 @@ interface AuthContextType {
   resetPassword: (email: string) => Promise<void>
   approveUser: (id: string) => void
   rejectUser: (id: string) => void
+  promoteToAdmin: (id: string) => void
 }
 
 const mockUsers: User[] = [
+  {
+    id: 'u0',
+    name: 'Allan Tomazela',
+    email: 'allantomazela@gmail.com',
+    role: 'admin',
+    status: 'approved',
+    password: 'danilan2710',
+  },
   {
     id: 'u1',
     name: 'Administrador Principal',
@@ -101,6 +110,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUsers(users.map((u) => (u.id === id ? { ...u, status: 'rejected' } : u)))
   }
 
+  const promoteToAdmin = (id: string) => {
+    setUsers(users.map((u) => (u.id === id ? { ...u, role: 'admin' } : u)))
+  }
+
   return React.createElement(
     AuthContext.Provider,
     {
@@ -113,6 +126,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         resetPassword,
         approveUser,
         rejectUser,
+        promoteToAdmin,
       },
     },
     children,

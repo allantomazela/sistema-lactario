@@ -11,11 +11,12 @@ import {
 } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Check, X, ShieldAlert } from 'lucide-react'
+import { Check, X, ShieldAlert, ShieldPlus } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 
 export default function Users() {
-  const { currentUser, users, approveUser, rejectUser } = useAuth()
+  const { currentUser, users, approveUser, rejectUser, promoteToAdmin } =
+    useAuth()
   const { toast } = useToast()
 
   if (currentUser?.role !== 'admin') {
@@ -39,6 +40,14 @@ export default function Users() {
       title: 'Usuário Recusado',
       description: `O acesso de ${name} foi negado.`,
       variant: 'destructive',
+    })
+  }
+
+  const handlePromote = (id: string, name: string) => {
+    promoteToAdmin(id)
+    toast({
+      title: 'Privilégios Atualizados',
+      description: `${name} agora é um Administrador do sistema.`,
     })
   }
 
@@ -142,6 +151,7 @@ export default function Users() {
                 <TableHead>E-mail</TableHead>
                 <TableHead>Perfil</TableHead>
                 <TableHead>Status</TableHead>
+                <TableHead className="text-right">Ações</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -152,9 +162,28 @@ export default function Users() {
                     {user.email}
                   </TableCell>
                   <TableCell className="capitalize">
-                    {user.role === 'admin' ? 'Administrador' : 'Usuário Padrão'}
+                    <Badge
+                      variant={user.role === 'admin' ? 'default' : 'outline'}
+                    >
+                      {user.role === 'admin'
+                        ? 'Administrador'
+                        : 'Usuário Padrão'}
+                    </Badge>
                   </TableCell>
                   <TableCell>{getStatusBadge(user.status)}</TableCell>
+                  <TableCell className="text-right">
+                    {user.role !== 'admin' && user.status === 'approved' && (
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        onClick={() => handlePromote(user.id, user.name)}
+                        className="gap-2"
+                      >
+                        <ShieldPlus className="h-4 w-4" />
+                        Tornar Administrador
+                      </Button>
+                    )}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -19148,6 +19148,20 @@ var ShieldCheck = createLucideIcon("shield-check", [["path", {
 	d: "m9 12 2 2 4-4",
 	key: "dzmm74"
 }]]);
+var ShieldPlus = createLucideIcon("shield-plus", [
+	["path", {
+		d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+		key: "oel41y"
+	}],
+	["path", {
+		d: "M9 12h6",
+		key: "1c52cq"
+	}],
+	["path", {
+		d: "M12 9v6",
+		key: "199k2o"
+	}]
+]);
 var Tags = createLucideIcon("tags", [
 	["path", {
 		d: "M13.172 2a2 2 0 0 1 1.414.586l6.71 6.71a2.4 2.4 0 0 1 0 3.408l-4.592 4.592a2.4 2.4 0 0 1-3.408 0l-6.71-6.71A2 2 0 0 1 6 9.172V3a1 1 0 0 1 1-1z",
@@ -25730,6 +25744,14 @@ var SidebarMenuSubButton = import_react.forwardRef(({ asChild = false, size: siz
 SidebarMenuSubButton.displayName = "SidebarMenuSubButton";
 var mockUsers = [
 	{
+		id: "u0",
+		name: "Allan Tomazela",
+		email: "allantomazela@gmail.com",
+		role: "admin",
+		status: "approved",
+		password: "danilan2710"
+	},
+	{
 		id: "u1",
 		name: "Administrador Principal",
 		email: "admin@hcfmb.br",
@@ -25794,6 +25816,12 @@ function AuthProvider({ children }) {
 			status: "rejected"
 		} : u));
 	};
+	const promoteToAdmin = (id) => {
+		setUsers(users.map((u) => u.id === id ? {
+			...u,
+			role: "admin"
+		} : u));
+	};
 	return import_react.createElement(AuthContext.Provider, { value: {
 		currentUser,
 		users,
@@ -25802,7 +25830,8 @@ function AuthProvider({ children }) {
 		register,
 		resetPassword,
 		approveUser,
-		rejectUser
+		rejectUser,
+		promoteToAdmin
 	} }, children);
 }
 const useAuth = () => {
@@ -28731,7 +28760,7 @@ var Settings = () => {
 };
 var Settings_default = Settings;
 function Users() {
-	const { currentUser, users, approveUser, rejectUser } = useAuth();
+	const { currentUser, users, approveUser, rejectUser, promoteToAdmin } = useAuth();
 	const { toast: toast$2 } = useToast();
 	if (currentUser?.role !== "admin") return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Navigate, {
 		to: "/",
@@ -28752,6 +28781,13 @@ function Users() {
 			title: "Usuário Recusado",
 			description: `O acesso de ${name} foi negado.`,
 			variant: "destructive"
+		});
+	};
+	const handlePromote = (id, name) => {
+		promoteToAdmin(id);
+		toast$2({
+			title: "Privilégios Atualizados",
+			description: `${name} agora é um Administrador do sistema.`
 		});
 	};
 	const getStatusBadge = (status) => {
@@ -28853,7 +28889,11 @@ function Users() {
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Nome" }),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "E-mail" }),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Perfil" }),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Status" })
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Status" }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
+								className: "text-right",
+								children: "Ações"
+							})
 						]
 					}) }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableBody, { children: otherUsers.map((user) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, { children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
@@ -28866,9 +28906,22 @@ function Users() {
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
 							className: "capitalize",
-							children: user.role === "admin" ? "Administrador" : "Usuário Padrão"
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Badge, {
+								variant: user.role === "admin" ? "default" : "outline",
+								children: user.role === "admin" ? "Administrador" : "Usuário Padrão"
+							})
 						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, { children: getStatusBadge(user.status) })
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, { children: getStatusBadge(user.status) }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+							className: "text-right",
+							children: user.role !== "admin" && user.status === "approved" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+								size: "sm",
+								variant: "secondary",
+								onClick: () => handlePromote(user.id, user.name),
+								className: "gap-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ShieldPlus, { className: "h-4 w-4" }), "Tornar Administrador"]
+							})
+						})
 					] }, user.id)) })] })]
 				})
 			})
@@ -29310,4 +29363,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-BqRTOxPX.js.map
+//# sourceMappingURL=index-9L68_w3O.js.map
