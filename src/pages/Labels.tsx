@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useLactary } from '@/contexts/LactaryContext'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { useAuth } from '@/contexts/AuthContext'
+import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import {
   Select,
@@ -14,6 +15,7 @@ import { useToast } from '@/hooks/use-toast'
 
 const Labels = () => {
   const { patients, prescriptions } = useLactary()
+  const { currentUser } = useAuth()
   const { toast } = useToast()
 
   const [selectedTime, setSelectedTime] = useState<string>('11:00')
@@ -50,6 +52,9 @@ const Labels = () => {
     hour: '2-digit',
     minute: '2-digit',
   })
+
+  // Get current user first name or a fallback
+  const userInitialsOrName = currentUser?.name.split(' ')[0] || '___'
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -222,7 +227,7 @@ const Labels = () => {
                 <div>
                   Prep: {prepDate} {prepTime}
                   <br />
-                  Resp: ___
+                  Resp: {userInitialsOrName}
                 </div>
                 <div className="text-right">
                   Validade: {label.expiryHours}h<br />

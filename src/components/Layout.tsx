@@ -1,4 +1,4 @@
-import { Outlet, Link, useLocation } from 'react-router-dom'
+import { Outlet, Link, useLocation, Navigate } from 'react-router-dom'
 import {
   Sidebar,
   SidebarContent,
@@ -9,6 +9,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
   SidebarInset,
+  SidebarFooter,
 } from '@/components/ui/sidebar'
 import {
   Activity,
@@ -18,19 +19,40 @@ import {
   Settings,
   PlusCircle,
   Baby,
+  ShieldCheck,
+  LogOut,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-
-const navItems = [
-  { title: 'Início', path: '/', icon: Activity },
-  { title: 'Pacientes', path: '/pacientes', icon: Users },
-  { title: 'Prescrições', path: '/prescricoes', icon: FileText },
-  { title: 'Gerar Etiquetas', path: '/etiquetas', icon: Tags },
-  { title: 'Configurações', path: '/configuracoes', icon: Settings },
-]
+import { useAuth } from '@/contexts/AuthContext'
 
 export default function Layout() {
   const location = useLocation()
+  const { currentUser, logout } = useAuth()
+
+  if (!currentUser) {
+    return <Navigate to="/login" state={{ from: location }} replace />
+  }
+
+  const navItems = [
+    { title: 'Início', path: '/', icon: Activity },
+    { title: 'Pacientes', path: '/pacientes', icon: Users },
+    { title: 'Prescrições', path: '/prescricoes', icon: FileText },
+    { title: 'Gerar Etiquetas', path: '/etiquetas', icon: Tags },
+  ]
+
+  if (currentUser.role === 'admin') {
+    navItems.push({
+      title: 'Gerenciamento de Usuários',
+      path: '/usuarios',
+      icon: ShieldCheck,
+    })
+  }
+
+  navItems.push({
+    title: 'Configurações',
+    path: '/configuracoes',
+    icon: Settings,
+  })
 
   const getPageTitle = () => {
     const item = navItems.find((i) => i.path === location.pathname)
@@ -65,6 +87,16 @@ export default function Layout() {
             ))}
           </SidebarMenu>
         </SidebarContent>
+        <SidebarFooter className="p-4 border-t border-sidebar-border">
+          <Button
+            variant="ghost"
+            className="w-full justify-start text-muted-foreground hover:text-destructive hover:bg-destructive/10 gap-2"
+            onClick={logout}
+          >
+            <LogOut className="h-4 w-4" />
+            Sair do Sistema
+          </Button>
+        </SidebarFooter>
       </Sidebar>
 
       <SidebarInset className="bg-background">
@@ -77,11 +109,13 @@ export default function Layout() {
           </div>
           <div className="flex items-center gap-4">
             <div className="hidden md:flex flex-col items-end text-sm mr-4">
-              <span className="font-medium text-foreground">
-                Nutricionista Plantonista
+              <span className="font-medium text-foreground line-clamp-1">
+                {currentUser.name}
               </span>
-              <span className="text-muted-foreground text-xs">
-                Setor: Lactário Central
+              <span className="text-muted-foreground text-xs capitalize">
+                {currentUser.role === 'admin'
+                  ? 'Administrador'
+                  : 'Usuário Padrão'}
               </span>
             </div>
             <Link to="/prescricoes">

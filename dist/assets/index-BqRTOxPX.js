@@ -1100,7 +1100,7 @@ var require_react_dom_development = /* @__PURE__ */ __commonJSMin(((exports) => 
 			return dispatcher;
 		}
 		"undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-		var React$3 = require_react(), Internals = {
+		var React$4 = require_react(), Internals = {
 			d: {
 				f: noop,
 				r: function() {
@@ -1116,7 +1116,7 @@ var require_react_dom_development = /* @__PURE__ */ __commonJSMin(((exports) => 
 			},
 			p: 0,
 			findDOMNode: null
-		}, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React$3.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+		}, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React$4.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
 		"function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error("React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills");
 		exports.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE = Internals;
 		exports.createPortal = function(children, container) {
@@ -2356,7 +2356,7 @@ var require_react_dom_client_development = /* @__PURE__ */ __commonJSMin(((expor
 			"number" === type && getActiveElement(node.ownerDocument) === node || node.defaultValue === "" + value || (node.defaultValue = "" + value);
 		}
 		function validateOptionProps(element, props) {
-			props.value ?? ("object" === typeof props.children && null !== props.children ? React$3.Children.forEach(props.children, function(child) {
+			props.value ?? ("object" === typeof props.children && null !== props.children ? React$4.Children.forEach(props.children, function(child) {
 				null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = !0, console.error("Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."));
 			}) : null == props.dangerouslySetInnerHTML || didWarnInvalidInnerHTML || (didWarnInvalidInnerHTML = !0, console.error("Pass a `value` prop if you set dangerouslyInnerHTML so React knows which value should be selected.")));
 			null == props.selected || didWarnSelectedSetOnOption || (console.error("Use the `defaultValue` or `value` props on <select> instead of setting `selected` on <option>."), didWarnSelectedSetOnOption = !0);
@@ -12647,10 +12647,10 @@ var require_react_dom_client_development = /* @__PURE__ */ __commonJSMin(((expor
 			container[internalContainerInstanceKey] && (container._reactRootContainer ? console.error("You are calling ReactDOMClient.createRoot() on a container that was previously passed to ReactDOM.render(). This is not supported.") : console.error("You are calling ReactDOMClient.createRoot() on a container that has already been passed to createRoot() before. Instead, call root.render() on the existing root instead if you want to update it."));
 		}
 		"undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-		var Scheduler = require_scheduler(), React$3 = require_react(), ReactDOM$2 = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = Symbol.for("react.element"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE$1 = Symbol.for("react.lazy");
+		var Scheduler = require_scheduler(), React$4 = require_react(), ReactDOM$2 = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = Symbol.for("react.element"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE$1 = Symbol.for("react.lazy");
 		var REACT_ACTIVITY_TYPE = Symbol.for("react.activity");
 		var REACT_MEMO_CACHE_SENTINEL = Symbol.for("react.memo_cache_sentinel");
-		var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React$3.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM$2.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+		var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React$4.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM$2.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
 			pending: !1,
 			data: null,
 			method: null,
@@ -15272,7 +15272,7 @@ var require_react_dom_client_development = /* @__PURE__ */ __commonJSMin(((expor
 			}
 		};
 		(function() {
-			var isomorphicReactPackageVersion = React$3.version;
+			var isomorphicReactPackageVersion = React$4.version;
 			if ("19.2.4" !== isomorphicReactPackageVersion) throw Error("Incompatible React versions: The \"react\" and \"react-dom\" packages must have the exact same version. Instead got:\n  - react:      " + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.4\nLearn more: https://react.dev/warnings/version-mismatch"));
 		})();
 		"function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error("React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://react.dev/link/react-polyfills");
@@ -16297,6 +16297,30 @@ import_react.useOptimistic;
 import_react.memo(DataRoutes);
 function DataRoutes({ routes, future, state, onError }) {
 	return useRoutesImpl(routes, void 0, state, onError, future);
+}
+function Navigate({ to, replace: replace2, state, relative }) {
+	invariant(useInRouterContext(), `<Navigate> may be used only in the context of a <Router> component.`);
+	let { static: isStatic } = import_react.useContext(NavigationContext);
+	warning(!isStatic, `<Navigate> must not be used on the initial render in a <StaticRouter>. This is a no-op, but you should modify your code so the <Navigate> is only ever rendered in response to some user interaction or state change.`);
+	let { matches } = import_react.useContext(RouteContext);
+	let { pathname: locationPathname } = useLocation();
+	let navigate = useNavigate();
+	let path = resolveTo(to, getResolveToMatches(matches), locationPathname, relative === "path");
+	let jsonPath = JSON.stringify(path);
+	import_react.useEffect(() => {
+		navigate(JSON.parse(jsonPath), {
+			replace: replace2,
+			state,
+			relative
+		});
+	}, [
+		navigate,
+		jsonPath,
+		relative,
+		replace2,
+		state
+	]);
+	return null;
 }
 function Outlet(props) {
 	return useOutlet(props.context);
@@ -17528,15 +17552,15 @@ var require_react_jsx_runtime_development = /* @__PURE__ */ __commonJSMin(((expo
 		function isValidElement(object) {
 			return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
 		}
-		var React$3 = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE$1 = Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), ReactSharedInternals = React$3.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+		var React$4 = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE$1 = Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), ReactSharedInternals = React$4.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
 			return null;
 		};
-		React$3 = { react_stack_bottom_frame: function(callStackForError) {
+		React$4 = { react_stack_bottom_frame: function(callStackForError) {
 			return callStackForError();
 		} };
 		var specialPropKeyWarningShown;
 		var didWarnAboutElementRef = {};
-		var unknownOwnerDebugStack = React$3.react_stack_bottom_frame.bind(React$3, UnknownOwner)();
+		var unknownOwnerDebugStack = React$4.react_stack_bottom_frame.bind(React$4, UnknownOwner)();
 		var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
 		var didWarnAboutKeySpread = {};
 		exports.Fragment = REACT_FRAGMENT_TYPE;
@@ -18923,6 +18947,37 @@ var ChevronUp = createLucideIcon("chevron-up", [["path", {
 	d: "m18 15-6-6-6 6",
 	key: "153udz"
 }]]);
+var CircleAlert = createLucideIcon("circle-alert", [
+	["circle", {
+		cx: "12",
+		cy: "12",
+		r: "10",
+		key: "1mglay"
+	}],
+	["line", {
+		x1: "12",
+		x2: "12",
+		y1: "8",
+		y2: "12",
+		key: "1pkeuh"
+	}],
+	["line", {
+		x1: "12",
+		x2: "12.01",
+		y1: "16",
+		y2: "16",
+		key: "4dfq90"
+	}]
+]);
+var CircleCheck = createLucideIcon("circle-check", [["circle", {
+	cx: "12",
+	cy: "12",
+	r: "10",
+	key: "1mglay"
+}], ["path", {
+	d: "m9 12 2 2 4-4",
+	key: "dzmm74"
+}]]);
 var CirclePlus = createLucideIcon("circle-plus", [
 	["circle", {
 		cx: "12",
@@ -18988,6 +19043,20 @@ var Info = createLucideIcon("info", [
 	["path", {
 		d: "M12 8h.01",
 		key: "e9boi3"
+	}]
+]);
+var LogOut = createLucideIcon("log-out", [
+	["path", {
+		d: "m16 17 5-5-5-5",
+		key: "1bji2h"
+	}],
+	["path", {
+		d: "M21 12H9",
+		key: "dn1m92"
+	}],
+	["path", {
+		d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4",
+		key: "1uf3rs"
 	}]
 ]);
 var Milk = createLucideIcon("milk", [
@@ -19058,6 +19127,27 @@ var Settings$1 = createLucideIcon("settings", [["path", {
 	r: "3",
 	key: "1v7zrd"
 }]]);
+var ShieldAlert = createLucideIcon("shield-alert", [
+	["path", {
+		d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+		key: "oel41y"
+	}],
+	["path", {
+		d: "M12 8v4",
+		key: "1got3b"
+	}],
+	["path", {
+		d: "M12 16h.01",
+		key: "1drbdi"
+	}]
+]);
+var ShieldCheck = createLucideIcon("shield-check", [["path", {
+	d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+	key: "oel41y"
+}], ["path", {
+	d: "m9 12 2 2 4-4",
+	key: "dzmm74"
+}]]);
 var Tags = createLucideIcon("tags", [
 	["path", {
 		d: "M13.172 2a2 2 0 0 1 1.414.586l6.71 6.71a2.4 2.4 0 0 1 0 3.408l-4.592 4.592a2.4 2.4 0 0 1-3.408 0l-6.71-6.71A2 2 0 0 1 6 9.172V3a1 1 0 0 1 1-1z",
@@ -19089,7 +19179,7 @@ var TriangleAlert = createLucideIcon("triangle-alert", [
 		key: "p32p05"
 	}]
 ]);
-var Users = createLucideIcon("users", [
+var Users$1 = createLucideIcon("users", [
 	["path", {
 		d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2",
 		key: "1yyitq"
@@ -25638,62 +25728,167 @@ var SidebarMenuSubButton = import_react.forwardRef(({ asChild = false, size: siz
 	});
 });
 SidebarMenuSubButton.displayName = "SidebarMenuSubButton";
-var navItems = [
+var mockUsers = [
 	{
-		title: "Início",
-		path: "/",
-		icon: Activity
+		id: "u1",
+		name: "Administrador Principal",
+		email: "admin@hcfmb.br",
+		role: "admin",
+		status: "approved",
+		password: "admin"
 	},
 	{
-		title: "Pacientes",
-		path: "/pacientes",
-		icon: Users
+		id: "u2",
+		name: "Nutricionista Silva",
+		email: "nutri@hcfmb.br",
+		role: "user",
+		status: "approved",
+		password: "user"
 	},
 	{
-		title: "Prescrições",
-		path: "/prescricoes",
-		icon: FileText
-	},
-	{
-		title: "Gerar Etiquetas",
-		path: "/etiquetas",
-		icon: Tags
-	},
-	{
+		id: "u3",
+		name: "João Pendente",
+		email: "joao@hcfmb.br",
+		role: "user",
+		status: "pending",
+		password: "123"
+	}
+];
+var AuthContext = (0, import_react.createContext)(void 0);
+function AuthProvider({ children }) {
+	const [currentUser, setCurrentUser] = (0, import_react.useState)(null);
+	const [users, setUsers] = (0, import_react.useState)(mockUsers);
+	const login = async (email, password) => {
+		await new Promise((resolve) => setTimeout(resolve, 600));
+		const user = users.find((u) => u.email === email && u.password === password);
+		if (!user) throw new Error("Credenciais inválidas.");
+		if (user.status === "pending") throw new Error("Sua conta aguarda aprovação do administrador.");
+		if (user.status === "rejected") throw new Error("Sua conta foi recusada.");
+		setCurrentUser(user);
+	};
+	const logout = () => setCurrentUser(null);
+	const register = async (name, email, password) => {
+		await new Promise((resolve) => setTimeout(resolve, 800));
+		if (users.some((u) => u.email === email)) throw new Error("E-mail já cadastrado.");
+		setUsers([...users, {
+			id: `u${users.length + 1}`,
+			name,
+			email,
+			password,
+			role: "user",
+			status: "pending"
+		}]);
+	};
+	const resetPassword = async (email) => {
+		await new Promise((resolve) => setTimeout(resolve, 800));
+	};
+	const approveUser = (id) => {
+		setUsers(users.map((u) => u.id === id ? {
+			...u,
+			status: "approved"
+		} : u));
+	};
+	const rejectUser = (id) => {
+		setUsers(users.map((u) => u.id === id ? {
+			...u,
+			status: "rejected"
+		} : u));
+	};
+	return import_react.createElement(AuthContext.Provider, { value: {
+		currentUser,
+		users,
+		login,
+		logout,
+		register,
+		resetPassword,
+		approveUser,
+		rejectUser
+	} }, children);
+}
+const useAuth = () => {
+	const context = (0, import_react.useContext)(AuthContext);
+	if (context === void 0) throw new Error("useAuth must be used within AuthProvider");
+	return context;
+};
+function Layout() {
+	const location = useLocation();
+	const { currentUser, logout } = useAuth();
+	if (!currentUser) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Navigate, {
+		to: "/login",
+		state: { from: location },
+		replace: true
+	});
+	const navItems = [
+		{
+			title: "Início",
+			path: "/",
+			icon: Activity
+		},
+		{
+			title: "Pacientes",
+			path: "/pacientes",
+			icon: Users$1
+		},
+		{
+			title: "Prescrições",
+			path: "/prescricoes",
+			icon: FileText
+		},
+		{
+			title: "Gerar Etiquetas",
+			path: "/etiquetas",
+			icon: Tags
+		}
+	];
+	if (currentUser.role === "admin") navItems.push({
+		title: "Gerenciamento de Usuários",
+		path: "/usuarios",
+		icon: ShieldCheck
+	});
+	navItems.push({
 		title: "Configurações",
 		path: "/configuracoes",
 		icon: Settings$1
-	}
-];
-function Layout() {
-	const location = useLocation();
+	});
 	const getPageTitle = () => {
 		const item = navItems.find((i) => i.path === location.pathname);
 		return item ? item.title : "Lactário";
 	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SidebarProvider, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Sidebar, {
 		variant: "inset",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SidebarHeader, {
-			className: "py-6 px-4",
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "flex items-center gap-2 text-primary",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Baby, { className: "h-6 w-6 shrink-0" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-					className: "text-sm font-bold tracking-tight leading-tight",
-					children: "Hospital das Clínicas de Botucatu - HCFMB"
-				})]
-			})
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SidebarContent, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SidebarMenu, {
-			className: "px-2",
-			children: navItems.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SidebarMenuItem, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SidebarMenuButton, {
-				asChild: true,
-				isActive: location.pathname === item.path,
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
-					to: item.path,
-					className: "font-medium",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(item.icon, { className: "h-5 w-5" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: item.title })]
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SidebarHeader, {
+				className: "py-6 px-4",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex items-center gap-2 text-primary",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Baby, { className: "h-6 w-6 shrink-0" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "text-sm font-bold tracking-tight leading-tight",
+						children: "Hospital das Clínicas de Botucatu - HCFMB"
+					})]
 				})
-			}) }, item.path))
-		}) })]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SidebarContent, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SidebarMenu, {
+				className: "px-2",
+				children: navItems.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SidebarMenuItem, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SidebarMenuButton, {
+					asChild: true,
+					isActive: location.pathname === item.path,
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+						to: item.path,
+						className: "font-medium",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(item.icon, { className: "h-5 w-5" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: item.title })]
+					})
+				}) }, item.path))
+			}) }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SidebarFooter, {
+				className: "p-4 border-t border-sidebar-border",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+					variant: "ghost",
+					className: "w-full justify-start text-muted-foreground hover:text-destructive hover:bg-destructive/10 gap-2",
+					onClick: logout,
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(LogOut, { className: "h-4 w-4" }), "Sair do Sistema"]
+				})
+			})
+		]
 	}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SidebarInset, {
 		className: "bg-background",
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
@@ -25709,11 +25904,11 @@ function Layout() {
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "hidden md:flex flex-col items-end text-sm mr-4",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-						className: "font-medium text-foreground",
-						children: "Nutricionista Plantonista"
+						className: "font-medium text-foreground line-clamp-1",
+						children: currentUser.name
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-						className: "text-muted-foreground text-xs",
-						children: "Setor: Lactário Central"
+						className: "text-muted-foreground text-xs capitalize",
+						children: currentUser.role === "admin" ? "Administrador" : "Usuário Padrão"
 					})]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
 					to: "/prescricoes",
@@ -25735,6 +25930,31 @@ function Layout() {
 			})
 		})]
 	})] });
+}
+function AuthLayout() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		className: "min-h-screen flex items-center justify-center bg-slate-50 p-4 animate-fade-in",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "w-full max-w-md space-y-8",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "text-center flex flex-col items-center",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "bg-primary/10 p-4 rounded-full mb-4",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Baby, { className: "h-10 w-10 text-primary" })
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+						className: "text-3xl font-bold tracking-tight text-slate-900",
+						children: "HCFMB"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-muted-foreground mt-2 font-medium",
+						children: "Lactário Central - Hospital das Clínicas de Botucatu"
+					})
+				]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {})]
+		})
+	});
 }
 var Card = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 	ref,
@@ -28066,6 +28286,7 @@ var Prescriptions = () => {
 var Prescriptions_default = Prescriptions;
 var Labels = () => {
 	const { patients, prescriptions } = useLactary();
+	const { currentUser } = useAuth();
 	const { toast: toast$2 } = useToast();
 	const [selectedTime, setSelectedTime] = (0, import_react.useState)("11:00");
 	const [selectedWard, setSelectedWard] = (0, import_react.useState)("all");
@@ -28089,6 +28310,7 @@ var Labels = () => {
 		hour: "2-digit",
 		minute: "2-digit"
 	});
+	const userInitialsOrName = currentUser?.name.split(" ")[0] || "___";
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "space-y-6 animate-fade-in",
 		children: [
@@ -28288,7 +28510,8 @@ var Labels = () => {
 									" ",
 									prepTime,
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
-									"Resp: ___"
+									"Resp: ",
+									userInitialsOrName
 								] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 									className: "text-right",
 									children: [
@@ -28507,45 +28730,584 @@ var Settings = () => {
 	});
 };
 var Settings_default = Settings;
+function Users() {
+	const { currentUser, users, approveUser, rejectUser } = useAuth();
+	const { toast: toast$2 } = useToast();
+	if (currentUser?.role !== "admin") return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Navigate, {
+		to: "/",
+		replace: true
+	});
+	const pendingUsers = users.filter((u) => u.status === "pending");
+	const otherUsers = users.filter((u) => u.status !== "pending");
+	const handleApprove = (id, name) => {
+		approveUser(id);
+		toast$2({
+			title: "Usuário Aprovado",
+			description: `O acesso de ${name} foi liberado no sistema.`
+		});
+	};
+	const handleReject = (id, name) => {
+		rejectUser(id);
+		toast$2({
+			title: "Usuário Recusado",
+			description: `O acesso de ${name} foi negado.`,
+			variant: "destructive"
+		});
+	};
+	const getStatusBadge = (status) => {
+		switch (status) {
+			case "approved": return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Badge, {
+				className: "bg-success text-white border-transparent",
+				children: "Aprovado"
+			});
+			case "rejected": return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Badge, {
+				variant: "destructive",
+				children: "Recusado"
+			});
+			default: return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Badge, {
+				variant: "secondary",
+				children: "Pendente"
+			});
+		}
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "space-y-6 animate-slide-up",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+				className: "text-3xl font-bold tracking-tight",
+				children: "Gerenciamento de Usuários"
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-muted-foreground mt-1",
+				children: "Aprove ou recuse novos acessos ao sistema do lactário."
+			})] }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Card, {
+				className: "border-t-4 border-t-amber-500 shadow-sm",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
+					className: "p-0",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "p-4 border-b bg-slate-50/50 rounded-t-xl flex items-center gap-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ShieldAlert, { className: "h-5 w-5 text-amber-500" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h3", {
+							className: "font-semibold text-slate-800",
+							children: [
+								"Solicitações Pendentes (",
+								pendingUsers.length,
+								")"
+							]
+						})]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Table, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, {
+						className: "bg-slate-50/50 hover:bg-slate-50/50",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Nome" }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "E-mail" }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Status" }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
+								className: "text-right",
+								children: "Ações"
+							})
+						]
+					}) }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableBody, { children: pendingUsers.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableRow, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+						colSpan: 4,
+						className: "text-center py-8 text-muted-foreground",
+						children: "Nenhuma solicitação pendente no momento."
+					}) }) : pendingUsers.map((user) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, { children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+							className: "font-medium",
+							children: user.name
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, { children: user.email }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, { children: getStatusBadge(user.status) }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+							className: "text-right",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex justify-end gap-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+									size: "sm",
+									variant: "outline",
+									className: "text-destructive hover:bg-destructive hover:text-white",
+									onClick: () => handleReject(user.id, user.name),
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "h-4 w-4 mr-1" }), " Recusar"]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+									size: "sm",
+									className: "bg-success hover:bg-success/90 text-white",
+									onClick: () => handleApprove(user.id, user.name),
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { className: "h-4 w-4 mr-1" }), " Aprovar"]
+								})]
+							})
+						})
+					] }, user.id)) })] })]
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Card, {
+				className: "shadow-sm",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
+					className: "p-0",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "p-4 border-b bg-slate-50/50 rounded-t-xl",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+							className: "font-semibold text-slate-800",
+							children: "Usuários Registrados"
+						})
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Table, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, {
+						className: "bg-slate-50/50 hover:bg-slate-50/50",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Nome" }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "E-mail" }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Perfil" }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Status" })
+						]
+					}) }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableBody, { children: otherUsers.map((user) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, { children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+							className: "font-medium",
+							children: user.name
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+							className: "text-muted-foreground",
+							children: user.email
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+							className: "capitalize",
+							children: user.role === "admin" ? "Administrador" : "Usuário Padrão"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, { children: getStatusBadge(user.status) })
+					] }, user.id)) })] })]
+				})
+			})
+		]
+	});
+}
+var alertVariants = cva("relative w-full rounded-lg border p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground", {
+	variants: { variant: {
+		default: "bg-background text-foreground",
+		destructive: "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive"
+	} },
+	defaultVariants: { variant: "default" }
+});
+var Alert = import_react.forwardRef(({ className, variant, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+	ref,
+	role: "alert",
+	className: cn(alertVariants({ variant }), className),
+	...props
+}));
+Alert.displayName = "Alert";
+var AlertTitle = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h5", {
+	ref,
+	className: cn("mb-1 font-medium leading-none tracking-tight", className),
+	...props
+}));
+AlertTitle.displayName = "AlertTitle";
+var AlertDescription = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+	ref,
+	className: cn("text-sm [&_p]:leading-relaxed", className),
+	...props
+}));
+AlertDescription.displayName = "AlertDescription";
+function Login() {
+	const [email, setEmail] = (0, import_react.useState)("");
+	const [password, setPassword] = (0, import_react.useState)("");
+	const [error, setError] = (0, import_react.useState)("");
+	const [isLoading, setIsLoading] = (0, import_react.useState)(false);
+	const { login } = useAuth();
+	const navigate = useNavigate();
+	const from = useLocation().state?.from?.pathname || "/";
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		setError("");
+		setIsLoading(true);
+		try {
+			await login(email, password);
+			navigate(from, { replace: true });
+		} catch (err) {
+			setError(err.message);
+		} finally {
+			setIsLoading(false);
+		}
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
+		className: "shadow-lg border-t-4 border-t-primary",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, {
+				className: "text-2xl text-center",
+				children: "Acesso ao Sistema"
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardDescription, {
+				className: "text-center",
+				children: "Insira suas credenciais para continuar."
+			})] }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardContent, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
+				onSubmit: handleSubmit,
+				className: "space-y-4",
+				children: [
+					error && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Alert, {
+						variant: "destructive",
+						className: "py-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleAlert, { className: "h-4 w-4" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AlertDescription, { children: error })]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "space-y-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+							htmlFor: "email",
+							children: "E-mail ou Usuário"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+							id: "email",
+							type: "email",
+							required: true,
+							value: email,
+							onChange: (e) => setEmail(e.target.value),
+							placeholder: "exemplo@hcfmb.br",
+							className: "bg-slate-50"
+						})]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "space-y-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex items-center justify-between",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+								htmlFor: "password",
+								children: "Senha"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+								to: "/forgot-password",
+								className: "text-sm font-medium text-primary hover:underline",
+								children: "Esqueceu a senha?"
+							})]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+							id: "password",
+							type: "password",
+							required: true,
+							value: password,
+							onChange: (e) => setPassword(e.target.value),
+							className: "bg-slate-50"
+						})]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						type: "submit",
+						className: "w-full mt-2",
+						disabled: isLoading,
+						children: isLoading ? "Entrando..." : "Entrar"
+					})
+				]
+			}) }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardFooter, {
+				className: "flex justify-center border-t bg-slate-50/50 p-4",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+					className: "text-sm text-muted-foreground",
+					children: [
+						"Não tem uma conta?",
+						" ",
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+							to: "/register",
+							className: "text-primary font-medium hover:underline",
+							children: "Solicite acesso"
+						})
+					]
+				})
+			})
+		]
+	});
+}
+function Register() {
+	const [name, setName] = (0, import_react.useState)("");
+	const [email, setEmail] = (0, import_react.useState)("");
+	const [password, setPassword] = (0, import_react.useState)("");
+	const [confirmPassword, setConfirmPassword] = (0, import_react.useState)("");
+	const [error, setError] = (0, import_react.useState)("");
+	const [success, setSuccess] = (0, import_react.useState)(false);
+	const [isLoading, setIsLoading] = (0, import_react.useState)(false);
+	const { register } = useAuth();
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		setError("");
+		if (password !== confirmPassword) {
+			setError("As senhas não coincidem.");
+			return;
+		}
+		setIsLoading(true);
+		try {
+			await register(name, email, password);
+			setSuccess(true);
+		} catch (err) {
+			setError(err.message);
+		} finally {
+			setIsLoading(false);
+		}
+	};
+	if (success) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Card, {
+		className: "shadow-lg text-center p-6 border-t-4 border-t-success",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
+			className: "pt-6 space-y-4 flex flex-col items-center",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleCheck, { className: "h-16 w-16 text-success mb-2" }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+					className: "text-2xl font-bold text-slate-900",
+					children: "Solicitação Enviada"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-muted-foreground",
+					children: "Sua solicitação de acesso foi enviada e aguarda aprovação do administrador."
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+					to: "/login",
+					className: "w-full mt-4",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						className: "w-full",
+						variant: "outline",
+						children: "Voltar para Login"
+					})
+				})
+			]
+		})
+	});
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
+		className: "shadow-lg border-t-4 border-t-primary",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, {
+				className: "text-2xl text-center",
+				children: "Novo Usuário"
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardDescription, {
+				className: "text-center",
+				children: "Solicite acesso ao sistema do lactário."
+			})] }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardContent, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
+				onSubmit: handleSubmit,
+				className: "space-y-4",
+				children: [
+					error && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Alert, {
+						variant: "destructive",
+						className: "py-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleAlert, { className: "h-4 w-4" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AlertDescription, { children: error })]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "space-y-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+							htmlFor: "name",
+							children: "Nome Completo"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+							id: "name",
+							required: true,
+							value: name,
+							onChange: (e) => setName(e.target.value),
+							placeholder: "Seu nome completo",
+							className: "bg-slate-50"
+						})]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "space-y-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+							htmlFor: "email",
+							children: "E-mail Institucional"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+							id: "email",
+							type: "email",
+							required: true,
+							value: email,
+							onChange: (e) => setEmail(e.target.value),
+							placeholder: "exemplo@hcfmb.br",
+							className: "bg-slate-50"
+						})]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "grid grid-cols-2 gap-4",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "space-y-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+								htmlFor: "password",
+								children: "Senha"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+								id: "password",
+								type: "password",
+								required: true,
+								value: password,
+								onChange: (e) => setPassword(e.target.value),
+								className: "bg-slate-50"
+							})]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "space-y-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+								htmlFor: "confirmPassword",
+								children: "Confirmar Senha"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+								id: "confirmPassword",
+								type: "password",
+								required: true,
+								value: confirmPassword,
+								onChange: (e) => setConfirmPassword(e.target.value),
+								className: "bg-slate-50"
+							})]
+						})]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						type: "submit",
+						className: "w-full mt-2",
+						disabled: isLoading,
+						children: isLoading ? "Enviando..." : "Solicitar Acesso"
+					})
+				]
+			}) }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardFooter, {
+				className: "flex justify-center border-t bg-slate-50/50 p-4",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+					className: "text-sm text-muted-foreground",
+					children: [
+						"Já tem uma conta?",
+						" ",
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+							to: "/login",
+							className: "text-primary font-medium hover:underline",
+							children: "Faça login"
+						})
+					]
+				})
+			})
+		]
+	});
+}
+function ForgotPassword() {
+	const [email, setEmail] = (0, import_react.useState)("");
+	const [success, setSuccess] = (0, import_react.useState)(false);
+	const [isLoading, setIsLoading] = (0, import_react.useState)(false);
+	const { resetPassword } = useAuth();
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		setIsLoading(true);
+		try {
+			await resetPassword(email);
+			setSuccess(true);
+		} finally {
+			setIsLoading(false);
+		}
+	};
+	if (success) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Card, {
+		className: "shadow-lg text-center p-6 border-t-4 border-t-success",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
+			className: "pt-6 space-y-4 flex flex-col items-center",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleCheck, { className: "h-16 w-16 text-success mb-2" }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+					className: "text-2xl font-bold text-slate-900",
+					children: "E-mail Enviado"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-muted-foreground",
+					children: "Se o e-mail estiver cadastrado, você receberá instruções de recuperação em breve."
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+					to: "/login",
+					className: "w-full mt-4",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						className: "w-full",
+						variant: "outline",
+						children: "Voltar para Login"
+					})
+				})
+			]
+		})
+	});
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
+		className: "shadow-lg border-t-4 border-t-primary",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, {
+				className: "text-2xl text-center",
+				children: "Recuperar Senha"
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardDescription, {
+				className: "text-center",
+				children: "Digite seu e-mail para receber instruções."
+			})] }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardContent, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
+				onSubmit: handleSubmit,
+				className: "space-y-4",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "space-y-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+						htmlFor: "email",
+						children: "E-mail"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+						id: "email",
+						type: "email",
+						required: true,
+						value: email,
+						onChange: (e) => setEmail(e.target.value),
+						placeholder: "exemplo@hcfmb.br",
+						className: "bg-slate-50"
+					})]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+					type: "submit",
+					className: "w-full mt-2",
+					disabled: isLoading,
+					children: isLoading ? "Enviando..." : "Enviar Instruções"
+				})]
+			}) }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardFooter, {
+				className: "flex justify-center border-t bg-slate-50/50 p-4",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+					to: "/login",
+					className: "text-sm font-medium text-primary hover:underline",
+					children: "Voltar para o Login"
+				})
+			})
+		]
+	});
+}
 var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 	future: {
 		v7_startTransition: false,
 		v7_relativeSplatPath: false
 	},
-	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LactaryProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TooltipProvider, { children: [
+	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LactaryProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TooltipProvider, { children: [
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toaster, {}),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toaster$1, {}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Routes, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Route, {
-			element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Layout, {}),
-			children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
-					path: "/",
-					element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Index_default, {})
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
-					path: "/pacientes",
-					element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Patients_default, {})
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
-					path: "/prescricoes",
-					element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Prescriptions_default, {})
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
-					path: "/etiquetas",
-					element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Labels_default, {})
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
-					path: "/configuracoes",
-					element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Settings_default, {})
-				})
-			]
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
-			path: "*",
-			element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NotFound_default, {})
-		})] })
-	] }) })
+		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Routes, { children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Route, {
+				element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthLayout, {}),
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
+						path: "/login",
+						element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Login, {})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
+						path: "/register",
+						element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Register, {})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
+						path: "/forgot-password",
+						element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ForgotPassword, {})
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Route, {
+				element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Layout, {}),
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
+						path: "/",
+						element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Index_default, {})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
+						path: "/pacientes",
+						element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Patients_default, {})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
+						path: "/prescricoes",
+						element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Prescriptions_default, {})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
+						path: "/etiquetas",
+						element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Labels_default, {})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
+						path: "/configuracoes",
+						element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Settings_default, {})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
+						path: "/usuarios",
+						element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Users, {})
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
+				path: "*",
+				element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NotFound_default, {})
+			})
+		] })
+	] }) }) })
 });
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-BP1oblzM.js.map
+//# sourceMappingURL=index-BqRTOxPX.js.map
