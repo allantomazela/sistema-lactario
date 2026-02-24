@@ -13,16 +13,72 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Search, Plus } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog'
+import { Label } from '@/components/ui/label'
+import { useToast } from '@/hooks/use-toast'
 
 const Patients = () => {
-  const { patients } = useLactary()
+  const { patients, addPatient } = useLactary()
+  const { toast } = useToast()
   const [searchTerm, setSearchTerm] = useState('')
+
+  const [isAddOpen, setIsAddOpen] = useState(false)
+  const [formData, setFormData] = useState({
+    name: '',
+    ward: '',
+    bed: '',
+    recordId: '',
+    birthDate: '',
+  })
 
   const filteredPatients = patients.filter(
     (p) =>
       p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       p.recordId.toLowerCase().includes(searchTerm.toLowerCase()),
   )
+
+  const handleOpenChange = (open: boolean) => {
+    setIsAddOpen(open)
+    if (!open)
+      setFormData({ name: '', ward: '', bed: '', recordId: '', birthDate: '' })
+  }
+
+  const handleSave = () => {
+    if (
+      !formData.name.trim() ||
+      !formData.ward.trim() ||
+      !formData.bed.trim()
+    ) {
+      toast({
+        title: 'Campos Obrigatórios',
+        description:
+          'Nome, Ala/Quarto e Leito são obrigatórios para o cadastro.',
+        variant: 'destructive',
+      })
+      return
+    }
+
+    addPatient({
+      name: formData.name.toUpperCase(),
+      ward: formData.ward,
+      bed: formData.bed,
+      recordId:
+        formData.recordId || `REC-${Math.floor(1000 + Math.random() * 9000)}`,
+      birthDate: formData.birthDate,
+      dietType: 'A Definir',
+      allergies: [],
+      active: true,
+    })
+
+    toast({ title: 'Sucesso', description: 'Paciente registrado com sucesso.' })
+    handleOpenChange(false)
+  }
 
   return (
     <div className="space-y-6 animate-slide-up">
@@ -33,7 +89,7 @@ const Patients = () => {
             Gerencie os registros das crianças internadas.
           </p>
         </div>
-        <Button className="gap-2">
+        <Button className="gap-2" onClick={() => setIsAddOpen(true)}>
           <Plus className="h-4 w-4" />
           Novo Paciente
         </Button>
@@ -83,8 +139,18 @@ const Patients = () => {
                     <TableCell className="font-medium text-slate-600">
                       {patient.recordId}
                     </TableCell>
-                    <TableCell className="font-bold text-slate-800">
-                      {patient.name}
+                    <TableCell>
+                      <div className="flex flex-col">
+                        <span className="font-bold text-slate-800">
+                          {patient.name}
+                        </span>
+                        {patient.birthDate && (
+                          <span className="text-xs text-muted-foreground">
+                            Nasc:{' '}
+                            {patient.birthDate.split('-').reverse().join('/')}
+                          </span>
+                        )}
+                      </div>
                     </TableCell>
                     <TableCell>
                       <div className="flex flex-col">
@@ -128,6 +194,81 @@ const Patients = () => {
           </Table>
         </CardContent>
       </Card>
+
+      <Dialog open={isAddOpen} onOpenChange={handleOpenChange}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Registrar Novo Paciente</DialogTitle>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">Nome do Paciente *</Label>
+              <Input
+                id="name"
+                placeholder="Nome completo da criança"
+                value={formData.name}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="ward">Ala / Quarto *</Label>
+                <Input
+                  id="ward"
+                  placeholder="Ex: Pediatria"
+                  value={formData.ward}
+                  onChange={(e) =>
+                    setFormData({ ...formData, ward: e.target.value })
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="bed">Leito *</Label>
+                <Input
+                  id="bed"
+                  placeholder="Ex: 12A"
+                  value={formData.bed}
+                  onChange={(e) =>
+                    setFormData({ ...formData, bed: e.target.value })
+                  }
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="recordId">Prontuário / ID</Label>
+                <Input
+                  id="recordId"
+                  placeholder="Opcional"
+                  value={formData.recordId}
+                  onChange={(e) =>
+                    setFormData({ ...formData, recordId: e.target.value })
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="birthDate">Data de Nascimento</Label>
+                <Input
+                  id="birthDate"
+                  type="date"
+                  value={formData.birthDate}
+                  onChange={(e) =>
+                    setFormData({ ...formData, birthDate: e.target.value })
+                  }
+                />
+              </div>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => handleOpenChange(false)}>
+              Cancelar
+            </Button>
+            <Button onClick={handleSave}>Salvar Paciente</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

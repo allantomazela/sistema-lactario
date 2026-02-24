@@ -42,8 +42,10 @@ export default function Layout() {
       <Sidebar variant="inset">
         <SidebarHeaderUI className="py-6 px-4">
           <div className="flex items-center gap-2 text-primary">
-            <Baby className="h-6 w-6" />
-            <span className="text-xl font-bold tracking-tight">NutriLact</span>
+            <Baby className="h-6 w-6 shrink-0" />
+            <span className="text-sm font-bold tracking-tight leading-tight">
+              Hospital das Clínicas de Botucatu - HCFMB
+            </span>
           </div>
         </SidebarHeaderUI>
         <SidebarContent>

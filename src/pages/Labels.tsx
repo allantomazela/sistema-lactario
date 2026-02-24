@@ -144,8 +144,10 @@ const Labels = () => {
               className="thermal-label flex flex-col justify-between h-auto min-h-[320px]"
             >
               <div className="text-center border-b-2 border-black pb-2 mb-2">
-                <h4 className="text-xs font-bold uppercase tracking-wider">
-                  Hospital Municipal - Lactário
+                <h4 className="text-[10px] font-bold uppercase tracking-wider leading-tight">
+                  Hospital das Clínicas de Botucatu
+                  <br />
+                  HCFMB - Lactário
                 </h4>
               </div>
 

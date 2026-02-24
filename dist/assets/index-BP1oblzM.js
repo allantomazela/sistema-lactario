@@ -24947,7 +24947,7 @@ var hideOthers = function(originalTarget, parentNode, markerName) {
 var DIALOG_NAME = "Dialog";
 var [createDialogContext, createDialogScope] = createContextScope(DIALOG_NAME);
 var [DialogProvider, useDialogContext] = createDialogContext(DIALOG_NAME);
-var Dialog = (props) => {
+var Dialog$1 = (props) => {
 	const { __scopeDialog, children, open: openProp, defaultOpen, onOpenChange, modal = true } = props;
 	const triggerRef = import_react.useRef(null);
 	const contentRef = import_react.useRef(null);
@@ -24971,9 +24971,9 @@ var Dialog = (props) => {
 		children
 	});
 };
-Dialog.displayName = DIALOG_NAME;
+Dialog$1.displayName = DIALOG_NAME;
 var TRIGGER_NAME$2 = "DialogTrigger";
-var DialogTrigger = import_react.forwardRef((props, forwardedRef) => {
+var DialogTrigger$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeDialog, ...triggerProps } = props;
 	const context = useDialogContext(TRIGGER_NAME$2, __scopeDialog);
 	const composedTriggerRef = useComposedRefs(forwardedRef, context.triggerRef);
@@ -24988,10 +24988,10 @@ var DialogTrigger = import_react.forwardRef((props, forwardedRef) => {
 		onClick: composeEventHandlers(props.onClick, context.onOpenToggle)
 	});
 });
-DialogTrigger.displayName = TRIGGER_NAME$2;
+DialogTrigger$1.displayName = TRIGGER_NAME$2;
 var PORTAL_NAME$1 = "DialogPortal";
 var [PortalProvider, usePortalContext] = createDialogContext(PORTAL_NAME$1, { forceMount: void 0 });
-var DialogPortal = (props) => {
+var DialogPortal$1 = (props) => {
 	const { __scopeDialog, forceMount, children, container } = props;
 	const context = useDialogContext(PORTAL_NAME$1, __scopeDialog);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PortalProvider, {
@@ -25007,9 +25007,9 @@ var DialogPortal = (props) => {
 		}))
 	});
 };
-DialogPortal.displayName = PORTAL_NAME$1;
+DialogPortal$1.displayName = PORTAL_NAME$1;
 var OVERLAY_NAME = "DialogOverlay";
-var DialogOverlay = import_react.forwardRef((props, forwardedRef) => {
+var DialogOverlay$1 = import_react.forwardRef((props, forwardedRef) => {
 	const portalContext = usePortalContext(OVERLAY_NAME, props.__scopeDialog);
 	const { forceMount = portalContext.forceMount, ...overlayProps } = props;
 	const context = useDialogContext(OVERLAY_NAME, props.__scopeDialog);
@@ -25021,7 +25021,7 @@ var DialogOverlay = import_react.forwardRef((props, forwardedRef) => {
 		})
 	}) : null;
 });
-DialogOverlay.displayName = OVERLAY_NAME;
+DialogOverlay$1.displayName = OVERLAY_NAME;
 var Slot$2 = /* @__PURE__ */ createSlot("DialogOverlay.RemoveScroll");
 var DialogOverlayImpl = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeDialog, ...overlayProps } = props;
@@ -25042,7 +25042,7 @@ var DialogOverlayImpl = import_react.forwardRef((props, forwardedRef) => {
 	});
 });
 var CONTENT_NAME$2 = "DialogContent";
-var DialogContent = import_react.forwardRef((props, forwardedRef) => {
+var DialogContent$1 = import_react.forwardRef((props, forwardedRef) => {
 	const portalContext = usePortalContext(CONTENT_NAME$2, props.__scopeDialog);
 	const { forceMount = portalContext.forceMount, ...contentProps } = props;
 	const context = useDialogContext(CONTENT_NAME$2, props.__scopeDialog);
@@ -25057,7 +25057,7 @@ var DialogContent = import_react.forwardRef((props, forwardedRef) => {
 		})
 	});
 });
-DialogContent.displayName = CONTENT_NAME$2;
+DialogContent$1.displayName = CONTENT_NAME$2;
 var DialogContentModal = import_react.forwardRef((props, forwardedRef) => {
 	const context = useDialogContext(CONTENT_NAME$2, props.__scopeDialog);
 	const contentRef = import_react.useRef(null);
@@ -25141,7 +25141,7 @@ var DialogContentImpl = import_react.forwardRef((props, forwardedRef) => {
 	})] })] });
 });
 var TITLE_NAME = "DialogTitle";
-var DialogTitle = import_react.forwardRef((props, forwardedRef) => {
+var DialogTitle$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeDialog, ...titleProps } = props;
 	const context = useDialogContext(TITLE_NAME, __scopeDialog);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.h2, {
@@ -25150,9 +25150,9 @@ var DialogTitle = import_react.forwardRef((props, forwardedRef) => {
 		ref: forwardedRef
 	});
 });
-DialogTitle.displayName = TITLE_NAME;
+DialogTitle$1.displayName = TITLE_NAME;
 var DESCRIPTION_NAME = "DialogDescription";
-var DialogDescription = import_react.forwardRef((props, forwardedRef) => {
+var DialogDescription$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeDialog, ...descriptionProps } = props;
 	const context = useDialogContext(DESCRIPTION_NAME, __scopeDialog);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.p, {
@@ -25161,9 +25161,9 @@ var DialogDescription = import_react.forwardRef((props, forwardedRef) => {
 		ref: forwardedRef
 	});
 });
-DialogDescription.displayName = DESCRIPTION_NAME;
+DialogDescription$1.displayName = DESCRIPTION_NAME;
 var CLOSE_NAME = "DialogClose";
-var DialogClose = import_react.forwardRef((props, forwardedRef) => {
+var DialogClose$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeDialog, ...closeProps } = props;
 	const context = useDialogContext(CLOSE_NAME, __scopeDialog);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.button, {
@@ -25173,7 +25173,7 @@ var DialogClose = import_react.forwardRef((props, forwardedRef) => {
 		onClick: composeEventHandlers(props.onClick, () => context.onOpenChange(false))
 	});
 });
-DialogClose.displayName = CLOSE_NAME;
+DialogClose$1.displayName = CLOSE_NAME;
 function getState$1(open) {
 	return open ? "open" : "closed";
 }
@@ -25212,13 +25212,13 @@ var DescriptionWarning = ({ contentRef, descriptionId }) => {
 	]);
 	return null;
 };
-var Root$3 = Dialog;
-var Portal$2 = DialogPortal;
-var Overlay = DialogOverlay;
-var Content$1 = DialogContent;
-var Title = DialogTitle;
-var Description = DialogDescription;
-var Close = DialogClose;
+var Root$3 = Dialog$1;
+var Portal$2 = DialogPortal$1;
+var Overlay = DialogOverlay$1;
+var Content$1 = DialogContent$1;
+var Title = DialogTitle$1;
+var Description = DialogDescription$1;
+var Close = DialogClose$1;
 var Sheet = Root$3;
 var SheetPortal = Portal$2;
 var SheetOverlay = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Overlay, {
@@ -25677,9 +25677,9 @@ function Layout() {
 			className: "py-6 px-4",
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "flex items-center gap-2 text-primary",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Baby, { className: "h-6 w-6" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-					className: "text-xl font-bold tracking-tight",
-					children: "NutriLact"
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Baby, { className: "h-6 w-6 shrink-0" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: "text-sm font-bold tracking-tight leading-tight",
+					children: "Hospital das Clínicas de Botucatu - HCFMB"
 				})]
 			})
 		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SidebarContent, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SidebarMenu, {
@@ -25781,7 +25781,8 @@ var mockPatients = [
 		recordId: "REC-1029",
 		dietType: "Fórmula Infantil",
 		allergies: ["PLV", "Soja"],
-		active: true
+		active: true,
+		birthDate: "2023-05-10"
 	},
 	{
 		id: "p2",
@@ -25791,7 +25792,8 @@ var mockPatients = [
 		recordId: "REC-1030",
 		dietType: "Leite Materno",
 		allergies: [],
-		active: true
+		active: true,
+		birthDate: "2023-11-20"
 	},
 	{
 		id: "p3",
@@ -25801,7 +25803,8 @@ var mockPatients = [
 		recordId: "REC-1031",
 		dietType: "Dieta Pastosa",
 		allergies: ["Glúten"],
-		active: true
+		active: true,
+		birthDate: "2022-08-15"
 	}
 ];
 var mockPrescriptions = [
@@ -26148,101 +26151,49 @@ function Badge({ className, variant, ...props }) {
 		...props
 	});
 }
-var Patients = () => {
-	const { patients } = useLactary();
-	const [searchTerm, setSearchTerm] = (0, import_react.useState)("");
-	const filteredPatients = patients.filter((p) => p.name.toLowerCase().includes(searchTerm.toLowerCase()) || p.recordId.toLowerCase().includes(searchTerm.toLowerCase()));
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: "space-y-6 animate-slide-up",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-				className: "text-3xl font-bold tracking-tight",
-				children: "Pacientes"
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-				className: "text-muted-foreground mt-1",
-				children: "Gerencie os registros das crianças internadas."
-			})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
-				className: "gap-2",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { className: "h-4 w-4" }), "Novo Paciente"]
-			})]
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Card, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
-			className: "p-0",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "p-4 border-b flex items-center gap-4 bg-slate-50/50 rounded-t-xl",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "relative flex-1 max-w-sm",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Search, { className: "absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-						placeholder: "Buscar por nome ou registro...",
-						className: "pl-9 bg-white",
-						value: searchTerm,
-						onChange: (e) => setSearchTerm(e.target.value)
-					})]
-				})
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Table, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, {
-				className: "bg-slate-50/50 hover:bg-slate-50/50",
-				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Registro" }),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Nome da Criança" }),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Ala / Leito" }),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Dieta Atual" }),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Alergias / Restrições" }),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
-						className: "text-right",
-						children: "Ações"
-					})
-				]
-			}) }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableBody, { children: filteredPatients.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableRow, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
-				colSpan: 6,
-				className: "text-center py-8 text-muted-foreground",
-				children: "Nenhum paciente encontrado."
-			}) }) : filteredPatients.map((patient) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, {
-				className: "cursor-pointer transition-colors hover:bg-slate-50",
-				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
-						className: "font-medium text-slate-600",
-						children: patient.recordId
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
-						className: "font-bold text-slate-800",
-						children: patient.name
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "flex flex-col",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "text-sm font-medium",
-							children: patient.ward
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-							className: "text-xs text-muted-foreground",
-							children: ["Leito ", patient.bed]
-						})]
-					}) }),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, { children: patient.dietType }),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "flex flex-wrap gap-1",
-						children: patient.allergies.length > 0 ? patient.allergies.map((allergy) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Badge, {
-							variant: "destructive",
-							className: "font-semibold px-2 py-0.5 shadow-sm",
-							children: allergy
-						}, allergy)) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "text-sm text-muted-foreground",
-							children: "Nenhuma"
-						})
-					}) }),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
-						className: "text-right",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-							variant: "ghost",
-							size: "sm",
-							children: "Ver Perfil"
-						})
-					})
-				]
-			}, patient.id)) })] })]
-		}) })]
-	});
-};
-var Patients_default = Patients;
+var Dialog = Root$3;
+var DialogPortal = Portal$2;
+var DialogOverlay = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Overlay, {
+	ref,
+	className: cn("fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0", className),
+	...props
+}));
+DialogOverlay.displayName = Overlay.displayName;
+var DialogContent = import_react.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogPortal, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogOverlay, {}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Content$1, {
+	ref,
+	className: cn("fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg overflow-y-auto max-h-screen", className),
+	...props,
+	children: [children, /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Close, {
+		className: "absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "h-4 w-4" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+			className: "sr-only",
+			children: "Close"
+		})]
+	})]
+})] }));
+DialogContent.displayName = Content$1.displayName;
+var DialogHeader = ({ className, ...props }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+	className: cn("flex flex-col space-y-1.5 text-center sm:text-left", className),
+	...props
+});
+DialogHeader.displayName = "DialogHeader";
+var DialogFooter = ({ className, ...props }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+	className: cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className),
+	...props
+});
+DialogFooter.displayName = "DialogFooter";
+var DialogTitle = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Title, {
+	ref,
+	className: cn("text-lg font-semibold leading-none tracking-tight", className),
+	...props
+}));
+DialogTitle.displayName = Title.displayName;
+var DialogDescription = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Description, {
+	ref,
+	className: cn("text-sm text-muted-foreground", className),
+	...props
+}));
+DialogDescription.displayName = Description.displayName;
 var NAME = "Label";
 var Label$2 = import_react.forwardRef((props, forwardedRef) => {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.label, {
@@ -26264,6 +26215,261 @@ var Label = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE
 	...props
 }));
 Label.displayName = Root$2.displayName;
+var Patients = () => {
+	const { patients, addPatient } = useLactary();
+	const { toast: toast$2 } = useToast();
+	const [searchTerm, setSearchTerm] = (0, import_react.useState)("");
+	const [isAddOpen, setIsAddOpen] = (0, import_react.useState)(false);
+	const [formData, setFormData] = (0, import_react.useState)({
+		name: "",
+		ward: "",
+		bed: "",
+		recordId: "",
+		birthDate: ""
+	});
+	const filteredPatients = patients.filter((p) => p.name.toLowerCase().includes(searchTerm.toLowerCase()) || p.recordId.toLowerCase().includes(searchTerm.toLowerCase()));
+	const handleOpenChange = (open) => {
+		setIsAddOpen(open);
+		if (!open) setFormData({
+			name: "",
+			ward: "",
+			bed: "",
+			recordId: "",
+			birthDate: ""
+		});
+	};
+	const handleSave = () => {
+		if (!formData.name.trim() || !formData.ward.trim() || !formData.bed.trim()) {
+			toast$2({
+				title: "Campos Obrigatórios",
+				description: "Nome, Ala/Quarto e Leito são obrigatórios para o cadastro.",
+				variant: "destructive"
+			});
+			return;
+		}
+		addPatient({
+			name: formData.name.toUpperCase(),
+			ward: formData.ward,
+			bed: formData.bed,
+			recordId: formData.recordId || `REC-${Math.floor(1e3 + Math.random() * 9e3)}`,
+			birthDate: formData.birthDate,
+			dietType: "A Definir",
+			allergies: [],
+			active: true
+		});
+		toast$2({
+			title: "Sucesso",
+			description: "Paciente registrado com sucesso."
+		});
+		handleOpenChange(false);
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "space-y-6 animate-slide-up",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+					className: "text-3xl font-bold tracking-tight",
+					children: "Pacientes"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-muted-foreground mt-1",
+					children: "Gerencie os registros das crianças internadas."
+				})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+					className: "gap-2",
+					onClick: () => setIsAddOpen(true),
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { className: "h-4 w-4" }), "Novo Paciente"]
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Card, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
+				className: "p-0",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "p-4 border-b flex items-center gap-4 bg-slate-50/50 rounded-t-xl",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "relative flex-1 max-w-sm",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Search, { className: "absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+							placeholder: "Buscar por nome ou registro...",
+							className: "pl-9 bg-white",
+							value: searchTerm,
+							onChange: (e) => setSearchTerm(e.target.value)
+						})]
+					})
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Table, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, {
+					className: "bg-slate-50/50 hover:bg-slate-50/50",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Registro" }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Nome da Criança" }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Ala / Leito" }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Dieta Atual" }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Alergias / Restrições" }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
+							className: "text-right",
+							children: "Ações"
+						})
+					]
+				}) }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableBody, { children: filteredPatients.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableRow, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+					colSpan: 6,
+					className: "text-center py-8 text-muted-foreground",
+					children: "Nenhum paciente encontrado."
+				}) }) : filteredPatients.map((patient) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, {
+					className: "cursor-pointer transition-colors hover:bg-slate-50",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+							className: "font-medium text-slate-600",
+							children: patient.recordId
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex flex-col",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "font-bold text-slate-800",
+								children: patient.name
+							}), patient.birthDate && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "text-xs text-muted-foreground",
+								children: [
+									"Nasc:",
+									" ",
+									patient.birthDate.split("-").reverse().join("/")
+								]
+							})]
+						}) }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex flex-col",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "text-sm font-medium",
+								children: patient.ward
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "text-xs text-muted-foreground",
+								children: ["Leito ", patient.bed]
+							})]
+						}) }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, { children: patient.dietType }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "flex flex-wrap gap-1",
+							children: patient.allergies.length > 0 ? patient.allergies.map((allergy) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Badge, {
+								variant: "destructive",
+								className: "font-semibold px-2 py-0.5 shadow-sm",
+								children: allergy
+							}, allergy)) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "text-sm text-muted-foreground",
+								children: "Nenhuma"
+							})
+						}) }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+							className: "text-right",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+								variant: "ghost",
+								size: "sm",
+								children: "Ver Perfil"
+							})
+						})
+					]
+				}, patient.id)) })] })]
+			}) }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Dialog, {
+				open: isAddOpen,
+				onOpenChange: handleOpenChange,
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogContent, {
+					className: "sm:max-w-[425px]",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogTitle, { children: "Registrar Novo Paciente" }) }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "grid gap-4 py-4",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "space-y-2",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+										htmlFor: "name",
+										children: "Nome do Paciente *"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+										id: "name",
+										placeholder: "Nome completo da criança",
+										value: formData.name,
+										onChange: (e) => setFormData({
+											...formData,
+											name: e.target.value
+										})
+									})]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "grid grid-cols-2 gap-4",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "space-y-2",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+											htmlFor: "ward",
+											children: "Ala / Quarto *"
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+											id: "ward",
+											placeholder: "Ex: Pediatria",
+											value: formData.ward,
+											onChange: (e) => setFormData({
+												...formData,
+												ward: e.target.value
+											})
+										})]
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "space-y-2",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+											htmlFor: "bed",
+											children: "Leito *"
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+											id: "bed",
+											placeholder: "Ex: 12A",
+											value: formData.bed,
+											onChange: (e) => setFormData({
+												...formData,
+												bed: e.target.value
+											})
+										})]
+									})]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "grid grid-cols-2 gap-4",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "space-y-2",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+											htmlFor: "recordId",
+											children: "Prontuário / ID"
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+											id: "recordId",
+											placeholder: "Opcional",
+											value: formData.recordId,
+											onChange: (e) => setFormData({
+												...formData,
+												recordId: e.target.value
+											})
+										})]
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "space-y-2",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+											htmlFor: "birthDate",
+											children: "Data de Nascimento"
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+											id: "birthDate",
+											type: "date",
+											value: formData.birthDate,
+											onChange: (e) => setFormData({
+												...formData,
+												birthDate: e.target.value
+											})
+										})]
+									})]
+								})
+							]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogFooter, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+							variant: "outline",
+							onClick: () => handleOpenChange(false),
+							children: "Cancelar"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+							onClick: handleSave,
+							children: "Salvar Paciente"
+						})] })
+					]
+				})
+			})
+		]
+	});
+};
+var Patients_default = Patients;
 function clamp(value, [min$1, max$1]) {
 	return Math.min(max$1, Math.max(min$1, value));
 }
@@ -28000,9 +28206,13 @@ var Labels = () => {
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 								className: "text-center border-b-2 border-black pb-2 mb-2",
-								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
-									className: "text-xs font-bold uppercase tracking-wider",
-									children: "Hospital Municipal - Lactário"
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h4", {
+									className: "text-[10px] font-bold uppercase tracking-wider leading-tight",
+									children: [
+										"Hospital das Clínicas de Botucatu",
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
+										"HCFMB - Lactário"
+									]
 								})
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -28338,4 +28548,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-_t1fjyIy.js.map
+//# sourceMappingURL=index-BP1oblzM.js.map

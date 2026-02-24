@@ -9,6 +9,7 @@ export type Patient = {
   dietType: string
   allergies: string[]
   active: boolean
+  birthDate?: string
 }
 
 export type PrescriptionType = 'milk' | 'meal'
@@ -44,6 +45,7 @@ const mockPatients: Patient[] = [
     dietType: 'Fórmula Infantil',
     allergies: ['PLV', 'Soja'],
     active: true,
+    birthDate: '2023-05-10',
   },
   {
     id: 'p2',
@@ -54,6 +56,7 @@ const mockPatients: Patient[] = [
     dietType: 'Leite Materno',
     allergies: [],
     active: true,
+    birthDate: '2023-11-20',
   },
   {
     id: 'p3',
@@ -64,6 +67,7 @@ const mockPatients: Patient[] = [
     dietType: 'Dieta Pastosa',
     allergies: ['Glúten'],
     active: true,
+    birthDate: '2022-08-15',
   },
 ]
 
