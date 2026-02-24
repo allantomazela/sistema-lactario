@@ -18948,7 +18948,7 @@ var Clock = createLucideIcon("clock", [["circle", {
 	d: "M12 6v6l4 2",
 	key: "mmk7yg"
 }]]);
-var FileText$1 = createLucideIcon("file-text", [
+var FileText = createLucideIcon("file-text", [
 	["path", {
 		d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z",
 		key: "1oefj6"
@@ -25652,7 +25652,7 @@ var navItems = [
 	{
 		title: "Prescrições",
 		path: "/prescricoes",
-		icon: FileText$1
+		icon: FileText
 	},
 	{
 		title: "Gerar Etiquetas",
@@ -28338,4 +28338,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-BtN3ZJ1f.js.map
+//# sourceMappingURL=index-_t1fjyIy.js.map
