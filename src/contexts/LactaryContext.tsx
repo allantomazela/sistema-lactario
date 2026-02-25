@@ -30,7 +30,8 @@ export type Prescription = {
 interface LactaryContextType {
   patients: Patient[]
   prescriptions: Prescription[]
-  addPatient: (patient: Omit<Patient, 'id'>) => void
+  addPatient: (patient: Patient) => void
+  addPatients: (patients: Patient[]) => void
   addPrescription: (prescription: Omit<Prescription, 'id'>) => void
   getPatient: (id: string) => Patient | undefined
 }
@@ -111,8 +112,12 @@ export function LactaryProvider({ children }: { children: ReactNode }) {
   const [prescriptions, setPrescriptions] =
     useState<Prescription[]>(mockPrescriptions)
 
-  const addPatient = (patient: Omit<Patient, 'id'>) => {
-    setPatients((prev) => [...prev, { ...patient, id: `p${prev.length + 1}` }])
+  const addPatient = (patient: Patient) => {
+    setPatients((prev) => [...prev, patient])
+  }
+
+  const addPatients = (newPatients: Patient[]) => {
+    setPatients((prev) => [...prev, ...newPatients])
   }
 
   const addPrescription = (prescription: Omit<Prescription, 'id'>) => {
@@ -131,6 +136,7 @@ export function LactaryProvider({ children }: { children: ReactNode }) {
         patients,
         prescriptions,
         addPatient,
+        addPatients,
         addPrescription,
         getPatient,
       },

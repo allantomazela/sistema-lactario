@@ -19193,6 +19193,20 @@ var TriangleAlert = createLucideIcon("triangle-alert", [
 		key: "p32p05"
 	}]
 ]);
+var Upload = createLucideIcon("upload", [
+	["path", {
+		d: "M12 3v12",
+		key: "1x0j5s"
+	}],
+	["path", {
+		d: "m17 8-5-5-5 5",
+		key: "7q97r8"
+	}],
+	["path", {
+		d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4",
+		key: "ih7n3h"
+	}]
+]);
 var Users$1 = createLucideIcon("users", [
 	["path", {
 		d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2",
@@ -26102,10 +26116,10 @@ function LactaryProvider({ children }) {
 	const [patients, setPatients] = (0, import_react.useState)(mockPatients);
 	const [prescriptions, setPrescriptions] = (0, import_react.useState)(mockPrescriptions);
 	const addPatient = (patient) => {
-		setPatients((prev) => [...prev, {
-			...patient,
-			id: `p${prev.length + 1}`
-		}]);
+		setPatients((prev) => [...prev, patient]);
+	};
+	const addPatients = (newPatients) => {
+		setPatients((prev) => [...prev, ...newPatients]);
 	};
 	const addPrescription = (prescription) => {
 		setPrescriptions((prev) => [...prev, {
@@ -26118,6 +26132,7 @@ function LactaryProvider({ children }) {
 		patients,
 		prescriptions,
 		addPatient,
+		addPatients,
 		addPrescription,
 		getPatient
 	} }, children);
@@ -26465,7 +26480,7 @@ var Label = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE
 }));
 Label.displayName = Root$2.displayName;
 var Patients = () => {
-	const { patients, addPatient } = useLactary();
+	const { patients, addPatient, addPatients } = useLactary();
 	const { toast: toast$2 } = useToast();
 	const [searchTerm, setSearchTerm] = (0, import_react.useState)("");
 	const [isAddOpen, setIsAddOpen] = (0, import_react.useState)(false);
@@ -26476,6 +26491,10 @@ var Patients = () => {
 		recordId: "",
 		birthDate: ""
 	});
+	const [isImportOpen, setIsImportOpen] = (0, import_react.useState)(false);
+	const [importStep, setImportStep] = (0, import_react.useState)("upload");
+	const [importData, setImportData] = (0, import_react.useState)([]);
+	const [importFile, setImportFile] = (0, import_react.useState)(null);
 	const filteredPatients = patients.filter((p) => p.name.toLowerCase().includes(searchTerm.toLowerCase()) || p.recordId.toLowerCase().includes(searchTerm.toLowerCase()));
 	const handleOpenChange = (open) => {
 		setIsAddOpen(open);
@@ -26497,6 +26516,7 @@ var Patients = () => {
 			return;
 		}
 		addPatient({
+			id: crypto.randomUUID(),
 			name: formData.name.toUpperCase(),
 			ward: formData.ward,
 			bed: formData.bed,
@@ -26512,6 +26532,66 @@ var Patients = () => {
 		});
 		handleOpenChange(false);
 	};
+	const handleFileUpload = (e) => {
+		const file = e.target.files?.[0];
+		if (!file) return;
+		const ext = file.name.split(".").pop()?.toLowerCase();
+		if (![
+			"xls",
+			"xlsx",
+			"mdb",
+			"accdb",
+			"xml"
+		].includes(ext || "")) {
+			toast$2({
+				title: "Formato Inválido",
+				description: "Por favor, envie um arquivo Excel, Access ou XML.",
+				variant: "destructive"
+			});
+			return;
+		}
+		setImportFile(file);
+		setImportStep("loading");
+		setTimeout(() => {
+			setImportData([{
+				id: crypto.randomUUID(),
+				name: "MARIA CLARA ALVES",
+				ward: "Pediatria",
+				bed: "14B",
+				recordId: `REC-${Math.floor(2e3 + Math.random() * 1e3)}`,
+				dietType: "A Definir",
+				allergies: [],
+				active: true,
+				birthDate: "2023-01-15"
+			}, {
+				id: crypto.randomUUID(),
+				name: "JOÃO PEDRO SOUZA",
+				ward: "UTI Neonatal",
+				bed: "02A",
+				recordId: `REC-${Math.floor(2e3 + Math.random() * 1e3)}`,
+				dietType: "A Definir",
+				allergies: ["Amendoim"],
+				active: true,
+				birthDate: "2024-02-10"
+			}]);
+			setImportStep("preview");
+		}, 1500);
+	};
+	const confirmImport = () => {
+		const newPatients = importData.filter((newP) => !patients.some((p) => p.recordId === newP.recordId));
+		const duplicates = importData.length - newPatients.length;
+		if (newPatients.length > 0) addPatients(newPatients);
+		toast$2({
+			title: "Importação Concluída",
+			description: `${newPatients.length} pacientes importados. ${duplicates > 0 ? `${duplicates} duplicatas ignoradas.` : ""}`
+		});
+		setIsImportOpen(false);
+		setTimeout(() => {
+			setImportStep("upload");
+			setImportData([]);
+			setImportFile(null);
+		}, 300);
+	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "space-y-6 animate-slide-up",
 		children: [
@@ -26523,10 +26603,18 @@ var Patients = () => {
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 					className: "text-muted-foreground mt-1",
 					children: "Gerencie os registros das crianças internadas."
-				})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
-					className: "gap-2",
-					onClick: () => setIsAddOpen(true),
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { className: "h-4 w-4" }), "Novo Paciente"]
+				})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex items-center gap-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+						variant: "outline",
+						className: "gap-2",
+						onClick: () => setIsImportOpen(true),
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Upload, { className: "h-4 w-4" }), "Importar Dados"]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+						className: "gap-2",
+						onClick: () => setIsAddOpen(true),
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { className: "h-4 w-4" }), "Novo Paciente"]
+					})]
 				})]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Card, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
@@ -26712,6 +26800,111 @@ var Patients = () => {
 							onClick: handleSave,
 							children: "Salvar Paciente"
 						})] })
+					]
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Dialog, {
+				open: isImportOpen,
+				onOpenChange: (open) => {
+					setIsImportOpen(open);
+					if (!open) setTimeout(() => {
+						setImportStep("upload");
+						setImportData([]);
+						setImportFile(null);
+					}, 300);
+				},
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogContent, {
+					className: "sm:max-w-[600px]",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogTitle, { children: "Importar Pacientes" }) }),
+						importStep === "upload" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "border-2 border-dashed rounded-lg p-8 text-center space-y-4",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Upload, { className: "h-8 w-8 mx-auto text-muted-foreground" }),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "text-sm font-medium",
+									children: "Clique ou arraste um arquivo para importar"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "text-xs text-muted-foreground mt-1",
+									children: "Formatos suportados: .xls, .xlsx, .xml, .mdb, .accdb"
+								})] }),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+									type: "file",
+									className: "hidden",
+									id: "file-upload",
+									accept: ".xls,.xlsx,.xml,.mdb,.accdb",
+									onChange: handleFileUpload
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+									asChild: true,
+									variant: "secondary",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", {
+										htmlFor: "file-upload",
+										className: "cursor-pointer",
+										children: "Selecionar Arquivo"
+									})
+								})
+							]
+						}),
+						importStep === "loading" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "py-12 flex flex-col items-center justify-center space-y-4",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								className: "text-sm text-muted-foreground",
+								children: "Analisando e validando dados..."
+							})]
+						}),
+						importStep === "preview" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "space-y-4",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "bg-muted p-3 rounded-md flex justify-between items-center",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+										className: "text-sm font-medium",
+										children: ["Arquivo: ", importFile?.name]
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+										className: "text-xs text-muted-foreground",
+										children: [importData.length, " registros encontrados"]
+									})]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "border rounded-md overflow-hidden",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Table, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHeader, {
+										className: "bg-slate-50",
+										children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, { children: [
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Prontuário" }),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Nome" }),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Ala/Leito" }),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Nascimento" })
+										] })
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableBody, { children: importData.map((p) => {
+										return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, {
+											className: patients.some((existing) => existing.recordId === p.recordId) ? "opacity-50 bg-red-50" : "",
+											children: [
+												/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, { children: p.recordId }),
+												/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+													className: "font-medium",
+													children: p.name
+												}),
+												/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableCell, { children: [
+													p.ward,
+													" - ",
+													p.bed
+												] }),
+												/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, { children: p.birthDate ? p.birthDate.split("-").reverse().join("/") : "-" })
+											]
+										}, p.id);
+									}) })] })
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogFooter, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+									variant: "outline",
+									onClick: () => setImportStep("upload"),
+									children: "Cancelar"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+									onClick: confirmImport,
+									children: "Confirmar Importação"
+								})] })
+							]
+						})
 					]
 				})
 			})
@@ -28087,7 +28280,7 @@ var TabsContent = import_react.forwardRef(({ className, ...props }, ref) => /* @
 }));
 TabsContent.displayName = Content.displayName;
 var Prescriptions = () => {
-	const { patients, addPrescription } = useLactary();
+	const { patients, addPrescription, addPatient } = useLactary();
 	const { toast: toast$2 } = useToast();
 	const [selectedPatient, setSelectedPatient] = (0, import_react.useState)("");
 	const [type, setType] = (0, import_react.useState)("milk");
@@ -28095,8 +28288,16 @@ var Prescriptions = () => {
 	const [milkType, setMilkType] = (0, import_react.useState)("Fórmula Infantil");
 	const [description, setDescription] = (0, import_react.useState)("");
 	const [times, setTimes] = (0, import_react.useState)("08:00, 11:00, 14:00, 17:00, 20:00, 23:00");
+	const [isAddPatientOpen, setIsAddPatientOpen] = (0, import_react.useState)(false);
+	const [patientFormData, setPatientFormData] = (0, import_react.useState)({
+		name: "",
+		ward: "",
+		bed: "",
+		recordId: "",
+		birthDate: ""
+	});
 	const patient = patients.find((p) => p.id === selectedPatient);
-	const handleSave = () => {
+	const handleSavePrescription = () => {
 		if (!selectedPatient) {
 			toast$2({
 				title: "Erro",
@@ -28122,6 +28323,41 @@ var Prescriptions = () => {
 		});
 		setSelectedPatient("");
 	};
+	const handleSavePatient = () => {
+		if (!patientFormData.name.trim() || !patientFormData.ward.trim() || !patientFormData.bed.trim()) {
+			toast$2({
+				title: "Campos Obrigatórios",
+				description: "Nome, Ala/Quarto e Leito são obrigatórios.",
+				variant: "destructive"
+			});
+			return;
+		}
+		const newId = crypto.randomUUID();
+		addPatient({
+			id: newId,
+			name: patientFormData.name.toUpperCase(),
+			ward: patientFormData.ward,
+			bed: patientFormData.bed,
+			recordId: patientFormData.recordId || `REC-${Math.floor(1e3 + Math.random() * 9e3)}`,
+			birthDate: patientFormData.birthDate,
+			dietType: "A Definir",
+			allergies: [],
+			active: true
+		});
+		toast$2({
+			title: "Sucesso",
+			description: "Paciente registrado e selecionado."
+		});
+		setSelectedPatient(newId);
+		setIsAddPatientOpen(false);
+		setPatientFormData({
+			name: "",
+			ward: "",
+			bed: "",
+			recordId: "",
+			birthDate: ""
+		});
+	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "space-y-6 animate-slide-up max-w-4xl mx-auto",
 		children: [
@@ -28143,20 +28379,29 @@ var Prescriptions = () => {
 						className: "space-y-4",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: "space-y-2",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Selecionar Paciente" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
-								value: selectedPatient,
-								onValueChange: setSelectedPatient,
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectTrigger, {
-									className: "w-full h-12 bg-white",
-									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectValue, { placeholder: "Selecione um paciente..." })
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectContent, { children: patients.filter((p) => p.active).map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SelectItem, {
-									value: p.id,
-									children: [
-										p.name,
-										" - Leito ",
-										p.bed
-									]
-								}, p.id)) })]
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Selecionar Paciente" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex gap-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+									value: selectedPatient,
+									onValueChange: setSelectedPatient,
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectTrigger, {
+										className: "w-full h-12 bg-white",
+										children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectValue, { placeholder: "Selecione um paciente..." })
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectContent, { children: patients.filter((p) => p.active).map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SelectItem, {
+										value: p.id,
+										children: [
+											p.name,
+											" - Leito ",
+											p.bed
+										]
+									}, p.id)) })]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+									variant: "outline",
+									className: "h-12 w-12 shrink-0",
+									onClick: () => setIsAddPatientOpen(true),
+									title: "Novo Paciente",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { className: "h-5 w-5" })
+								})]
 							})]
 						}), patient && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: "p-4 bg-slate-50 rounded-lg border flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between",
@@ -28304,10 +28549,112 @@ var Prescriptions = () => {
 					variant: "outline",
 					children: "Cancelar"
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-					onClick: handleSave,
+					onClick: handleSavePrescription,
 					className: "px-8 font-semibold",
 					children: "Salvar Prescrição"
 				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Dialog, {
+				open: isAddPatientOpen,
+				onOpenChange: setIsAddPatientOpen,
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogContent, {
+					className: "sm:max-w-[425px]",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogTitle, { children: "Novo Paciente" }) }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "grid gap-4 py-4",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "space-y-2",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+										htmlFor: "name",
+										children: "Nome do Paciente *"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+										id: "name",
+										placeholder: "Nome completo da criança",
+										value: patientFormData.name,
+										onChange: (e) => setPatientFormData({
+											...patientFormData,
+											name: e.target.value
+										})
+									})]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "grid grid-cols-2 gap-4",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "space-y-2",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+											htmlFor: "ward",
+											children: "Ala / Quarto *"
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+											id: "ward",
+											placeholder: "Ex: Pediatria",
+											value: patientFormData.ward,
+											onChange: (e) => setPatientFormData({
+												...patientFormData,
+												ward: e.target.value
+											})
+										})]
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "space-y-2",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+											htmlFor: "bed",
+											children: "Leito *"
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+											id: "bed",
+											placeholder: "Ex: 12A",
+											value: patientFormData.bed,
+											onChange: (e) => setPatientFormData({
+												...patientFormData,
+												bed: e.target.value
+											})
+										})]
+									})]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "grid grid-cols-2 gap-4",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "space-y-2",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+											htmlFor: "recordId",
+											children: "Prontuário / ID"
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+											id: "recordId",
+											placeholder: "Opcional",
+											value: patientFormData.recordId,
+											onChange: (e) => setPatientFormData({
+												...patientFormData,
+												recordId: e.target.value
+											})
+										})]
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "space-y-2",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+											htmlFor: "birthDate",
+											children: "Data de Nascimento"
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+											id: "birthDate",
+											type: "date",
+											value: patientFormData.birthDate,
+											onChange: (e) => setPatientFormData({
+												...patientFormData,
+												birthDate: e.target.value
+											})
+										})]
+									})]
+								})
+							]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogFooter, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+							variant: "outline",
+							onClick: () => setIsAddPatientOpen(false),
+							children: "Cancelar"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+							onClick: handleSavePatient,
+							children: "Salvar e Selecionar"
+						})] })
+					]
+				})
 			})
 		]
 	});
@@ -29363,4 +29710,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-9L68_w3O.js.map
+//# sourceMappingURL=index-BjdOdevD.js.map

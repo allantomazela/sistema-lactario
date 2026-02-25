@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useLactary, Patient } from '@/contexts/LactaryContext'
+import { useLactary } from '@/contexts/LactaryContext'
 import {
   Card,
   CardContent,
@@ -19,11 +19,18 @@ import {
 } from '@/components/ui/select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Badge } from '@/components/ui/badge'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog'
 import { useToast } from '@/hooks/use-toast'
-import { Check, Info } from 'lucide-react'
+import { Check, Info, Plus } from 'lucide-react'
 
 const Prescriptions = () => {
-  const { patients, addPrescription } = useLactary()
+  const { patients, addPrescription, addPatient } = useLactary()
   const { toast } = useToast()
 
   const [selectedPatient, setSelectedPatient] = useState<string>('')
@@ -33,9 +40,18 @@ const Prescriptions = () => {
   const [description, setDescription] = useState('')
   const [times, setTimes] = useState('08:00, 11:00, 14:00, 17:00, 20:00, 23:00')
 
+  const [isAddPatientOpen, setIsAddPatientOpen] = useState(false)
+  const [patientFormData, setPatientFormData] = useState({
+    name: '',
+    ward: '',
+    bed: '',
+    recordId: '',
+    birthDate: '',
+  })
+
   const patient = patients.find((p) => p.id === selectedPatient)
 
-  const handleSave = () => {
+  const handleSavePrescription = () => {
     if (!selectedPatient) {
       toast({
         title: 'Erro',
@@ -62,8 +78,51 @@ const Prescriptions = () => {
       action: <Check className="h-4 w-4" />,
     })
 
-    // Reset form
     setSelectedPatient('')
+  }
+
+  const handleSavePatient = () => {
+    if (
+      !patientFormData.name.trim() ||
+      !patientFormData.ward.trim() ||
+      !patientFormData.bed.trim()
+    ) {
+      toast({
+        title: 'Campos Obrigatórios',
+        description: 'Nome, Ala/Quarto e Leito são obrigatórios.',
+        variant: 'destructive',
+      })
+      return
+    }
+
+    const newId = crypto.randomUUID()
+    addPatient({
+      id: newId,
+      name: patientFormData.name.toUpperCase(),
+      ward: patientFormData.ward,
+      bed: patientFormData.bed,
+      recordId:
+        patientFormData.recordId ||
+        `REC-${Math.floor(1000 + Math.random() * 9000)}`,
+      birthDate: patientFormData.birthDate,
+      dietType: 'A Definir',
+      allergies: [],
+      active: true,
+    })
+
+    toast({
+      title: 'Sucesso',
+      description: 'Paciente registrado e selecionado.',
+    })
+    setSelectedPatient(newId)
+    setIsAddPatientOpen(false)
+    setPatientFormData({
+      name: '',
+      ward: '',
+      bed: '',
+      recordId: '',
+      birthDate: '',
+    })
   }
 
   return (
@@ -83,23 +142,33 @@ const Prescriptions = () => {
           <div className="space-y-4">
             <div className="space-y-2">
               <Label>Selecionar Paciente</Label>
-              <Select
-                value={selectedPatient}
-                onValueChange={setSelectedPatient}
-              >
-                <SelectTrigger className="w-full h-12 bg-white">
-                  <SelectValue placeholder="Selecione um paciente..." />
-                </SelectTrigger>
-                <SelectContent>
-                  {patients
-                    .filter((p) => p.active)
-                    .map((p) => (
-                      <SelectItem key={p.id} value={p.id}>
-                        {p.name} - Leito {p.bed}
-                      </SelectItem>
-                    ))}
-                </SelectContent>
-              </Select>
+              <div className="flex gap-2">
+                <Select
+                  value={selectedPatient}
+                  onValueChange={setSelectedPatient}
+                >
+                  <SelectTrigger className="w-full h-12 bg-white">
+                    <SelectValue placeholder="Selecione um paciente..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {patients
+                      .filter((p) => p.active)
+                      .map((p) => (
+                        <SelectItem key={p.id} value={p.id}>
+                          {p.name} - Leito {p.bed}
+                        </SelectItem>
+                      ))}
+                  </SelectContent>
+                </Select>
+                <Button
+                  variant="outline"
+                  className="h-12 w-12 shrink-0"
+                  onClick={() => setIsAddPatientOpen(true)}
+                  title="Novo Paciente"
+                >
+                  <Plus className="h-5 w-5" />
+                </Button>
+              </div>
             </div>
 
             {patient && (
@@ -231,10 +300,103 @@ const Prescriptions = () => {
 
       <div className="flex justify-end gap-4">
         <Button variant="outline">Cancelar</Button>
-        <Button onClick={handleSave} className="px-8 font-semibold">
+        <Button onClick={handleSavePrescription} className="px-8 font-semibold">
           Salvar Prescrição
         </Button>
       </div>
+
+      <Dialog open={isAddPatientOpen} onOpenChange={setIsAddPatientOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Novo Paciente</DialogTitle>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">Nome do Paciente *</Label>
+              <Input
+                id="name"
+                placeholder="Nome completo da criança"
+                value={patientFormData.name}
+                onChange={(e) =>
+                  setPatientFormData({
+                    ...patientFormData,
+                    name: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="ward">Ala / Quarto *</Label>
+                <Input
+                  id="ward"
+                  placeholder="Ex: Pediatria"
+                  value={patientFormData.ward}
+                  onChange={(e) =>
+                    setPatientFormData({
+                      ...patientFormData,
+                      ward: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="bed">Leito *</Label>
+                <Input
+                  id="bed"
+                  placeholder="Ex: 12A"
+                  value={patientFormData.bed}
+                  onChange={(e) =>
+                    setPatientFormData({
+                      ...patientFormData,
+                      bed: e.target.value,
+                    })
+                  }
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="recordId">Prontuário / ID</Label>
+                <Input
+                  id="recordId"
+                  placeholder="Opcional"
+                  value={patientFormData.recordId}
+                  onChange={(e) =>
+                    setPatientFormData({
+                      ...patientFormData,
+                      recordId: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="birthDate">Data de Nascimento</Label>
+                <Input
+                  id="birthDate"
+                  type="date"
+                  value={patientFormData.birthDate}
+                  onChange={(e) =>
+                    setPatientFormData({
+                      ...patientFormData,
+                      birthDate: e.target.value,
+                    })
+                  }
+                />
+              </div>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setIsAddPatientOpen(false)}
+            >
+              Cancelar
+            </Button>
+            <Button onClick={handleSavePatient}>Salvar e Selecionar</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
