@@ -16,7 +16,7 @@ import {
   Users,
   FileText,
   Tags,
-  Settings,
+  Settings as SettingsIcon,
   PlusCircle,
   Baby,
   ShieldCheck,
@@ -46,13 +46,12 @@ export default function Layout() {
       path: '/usuarios',
       icon: ShieldCheck,
     })
+    navItems.push({
+      title: 'Configurações',
+      path: '/configuracoes',
+      icon: SettingsIcon,
+    })
   }
-
-  navItems.push({
-    title: 'Configurações',
-    path: '/configuracoes',
-    icon: Settings,
-  })
 
   const getPageTitle = () => {
     const item = navItems.find((i) => i.path === location.pathname)

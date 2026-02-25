@@ -1589,6 +1589,11 @@ section[aria-label='Notifications alt+T'] {
   border-radius: calc(var(--radius) - 4px);
 }
 
+.rounded-b-lg{
+  border-bottom-right-radius: var(--radius);
+  border-bottom-left-radius: var(--radius);
+}
+
 .rounded-l-md{
   border-top-left-radius: calc(var(--radius) - 2px);
   border-bottom-left-radius: calc(var(--radius) - 2px);
@@ -3711,6 +3716,10 @@ section[aria-label='Notifications alt+T'] {
 
   .md\:flex{
     display: flex;
+  }
+
+  .md\:w-\[400px\]{
+    width: 400px;
   }
 
   .md\:w-\[var\(--radix-navigation-menu-viewport-width\)\]{

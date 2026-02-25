@@ -19045,6 +19045,23 @@ var Info = createLucideIcon("info", [
 		key: "e9boi3"
 	}]
 ]);
+var Link2 = createLucideIcon("link-2", [
+	["path", {
+		d: "M9 17H7A5 5 0 0 1 7 7h2",
+		key: "8i5ue5"
+	}],
+	["path", {
+		d: "M15 7h2a5 5 0 1 1 0 10h-2",
+		key: "1b9ql8"
+	}],
+	["line", {
+		x1: "8",
+		x2: "16",
+		y1: "12",
+		y2: "12",
+		key: "1jonct"
+	}]
+]);
 var LogOut = createLucideIcon("log-out", [
 	["path", {
 		d: "m16 17 5-5-5-5",
@@ -19107,6 +19124,20 @@ var Printer = createLucideIcon("printer", [
 		height: "8",
 		rx: "1",
 		key: "1ue0tg"
+	}]
+]);
+var Save = createLucideIcon("save", [
+	["path", {
+		d: "M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z",
+		key: "1c8476"
+	}],
+	["path", {
+		d: "M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7",
+		key: "1ydtos"
+	}],
+	["path", {
+		d: "M7 3v4a1 1 0 0 0 1 1h7",
+		key: "t51u73"
 	}]
 ]);
 var Search = createLucideIcon("search", [["path", {
@@ -25883,16 +25914,18 @@ function Layout() {
 			icon: Tags
 		}
 	];
-	if (currentUser.role === "admin") navItems.push({
-		title: "Gerenciamento de Usuários",
-		path: "/usuarios",
-		icon: ShieldCheck
-	});
-	navItems.push({
-		title: "Configurações",
-		path: "/configuracoes",
-		icon: Settings$1
-	});
+	if (currentUser.role === "admin") {
+		navItems.push({
+			title: "Gerenciamento de Usuários",
+			path: "/usuarios",
+			icon: ShieldCheck
+		});
+		navItems.push({
+			title: "Configurações",
+			path: "/configuracoes",
+			icon: Settings$1
+		});
+	}
 	const getPageTitle = () => {
 		const item = navItems.find((i) => i.path === location.pathname);
 		return item ? item.title : "Lactário";
@@ -29026,83 +29059,209 @@ var Switch = import_react.forwardRef(({ className, ...props }, ref) => /* @__PUR
 }));
 Switch.displayName = Root.displayName;
 var Settings = () => {
+	const { currentUser } = useAuth();
+	const { toast: toast$2 } = useToast();
+	const [apiBaseUrl, setApiBaseUrl] = (0, import_react.useState)("https://api.mv.com.br/v1");
+	const [apiToken, setApiToken] = (0, import_react.useState)("************************");
+	const [clientId, setClientId] = (0, import_react.useState)("HCFMB-01");
+	const [integrationEnabled, setIntegrationEnabled] = (0, import_react.useState)(false);
+	if (currentUser?.role !== "admin") return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Navigate, {
+		to: "/",
+		replace: true
+	});
+	const handleSaveIntegration = () => {
+		toast$2({
+			title: "Configurações Salvas",
+			description: "As configurações de integração foram atualizadas com sucesso."
+		});
+	};
+	const handleSaveGeneral = () => {
+		toast$2({
+			title: "Configurações Salvas",
+			description: "As preferências do sistema foram atualizadas."
+		});
+	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "space-y-6 animate-fade-in max-w-4xl",
-		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-				className: "text-3xl font-bold tracking-tight",
-				children: "Configurações"
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-				className: "text-muted-foreground mt-1",
-				children: "Gerencie as preferências do sistema do lactário."
-			})] }),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, { children: "Regras de Validade" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardDescription, { children: "Defina o tempo padrão de validade para cada tipo de preparo." })] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
-				className: "space-y-4",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "flex items-center justify-between border-b pb-4",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "space-y-0.5",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-							className: "text-base",
-							children: "Fórmula Infantil Padrão"
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "text-sm text-muted-foreground",
-							children: "Tempo em horas após preparo sob refrigeração."
-						})]
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "font-semibold text-lg",
-						children: "24 horas"
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+			className: "text-3xl font-bold tracking-tight",
+			children: "Configurações"
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+			className: "text-muted-foreground mt-1",
+			children: "Gerencie as preferências e integrações do sistema do lactário."
+		})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Tabs, {
+			defaultValue: "general",
+			className: "w-full",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsList, {
+					className: "grid w-full md:w-[400px] grid-cols-2 mb-6",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsTrigger, {
+						value: "general",
+						children: "Geral"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsTrigger, {
+						value: "integrations",
+						className: "gap-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link2, { className: "h-4 w-4" }), "Integrações"]
 					})]
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "flex items-center justify-between border-b pb-4",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "space-y-0.5",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-							className: "text-base",
-							children: "Leite Materno Cru"
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "text-sm text-muted-foreground",
-							children: "Tempo em horas após extração."
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsContent, {
+					value: "general",
+					className: "space-y-6",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, { children: "Regras de Validade" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardDescription, { children: "Defina o tempo padrão de validade para cada tipo de preparo." })] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
+						className: "space-y-4",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex items-center justify-between border-b pb-4",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "space-y-0.5",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+									className: "text-base",
+									children: "Fórmula Infantil Padrão"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "text-sm text-muted-foreground",
+									children: "Tempo em horas após preparo sob refrigeração."
+								})]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "font-semibold text-lg",
+								children: "24 horas"
+							})]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex items-center justify-between border-b pb-4",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "space-y-0.5",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+									className: "text-base",
+									children: "Leite Materno Cru"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "text-sm text-muted-foreground",
+									children: "Tempo em horas após extração."
+								})]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "font-semibold text-lg",
+								children: "12 horas"
+							})]
 						})]
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "font-semibold text-lg",
-						children: "12 horas"
-					})]
-				})]
-			})] }),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, { children: "Preferências de Impressão" }) }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
-				className: "space-y-6",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "flex items-center justify-between",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "space-y-0.5",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-							className: "text-base",
-							children: "Impressão Automática"
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "text-sm text-muted-foreground",
-							children: "Enviar diretamente para a impressora padrão ao clicar em imprimir lote."
-						})]
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Switch, { defaultChecked: true })]
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "flex items-center justify-between",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "space-y-0.5",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-							className: "text-base",
-							children: "Destacar Alergias"
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "text-sm text-muted-foreground",
-							children: "Imprimir tarja preta invertida para pacientes com restrições."
-						})]
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Switch, { defaultChecked: true })]
-				})]
-			})] }),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "flex justify-end",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, { children: "Salvar Alterações" })
-			})
-		]
+					})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, { children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, { children: "Preferências de Impressão" }) }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
+							className: "space-y-6",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center justify-between",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "space-y-0.5",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+										className: "text-base",
+										children: "Impressão Automática"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										className: "text-sm text-muted-foreground",
+										children: "Enviar diretamente para a impressora padrão ao clicar em imprimir lote."
+									})]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Switch, { defaultChecked: true })]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center justify-between",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "space-y-0.5",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+										className: "text-base",
+										children: "Destacar Alergias"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										className: "text-sm text-muted-foreground",
+										children: "Imprimir tarja preta invertida para pacientes com restrições."
+									})]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Switch, { defaultChecked: true })]
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardFooter, {
+							className: "flex justify-end border-t pt-6 bg-slate-50/50 rounded-b-lg",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+								onClick: handleSaveGeneral,
+								className: "gap-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Save, { className: "h-4 w-4" }), "Salvar Alterações"]
+							})
+						})
+					] })]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
+					value: "integrations",
+					className: "space-y-6",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, { children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, { children: "Integração Sistema MV" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardDescription, { children: "Configure a conexão com o prontuário eletrônico MV para sincronização automática de pacientes e prescrições." })] }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
+							className: "space-y-6",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center justify-between p-4 bg-slate-50 border rounded-lg",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "space-y-0.5",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+										className: "text-base font-semibold",
+										children: "Status da Integração"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										className: "text-sm text-muted-foreground",
+										children: "Ativar ou desativar a sincronização com o MV."
+									})]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Switch, {
+									checked: integrationEnabled,
+									onCheckedChange: setIntegrationEnabled
+								})]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "space-y-4 pt-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "space-y-2",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+										htmlFor: "apiUrl",
+										children: "URL Base da API"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+										id: "apiUrl",
+										value: apiBaseUrl,
+										onChange: (e) => setApiBaseUrl(e.target.value),
+										placeholder: "https://api.hospital.com.br/mv/v1",
+										disabled: !integrationEnabled,
+										className: "bg-white"
+									})]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "grid grid-cols-1 md:grid-cols-2 gap-4",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "space-y-2",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+											htmlFor: "apiToken",
+											children: "Token de Autenticação"
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+											id: "apiToken",
+											type: "password",
+											value: apiToken,
+											onChange: (e) => setApiToken(e.target.value),
+											placeholder: "Insira o Bearer Token ou API Key",
+											disabled: !integrationEnabled,
+											className: "bg-white"
+										})]
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "space-y-2",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+											htmlFor: "clientId",
+											children: "Identificador do Sistema (Client ID)"
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+											id: "clientId",
+											value: clientId,
+											onChange: (e) => setClientId(e.target.value),
+											placeholder: "Ex: HCFMB-LACTARIO",
+											disabled: !integrationEnabled,
+											className: "bg-white"
+										})]
+									})]
+								})]
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardFooter, {
+							className: "flex justify-end border-t pt-6 bg-slate-50/50 rounded-b-lg",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+								onClick: handleSaveIntegration,
+								className: "gap-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Save, { className: "h-4 w-4" }), "Salvar Integrações"]
+							})
+						})
+					] })
+				})
+			]
+		})]
 	});
 };
 var Settings_default = Settings;
@@ -29710,4 +29869,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-BjdOdevD.js.map
+//# sourceMappingURL=index-4jmRpKqC.js.map
