@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { useLactary, Patient } from '@/contexts/LactaryContext'
 import {
   Table,
@@ -11,7 +12,7 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Search, Plus, Upload } from 'lucide-react'
+import { Search, Plus, Upload, UserRoundSearch } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import {
   Dialog,
@@ -26,6 +27,7 @@ import { useToast } from '@/hooks/use-toast'
 const Patients = () => {
   const { patients, addPatient, addPatients } = useLactary()
   const { toast } = useToast()
+  const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState('')
 
   const [isAddOpen, setIsAddOpen] = useState(false)
@@ -160,6 +162,10 @@ const Patients = () => {
     }, 300)
   }
 
+  const handleRowClick = (patientId: string) => {
+    navigate(`/pacientes/${patientId}`)
+  }
+
   return (
     <div className="space-y-6 animate-slide-up">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -224,6 +230,7 @@ const Patients = () => {
                 filteredPatients.map((patient) => (
                   <TableRow
                     key={patient.id}
+                    onClick={() => handleRowClick(patient.id)}
                     className="cursor-pointer transition-colors hover:bg-slate-50"
                   >
                     <TableCell className="font-medium text-slate-600">
@@ -273,8 +280,19 @@ const Patients = () => {
                       </div>
                     </TableCell>
                     <TableCell className="text-right">
-                      <Button variant="ghost" size="sm">
-                        Ver Perfil
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="gap-1.5 font-medium"
+                        asChild
+                      >
+                        <Link
+                          to={`/pacientes/${patient.id}`}
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <UserRoundSearch className="h-4 w-4" />
+                          Ver Perfil
+                        </Link>
                       </Button>
                     </TableCell>
                   </TableRow>

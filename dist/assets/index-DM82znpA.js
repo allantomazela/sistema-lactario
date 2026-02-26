@@ -15994,6 +15994,11 @@ function useOutlet(context) {
 	let outlet = import_react.useContext(RouteContext).outlet;
 	return import_react.useMemo(() => outlet && /* @__PURE__ */ import_react.createElement(OutletContext.Provider, { value: context }, outlet), [outlet, context]);
 }
+function useParams() {
+	let { matches } = import_react.useContext(RouteContext);
+	let routeMatch = matches[matches.length - 1];
+	return routeMatch ? routeMatch.params : {};
+}
 function useResolvedPath(to, { relative } = {}) {
 	let { matches } = import_react.useContext(RouteContext);
 	let { pathname: locationPathname } = useLocation();
@@ -18926,6 +18931,13 @@ var Activity = createLucideIcon("activity", [["path", {
 	d: "M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2",
 	key: "169zse"
 }]]);
+var ArrowLeft = createLucideIcon("arrow-left", [["path", {
+	d: "m12 19-7-7 7-7",
+	key: "1l729n"
+}], ["path", {
+	d: "M19 12H5",
+	key: "x3x0zl"
+}]]);
 var Baby = createLucideIcon("baby", [
 	["path", {
 		d: "M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5",
@@ -19064,6 +19076,36 @@ var FileText = createLucideIcon("file-text", [
 		key: "z1uh3a"
 	}]
 ]);
+var Hash = createLucideIcon("hash", [
+	["line", {
+		x1: "4",
+		x2: "20",
+		y1: "9",
+		y2: "9",
+		key: "4lhtct"
+	}],
+	["line", {
+		x1: "4",
+		x2: "20",
+		y1: "15",
+		y2: "15",
+		key: "vyu0kd"
+	}],
+	["line", {
+		x1: "10",
+		x2: "8",
+		y1: "3",
+		y2: "21",
+		key: "1ggp8o"
+	}],
+	["line", {
+		x1: "16",
+		x2: "14",
+		y1: "3",
+		y2: "21",
+		key: "weycgp"
+	}]
+]);
 var Info = createLucideIcon("info", [
 	["circle", {
 		cx: "12",
@@ -19111,6 +19153,15 @@ var LogOut = createLucideIcon("log-out", [
 		key: "1uf3rs"
 	}]
 ]);
+var MapPin = createLucideIcon("map-pin", [["path", {
+	d: "M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0",
+	key: "1r0f0z"
+}], ["circle", {
+	cx: "12",
+	cy: "10",
+	r: "3",
+	key: "ilqhr7"
+}]]);
 var Milk = createLucideIcon("milk", [
 	["path", {
 		d: "M8 2h8",
@@ -19273,6 +19324,37 @@ var Upload = createLucideIcon("upload", [
 		key: "ih7n3h"
 	}]
 ]);
+var UserRoundSearch = createLucideIcon("user-round-search", [
+	["circle", {
+		cx: "10",
+		cy: "8",
+		r: "5",
+		key: "o932ke"
+	}],
+	["path", {
+		d: "M2 21a8 8 0 0 1 10.434-7.62",
+		key: "1yezr2"
+	}],
+	["circle", {
+		cx: "18",
+		cy: "18",
+		r: "3",
+		key: "1xkwt0"
+	}],
+	["path", {
+		d: "m22 22-1.9-1.9",
+		key: "1e5ubv"
+	}]
+]);
+var User = createLucideIcon("user", [["path", {
+	d: "M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2",
+	key: "975kel"
+}], ["circle", {
+	cx: "12",
+	cy: "7",
+	r: "4",
+	key: "17ys0d"
+}]]);
 var Users$1 = createLucideIcon("users", [
 	["path", {
 		d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2",
@@ -26559,6 +26641,7 @@ Label.displayName = Root$3.displayName;
 var Patients = () => {
 	const { patients, addPatient, addPatients } = useLactary();
 	const { toast: toast$2 } = useToast();
+	const navigate = useNavigate();
 	const [searchTerm, setSearchTerm] = (0, import_react.useState)("");
 	const [isAddOpen, setIsAddOpen] = (0, import_react.useState)(false);
 	const [formData, setFormData] = (0, import_react.useState)({
@@ -26669,6 +26752,9 @@ var Patients = () => {
 			setImportFile(null);
 		}, 300);
 	};
+	const handleRowClick = (patientId) => {
+		navigate(`/pacientes/${patientId}`);
+	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "space-y-6 animate-slide-up",
 		children: [
@@ -26725,6 +26811,7 @@ var Patients = () => {
 					className: "text-center py-8 text-muted-foreground",
 					children: "Nenhum paciente encontrado."
 				}) }) : filteredPatients.map((patient) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, {
+					onClick: () => handleRowClick(patient.id),
 					className: "cursor-pointer transition-colors hover:bg-slate-50",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
@@ -26772,7 +26859,13 @@ var Patients = () => {
 							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
 								variant: "ghost",
 								size: "sm",
-								children: "Ver Perfil"
+								className: "gap-1.5 font-medium",
+								asChild: true,
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+									to: `/pacientes/${patient.id}`,
+									onClick: (e) => e.stopPropagation(),
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(UserRoundSearch, { className: "h-4 w-4" }), "Ver Perfil"]
+								})
 							})
 						})
 					]
@@ -26989,6 +27082,293 @@ var Patients = () => {
 	});
 };
 var Patients_default = Patients;
+var PatientProfile = () => {
+	const { id } = useParams();
+	const { getPatient, prescriptions } = useLactary();
+	const patient = (0, import_react.useMemo)(() => {
+		return id ? getPatient(id) : void 0;
+	}, [id, getPatient]);
+	const patientPrescriptions = (0, import_react.useMemo)(() => {
+		if (!id) return [];
+		return prescriptions.filter((p) => p.patientId === id).sort((a, b$1) => new Date(b$1.date).getTime() - new Date(a.date).getTime());
+	}, [id, prescriptions]);
+	if (!patient) return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "flex flex-col items-center justify-center min-h-[400px] space-y-4 animate-fade-in",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(User, { className: "h-12 w-12 text-muted-foreground opacity-20" }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+				className: "text-xl font-medium text-slate-800",
+				children: "Paciente não encontrado"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+				asChild: true,
+				variant: "outline",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+					to: "/pacientes",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLeft, { className: "mr-2 h-4 w-4" }), "Voltar para a lista"]
+				})
+			})
+		]
+	});
+	const birthDateStr = patient.birthDate ? patient.birthDate.split("-").reverse().join("/") : "Não informado";
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "space-y-6 animate-slide-up max-w-6xl mx-auto",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex items-center gap-4",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+					asChild: true,
+					variant: "ghost",
+					size: "icon",
+					className: "shrink-0",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+						to: "/pacientes",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLeft, { className: "h-5 w-5" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "sr-only",
+							children: "Voltar"
+						})]
+					})
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+					className: "text-3xl font-bold tracking-tight text-slate-800",
+					children: "Perfil do Paciente"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-muted-foreground mt-1 flex items-center gap-2",
+					children: "Registro detalhado e histórico de prescrições do lactário."
+				})] })]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid gap-6 md:grid-cols-3",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
+					className: "md:col-span-2 shadow-sm border-t-4 border-t-primary",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardHeader, {
+						className: "pb-4",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex items-start justify-between",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardTitle, {
+								className: "text-xl flex items-center gap-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(User, { className: "h-5 w-5 text-primary" }), patient.name]
+							}), patient.active ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Badge, {
+								className: "bg-success text-white",
+								children: "Ativo"
+							}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Badge, {
+								variant: "secondary",
+								children: "Inativo"
+							})]
+						})
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
+						className: "grid sm:grid-cols-2 gap-6",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "space-y-4",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center gap-3 text-sm",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "p-2 bg-slate-100 rounded-md",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Hash, { className: "h-4 w-4 text-slate-500" })
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "text-muted-foreground text-xs font-semibold uppercase tracking-wider",
+									children: "Prontuário"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "font-medium text-slate-900",
+									children: patient.recordId
+								})] })]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center gap-3 text-sm",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "p-2 bg-slate-100 rounded-md",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Calendar$1, { className: "h-4 w-4 text-slate-500" })
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "text-muted-foreground text-xs font-semibold uppercase tracking-wider",
+									children: "Data de Nascimento"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "font-medium text-slate-900",
+									children: birthDateStr
+								})] })]
+							})]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "space-y-4",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center gap-3 text-sm",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "p-2 bg-slate-100 rounded-md",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MapPin, { className: "h-4 w-4 text-slate-500" })
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "text-muted-foreground text-xs font-semibold uppercase tracking-wider",
+									children: "Localização (Ala / Leito)"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+									className: "font-medium text-slate-900",
+									children: [
+										patient.ward,
+										" - Leito ",
+										patient.bed
+									]
+								})] })]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center gap-3 text-sm",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "p-2 bg-slate-100 rounded-md",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Activity, { className: "h-4 w-4 text-slate-500" })
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "text-muted-foreground text-xs font-semibold uppercase tracking-wider",
+									children: "Dieta Atual Padrão"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "font-medium text-slate-900",
+									children: patient.dietType
+								})] })]
+							})]
+						})]
+					})]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
+					className: "shadow-sm border-t-4 border-t-destructive",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardHeader, {
+						className: "pb-4 bg-rose-50/30",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardTitle, {
+							className: "text-lg flex items-center gap-2 text-destructive",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TriangleAlert, { className: "h-5 w-5" }), "Restrições e Alergias"]
+						})
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardContent, {
+						className: "pt-4",
+						children: patient.allergies.length > 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex flex-col gap-3",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								className: "text-sm text-muted-foreground",
+								children: "Atenção rigorosa aos seguintes itens informados no cadastro:"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "flex flex-wrap gap-2",
+								children: patient.allergies.map((allergy, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Badge, {
+									variant: "destructive",
+									className: "px-3 py-1 text-sm font-semibold shadow-sm",
+									children: allergy
+								}, idx))
+							})]
+						}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex flex-col items-center justify-center text-center py-6 space-y-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Info, { className: "h-8 w-8 text-muted-foreground opacity-20" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								className: "text-sm text-muted-foreground font-medium",
+								children: "Nenhuma alergia ou restrição crítica registrada."
+							})]
+						})
+					})]
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
+				className: "shadow-sm",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardHeader, {
+					className: "border-b bg-slate-50/50",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardTitle, {
+						className: "text-lg flex items-center gap-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Printer, { className: "h-5 w-5 text-muted-foreground" }), "Histórico de Prescrições (Lactário)"]
+					})
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardContent, {
+					className: "p-0",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "overflow-x-auto",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Table, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, {
+							className: "bg-slate-50/50 hover:bg-slate-50/50",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
+									className: "w-[120px]",
+									children: "Data"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
+									className: "w-[250px]",
+									children: "Dieta / Preparo"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
+									className: "min-w-[200px]",
+									children: "Horários"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
+									className: "w-[250px]",
+									children: "Observações"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
+									className: "text-center w-[120px]",
+									children: "Etiquetas"
+								})
+							]
+						}) }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableBody, { children: patientPrescriptions.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableRow, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableCell, {
+							colSpan: 5,
+							className: "text-center py-12 text-muted-foreground",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								className: "text-sm",
+								children: "Nenhuma prescrição encontrada para este paciente."
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+								variant: "link",
+								asChild: true,
+								className: "mt-2 text-primary",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+									to: "/prescricoes",
+									children: "Criar Nova Prescrição"
+								})
+							})]
+						}) }) : patientPrescriptions.map((prescription) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, { children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+								className: "font-medium text-slate-600",
+								children: prescription.date.split("-").reverse().join("/")
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-start gap-2",
+								children: [prescription.type === "milk" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Milk, { className: "h-4 w-4 text-blue-500 shrink-0 mt-0.5" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Utensils, { className: "h-4 w-4 text-orange-500 shrink-0 mt-0.5" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex flex-col",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "font-semibold text-slate-800 leading-tight",
+										children: prescription.type === "milk" ? prescription.milkType : prescription.description
+									}), prescription.type === "milk" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+										className: "text-xs text-muted-foreground mt-0.5",
+										children: [
+											"Vol: ",
+											prescription.volume,
+											"ml"
+										]
+									})]
+								})]
+							}) }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center gap-1.5 flex-wrap",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Clock, { className: "h-3.5 w-3.5 text-muted-foreground shrink-0" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "text-sm text-slate-700 bg-slate-100 px-2 py-0.5 rounded-md font-medium",
+									children: prescription.times.join(", ")
+								})]
+							}) }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex flex-col gap-1",
+								children: [
+									prescription.restrictions && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+										className: "text-xs font-semibold text-destructive flex items-start gap-1",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											className: "shrink-0",
+											children: "•"
+										}), prescription.restrictions]
+									}),
+									prescription.observations && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+										className: "text-xs text-muted-foreground flex items-start gap-1",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											className: "shrink-0",
+											children: "•"
+										}), prescription.observations]
+									}),
+									!prescription.restrictions && !prescription.observations && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "text-xs text-muted-foreground italic",
+										children: "Sem observações adicionais."
+									})
+								]
+							}) }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+								className: "text-center",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Badge, {
+									variant: "outline",
+									className: "font-bold bg-slate-50",
+									children: [prescription.times.length, " unid."]
+								})
+							})
+						] }, prescription.id)) })] })
+					})
+				})]
+			})
+		]
+	});
+};
+var PatientProfile_default = PatientProfile;
 var Textarea = import_react.forwardRef(({ className, ...props }, ref) => {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("textarea", {
 		className: cn("flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm", className),
@@ -34500,6 +34880,10 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 						element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Patients_default, {})
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
+						path: "/pacientes/:id",
+						element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PatientProfile_default, {})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
 						path: "/prescricoes",
 						element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Prescriptions_default, {})
 					}),
@@ -34527,4 +34911,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-DYsJjC4W.js.map
+//# sourceMappingURL=index-DM82znpA.js.map

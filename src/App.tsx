@@ -7,6 +7,7 @@ import AuthLayout from './components/AuthLayout'
 import Index from './pages/Index'
 import NotFound from './pages/NotFound'
 import Patients from './pages/Patients'
+import PatientProfile from './pages/PatientProfile'
 import Prescriptions from './pages/Prescriptions'
 import Labels from './pages/Labels'
 import Settings from './pages/Settings'
@@ -38,6 +39,7 @@ const App = () => (
               <Route element={<Layout />}>
                 <Route path="/" element={<Index />} />
                 <Route path="/pacientes" element={<Patients />} />
+                <Route path="/pacientes/:id" element={<PatientProfile />} />
                 <Route path="/prescricoes" element={<Prescriptions />} />
                 <Route path="/etiquetas" element={<Labels />} />
                 <Route path="/configuracoes" element={<Settings />} />
