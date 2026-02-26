@@ -33056,6 +33056,181 @@ var Labels = () => {
 	});
 	const userInitialsOrName = currentUser?.name.split(" ")[0] || "___";
 	const { width, height, unit } = labelSettings;
+	const renderLabel = (label, index$1) => {
+		const isMilk = label.type === "milk";
+		const expDate = new Date(today.getTime() + label.expiryHours * 60 * 60 * 1e3);
+		const expDateStr = expDate.toLocaleDateString("pt-BR", {
+			day: "2-digit",
+			month: "2-digit"
+		});
+		const expTimeStr = expDate.toLocaleTimeString("pt-BR", {
+			hour: "2-digit",
+			minute: "2-digit"
+		});
+		const birthDateStr = label.patient?.birthDate ? label.patient.birthDate.split("-").reverse().join("/") : null;
+		const textClampClass = !!(label.restrictions && (label.observations || label.additives)) ? "line-clamp-2" : "line-clamp-3";
+		return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "thermal-label relative box-border bg-white text-black overflow-hidden flex flex-col shadow-sm border border-gray-300",
+			style: {
+				width: `${width}${unit}`,
+				height: `${height}${unit}`,
+				padding: "2mm"
+			},
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex justify-between items-center border-b-[1.5px] border-black pb-[1mm] mb-[1mm] shrink-0",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex items-center gap-[1.5mm]",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "text-[2.5mm] font-black uppercase leading-none tracking-tight",
+						children: "HCFMB"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "text-[2mm] font-bold leading-none border-l-[1.5px] border-black pl-[1.5mm]",
+						children: "Lactário"
+					})]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "text-[1.8mm] font-bold leading-none flex items-center gap-[1.5mm]",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+						"Prep: ",
+						prepDate,
+						" ",
+						prepTime,
+						" (",
+						userInitialsOrName,
+						")"
+					] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+						className: "bg-black text-white px-[1.2mm] py-[0.8mm] rounded-[0.5mm] font-black flex items-center gap-[0.8mm]",
+						children: [
+							"Val: ",
+							label.expiryHours,
+							"h",
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "font-semibold text-[1.5mm] opacity-90",
+								children: [
+									"(",
+									expDateStr,
+									" ",
+									expTimeStr,
+									")"
+								]
+							})
+						]
+					})]
+				})]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex flex-1 min-h-0 gap-[2.5mm]",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex-[0.55] flex flex-col min-h-0 border-r-[1.5px] border-black pr-[2.5mm]",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex justify-between items-end mb-[0.8mm] shrink-0",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "text-[1.8mm] font-black uppercase text-gray-500 leading-none tracking-wider",
+								children: "Paciente"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "text-[1.8mm] font-bold leading-none text-gray-700",
+								children: [
+									"ID: ",
+									label.patient?.recordId || "--",
+									birthDateStr && ` | DN: ${birthDateStr}`
+								]
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "text-[3.5mm] font-black uppercase leading-[1.1] line-clamp-2 text-ellipsis overflow-hidden mb-[1mm]",
+							children: label.patient?.name
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex justify-between items-end mt-auto shrink-0 pt-[1mm]",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex flex-col min-w-0 pr-[1mm]",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "text-[1.8mm] font-black uppercase text-gray-500 leading-none mb-[0.8mm] tracking-wider block",
+									children: "Leito / Ala"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "font-black leading-none flex items-baseline gap-[1mm] truncate",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "text-[3.8mm] shrink-0",
+										children: label.patient?.bed
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "text-[2.2mm] truncate",
+										children: label.patient?.ward
+									})]
+								})]
+							}), label.patient && label.patient.allergies.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "bg-black text-white px-[1.5mm] py-[1mm] rounded-[0.5mm] flex flex-col items-center justify-center border-[1px] border-black max-w-[20mm] shrink-0",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "text-[1.5mm] uppercase font-black leading-none tracking-widest mb-[0.4mm]",
+									children: "Alergia"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "font-black text-[2mm] uppercase leading-[1] text-center line-clamp-2",
+									children: label.patient.allergies.join(", ")
+								})]
+							})]
+						})
+					]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex-[0.45] flex flex-col min-h-0",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex items-center gap-[1.2mm] mb-[1mm] shrink-0 text-gray-800",
+							children: [isMilk ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Milk, {
+								className: "h-[2.5mm] w-[2.5mm]",
+								strokeWidth: 2.5
+							}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Utensils, {
+								className: "h-[2.5mm] w-[2.5mm]",
+								strokeWidth: 2.5
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "font-black uppercase text-[2.2mm] leading-none mt-[0.5mm] tracking-wide",
+								children: isMilk ? "Lactário" : "Refeição"
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "text-[2.8mm] font-black leading-[1.15] line-clamp-2 text-ellipsis overflow-hidden mb-[0.5mm] shrink-0",
+							children: isMilk ? `${label.volume}ml - ${label.milkType}` : label.description
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "text-[2mm] font-bold leading-tight text-gray-700 mb-[1.5mm] line-clamp-2",
+							children: ["Horários: ", label.times.join(", ")]
+						}),
+						label.observations || label.restrictions || label.additives ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex-1 mt-auto flex flex-col gap-[1mm] overflow-hidden justify-end min-h-0 pt-[1mm]",
+							children: [label.restrictions && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex flex-col border-[1.5px] border-black rounded-[0.8mm] overflow-hidden shrink-0",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "bg-black text-white px-[1.2mm] py-[0.6mm] text-[1.6mm] font-black uppercase tracking-widest flex justify-between items-center leading-none",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Restrições" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TriangleAlert, { className: "h-[1.5mm] w-[1.5mm]" })]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "bg-white px-[1.2mm] py-[0.6mm] flex items-center text-left",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: `text-[1.8mm] font-black leading-[1.1] text-black ${textClampClass}`,
+										children: label.restrictions
+									})
+								})]
+							}), (label.observations || label.additives) && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex flex-col border-[1.5px] border-black rounded-[0.8mm] overflow-hidden shrink-0",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "bg-gray-200 border-b-[1.5px] border-black text-black px-[1.2mm] py-[0.6mm] text-[1.6mm] font-black uppercase tracking-widest flex justify-between items-center leading-none",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Observações" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Info, { className: "h-[1.5mm] w-[1.5mm]" })]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "bg-white px-[1.2mm] py-[0.6mm] flex items-center text-left",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: `text-[1.8mm] font-bold leading-[1.1] text-black ${textClampClass}`,
+										children: label.observations || label.additives
+									})
+								})]
+							})]
+						}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "flex-1 mt-auto flex items-center justify-center border-[1.5px] border-dashed border-gray-400 rounded-[1mm] opacity-70 min-h-[10mm] bg-gray-50/50",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "text-[2mm] font-bold uppercase text-gray-500 tracking-wider",
+								children: "Sem Restrições / Obs"
+							})
+						})
+					]
+				})]
+			})]
+		}, index$1);
+	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "space-y-6 animate-fade-in",
 		children: [
@@ -33275,200 +33450,38 @@ var Labels = () => {
 							children: "Nenhuma prescrição encontrada para os filtros selecionados."
 						}) })] })] })
 					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "mb-4 mt-8",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h3", {
-							className: "text-lg font-semibold border-b pb-2",
-							children: [
-								"Pré-visualização das Etiquetas (",
-								labelsToPrint.length,
-								")"
-							]
-						})
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex flex-col sm:flex-row sm:items-center justify-between border-b pb-2 gap-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+								className: "text-lg font-semibold",
+								children: "Pré-visualização de Amostra"
+							}), labelsToPrint.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "text-sm font-medium bg-primary/10 text-primary px-3 py-1 rounded-full",
+								children: [
+									"Exibindo 1 amostra de ",
+									labelsToPrint.length,
+									" etiquetas no total"
+								]
+							})]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "mt-4 bg-slate-50 border border-dashed rounded-lg p-8 flex justify-center items-center min-h-[200px] overflow-x-auto",
+							children: labelsToPrint.length > 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "shadow-md ring-1 ring-black/5 shrink-0 rounded",
+								children: renderLabel(labelsToPrint[0], 0)
+							}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "text-center text-muted-foreground flex flex-col items-center",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Info, { className: "h-8 w-8 mb-2 opacity-20" }), "Nenhuma etiqueta selecionada para impressão."]
+							})
+						})]
 					})
 				]
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 				id: "print-area",
-				className: "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 justify-items-center sm:justify-items-start print:grid-cols-1 print:gap-0",
-				children: [labelsToPrint.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "col-span-full w-full py-12 text-center text-muted-foreground print:hidden bg-slate-50 rounded-lg border border-dashed",
-					children: "Nenhuma etiqueta selecionada para impressão."
-				}), labelsToPrint.map((label, index$1) => {
-					const isMilk = label.type === "milk";
-					const expDate = new Date(today.getTime() + label.expiryHours * 60 * 60 * 1e3);
-					const expDateStr = expDate.toLocaleDateString("pt-BR", {
-						day: "2-digit",
-						month: "2-digit"
-					});
-					const expTimeStr = expDate.toLocaleTimeString("pt-BR", {
-						hour: "2-digit",
-						minute: "2-digit"
-					});
-					const birthDateStr = label.patient?.birthDate ? label.patient.birthDate.split("-").reverse().join("/") : null;
-					const textClampClass = !!(label.restrictions && (label.observations || label.additives)) ? "line-clamp-2" : "line-clamp-3";
-					return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "thermal-label relative box-border bg-white text-black overflow-hidden flex flex-col shadow-sm border border-gray-300",
-						style: {
-							width: `${width}${unit}`,
-							height: `${height}${unit}`,
-							padding: "2mm"
-						},
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "flex justify-between items-center border-b-[1.5px] border-black pb-[1mm] mb-[1mm] shrink-0",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex items-center gap-[1.5mm]",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-[2.5mm] font-black uppercase leading-none tracking-tight",
-									children: "HCFMB"
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-[2mm] font-bold leading-none border-l-[1.5px] border-black pl-[1.5mm]",
-									children: "Lactário"
-								})]
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "text-[1.8mm] font-bold leading-none flex items-center gap-[1.5mm]",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
-									"Prep: ",
-									prepDate,
-									" ",
-									prepTime,
-									" (",
-									userInitialsOrName,
-									")"
-								] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-									className: "bg-black text-white px-[1.2mm] py-[0.8mm] rounded-[0.5mm] font-black flex items-center gap-[0.8mm]",
-									children: [
-										"Val: ",
-										label.expiryHours,
-										"h",
-										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-											className: "font-semibold text-[1.5mm] opacity-90",
-											children: [
-												"(",
-												expDateStr,
-												" ",
-												expTimeStr,
-												")"
-											]
-										})
-									]
-								})]
-							})]
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "flex flex-1 min-h-0 gap-[2.5mm]",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex-[0.55] flex flex-col min-h-0 border-r-[1.5px] border-black pr-[2.5mm]",
-								children: [
-									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "flex justify-between items-end mb-[0.8mm] shrink-0",
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-											className: "text-[1.8mm] font-black uppercase text-gray-500 leading-none tracking-wider",
-											children: "Paciente"
-										}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-											className: "text-[1.8mm] font-bold leading-none text-gray-700",
-											children: [
-												"ID: ",
-												label.patient?.recordId || "--",
-												birthDateStr && ` | DN: ${birthDateStr}`
-											]
-										})]
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-										className: "text-[3.5mm] font-black uppercase leading-[1.1] line-clamp-2 text-ellipsis overflow-hidden mb-[1mm]",
-										children: label.patient?.name
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "flex justify-between items-end mt-auto shrink-0 pt-[1mm]",
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-											className: "flex flex-col min-w-0 pr-[1mm]",
-											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-												className: "text-[1.8mm] font-black uppercase text-gray-500 leading-none mb-[0.8mm] tracking-wider block",
-												children: "Leito / Ala"
-											}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-												className: "font-black leading-none flex items-baseline gap-[1mm] truncate",
-												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-													className: "text-[3.8mm] shrink-0",
-													children: label.patient?.bed
-												}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-													className: "text-[2.2mm] truncate",
-													children: label.patient?.ward
-												})]
-											})]
-										}), label.patient && label.patient.allergies.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-											className: "bg-black text-white px-[1.5mm] py-[1mm] rounded-[0.5mm] flex flex-col items-center justify-center border-[1px] border-black max-w-[20mm] shrink-0",
-											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-												className: "text-[1.5mm] uppercase font-black leading-none tracking-widest mb-[0.4mm]",
-												children: "Alergia"
-											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-												className: "font-black text-[2mm] uppercase leading-[1] text-center line-clamp-2",
-												children: label.patient.allergies.join(", ")
-											})]
-										})]
-									})
-								]
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex-[0.45] flex flex-col min-h-0",
-								children: [
-									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "flex items-center gap-[1.2mm] mb-[1mm] shrink-0 text-gray-800",
-										children: [isMilk ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Milk, {
-											className: "h-[2.5mm] w-[2.5mm]",
-											strokeWidth: 2.5
-										}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Utensils, {
-											className: "h-[2.5mm] w-[2.5mm]",
-											strokeWidth: 2.5
-										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-											className: "font-black uppercase text-[2.2mm] leading-none mt-[0.5mm] tracking-wide",
-											children: isMilk ? "Lactário" : "Refeição"
-										})]
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-										className: "text-[2.8mm] font-black leading-[1.15] line-clamp-2 text-ellipsis overflow-hidden mb-[0.5mm] shrink-0",
-										children: isMilk ? `${label.volume}ml - ${label.milkType}` : label.description
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "text-[2mm] font-bold leading-tight text-gray-700 mb-[1.5mm] line-clamp-2",
-										children: ["Horários: ", label.times.join(", ")]
-									}),
-									label.observations || label.restrictions || label.additives ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "flex-1 mt-auto flex flex-col gap-[1mm] overflow-hidden justify-end min-h-0 pt-[1mm]",
-										children: [label.restrictions && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-											className: "flex flex-col border-[1.5px] border-black rounded-[0.8mm] overflow-hidden shrink-0",
-											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-												className: "bg-black text-white px-[1.2mm] py-[0.6mm] text-[1.6mm] font-black uppercase tracking-widest flex justify-between items-center leading-none",
-												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Restrições" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TriangleAlert, { className: "h-[1.5mm] w-[1.5mm]" })]
-											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-												className: "bg-white px-[1.2mm] py-[0.6mm] flex items-center text-left",
-												children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-													className: `text-[1.8mm] font-black leading-[1.1] text-black ${textClampClass}`,
-													children: label.restrictions
-												})
-											})]
-										}), (label.observations || label.additives) && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-											className: "flex flex-col border-[1.5px] border-black rounded-[0.8mm] overflow-hidden shrink-0",
-											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-												className: "bg-gray-200 border-b-[1.5px] border-black text-black px-[1.2mm] py-[0.6mm] text-[1.6mm] font-black uppercase tracking-widest flex justify-between items-center leading-none",
-												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Observações" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Info, { className: "h-[1.5mm] w-[1.5mm]" })]
-											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-												className: "bg-white px-[1.2mm] py-[0.6mm] flex items-center text-left",
-												children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-													className: `text-[1.8mm] font-bold leading-[1.1] text-black ${textClampClass}`,
-													children: label.observations || label.additives
-												})
-											})]
-										})]
-									}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-										className: "flex-1 mt-auto flex items-center justify-center border-[1.5px] border-dashed border-gray-400 rounded-[1mm] opacity-70 min-h-[10mm] bg-gray-50/50",
-										children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-											className: "text-[2mm] font-bold uppercase text-gray-500 tracking-wider",
-											children: "Sem Restrições / Obs"
-										})
-									})
-								]
-							})]
-						})]
-					}, index$1);
-				})]
+				className: "hidden",
+				children: labelsToPrint.map((label, index$1) => renderLabel(label, index$1))
 			})
 		]
 	});
@@ -34514,4 +34527,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-B6jzcSOF.js.map
+//# sourceMappingURL=index-DYsJjC4W.js.map

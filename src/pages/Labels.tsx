@@ -127,6 +127,179 @@ const Labels = () => {
   const userInitialsOrName = currentUser?.name.split(' ')[0] || '___'
   const { width, height, unit } = labelSettings
 
+  const renderLabel = (label: any, index: number) => {
+    const isMilk = label.type === 'milk'
+    const expDate = new Date(
+      today.getTime() + label.expiryHours * 60 * 60 * 1000,
+    )
+    const expDateStr = expDate.toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+    })
+    const expTimeStr = expDate.toLocaleTimeString('pt-BR', {
+      hour: '2-digit',
+      minute: '2-digit',
+    })
+
+    const birthDateStr = label.patient?.birthDate
+      ? label.patient.birthDate.split('-').reverse().join('/')
+      : null
+
+    const hasBothExtras = !!(
+      label.restrictions &&
+      (label.observations || label.additives)
+    )
+    const textClampClass = hasBothExtras ? 'line-clamp-2' : 'line-clamp-3'
+
+    return (
+      <div
+        key={index}
+        className="thermal-label relative box-border bg-white text-black overflow-hidden flex flex-col shadow-sm border border-gray-300"
+        style={{
+          width: `${width}${unit}`,
+          height: `${height}${unit}`,
+          padding: '2mm',
+        }}
+      >
+        {/* Header - Height approx 6mm */}
+        <div className="flex justify-between items-center border-b-[1.5px] border-black pb-[1mm] mb-[1mm] shrink-0">
+          <div className="flex items-center gap-[1.5mm]">
+            <span className="text-[2.5mm] font-black uppercase leading-none tracking-tight">
+              HCFMB
+            </span>
+            <span className="text-[2mm] font-bold leading-none border-l-[1.5px] border-black pl-[1.5mm]">
+              Lactário
+            </span>
+          </div>
+          <div className="text-[1.8mm] font-bold leading-none flex items-center gap-[1.5mm]">
+            <span>
+              Prep: {prepDate} {prepTime} ({userInitialsOrName})
+            </span>
+            <span className="bg-black text-white px-[1.2mm] py-[0.8mm] rounded-[0.5mm] font-black flex items-center gap-[0.8mm]">
+              Val: {label.expiryHours}h
+              <span className="font-semibold text-[1.5mm] opacity-90">
+                ({expDateStr} {expTimeStr})
+              </span>
+            </span>
+          </div>
+        </div>
+
+        {/* Main Body - Landscape optimized split */}
+        <div className="flex flex-1 min-h-0 gap-[2.5mm]">
+          {/* Left Column - Patient (approx 55%) */}
+          <div className="flex-[0.55] flex flex-col min-h-0 border-r-[1.5px] border-black pr-[2.5mm]">
+            <div className="flex justify-between items-end mb-[0.8mm] shrink-0">
+              <span className="text-[1.8mm] font-black uppercase text-gray-500 leading-none tracking-wider">
+                Paciente
+              </span>
+              <span className="text-[1.8mm] font-bold leading-none text-gray-700">
+                ID: {label.patient?.recordId || '--'}
+                {birthDateStr && ` | DN: ${birthDateStr}`}
+              </span>
+            </div>
+
+            <div className="text-[3.5mm] font-black uppercase leading-[1.1] line-clamp-2 text-ellipsis overflow-hidden mb-[1mm]">
+              {label.patient?.name}
+            </div>
+
+            <div className="flex justify-between items-end mt-auto shrink-0 pt-[1mm]">
+              <div className="flex flex-col min-w-0 pr-[1mm]">
+                <span className="text-[1.8mm] font-black uppercase text-gray-500 leading-none mb-[0.8mm] tracking-wider block">
+                  Leito / Ala
+                </span>
+                <div className="font-black leading-none flex items-baseline gap-[1mm] truncate">
+                  <span className="text-[3.8mm] shrink-0">
+                    {label.patient?.bed}
+                  </span>
+                  <span className="text-[2.2mm] truncate">
+                    {label.patient?.ward}
+                  </span>
+                </div>
+              </div>
+
+              {label.patient && label.patient.allergies.length > 0 && (
+                <div className="bg-black text-white px-[1.5mm] py-[1mm] rounded-[0.5mm] flex flex-col items-center justify-center border-[1px] border-black max-w-[20mm] shrink-0">
+                  <span className="text-[1.5mm] uppercase font-black leading-none tracking-widest mb-[0.4mm]">
+                    Alergia
+                  </span>
+                  <span className="font-black text-[2mm] uppercase leading-[1] text-center line-clamp-2">
+                    {label.patient.allergies.join(', ')}
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Right Column - Diet & Obs (approx 45%) */}
+          <div className="flex-[0.45] flex flex-col min-h-0">
+            <div className="flex items-center gap-[1.2mm] mb-[1mm] shrink-0 text-gray-800">
+              {isMilk ? (
+                <Milk className="h-[2.5mm] w-[2.5mm]" strokeWidth={2.5} />
+              ) : (
+                <Utensils className="h-[2.5mm] w-[2.5mm]" strokeWidth={2.5} />
+              )}
+              <span className="font-black uppercase text-[2.2mm] leading-none mt-[0.5mm] tracking-wide">
+                {isMilk ? 'Lactário' : 'Refeição'}
+              </span>
+            </div>
+
+            <div className="text-[2.8mm] font-black leading-[1.15] line-clamp-2 text-ellipsis overflow-hidden mb-[0.5mm] shrink-0">
+              {isMilk
+                ? `${label.volume}ml - ${label.milkType}`
+                : label.description}
+            </div>
+
+            <div className="text-[2mm] font-bold leading-tight text-gray-700 mb-[1.5mm] line-clamp-2">
+              Horários: {label.times.join(', ')}
+            </div>
+
+            {/* Observations & Restrictions Box */}
+            {label.observations || label.restrictions || label.additives ? (
+              <div className="flex-1 mt-auto flex flex-col gap-[1mm] overflow-hidden justify-end min-h-0 pt-[1mm]">
+                {label.restrictions && (
+                  <div className="flex flex-col border-[1.5px] border-black rounded-[0.8mm] overflow-hidden shrink-0">
+                    <div className="bg-black text-white px-[1.2mm] py-[0.6mm] text-[1.6mm] font-black uppercase tracking-widest flex justify-between items-center leading-none">
+                      <span>Restrições</span>
+                      <AlertTriangle className="h-[1.5mm] w-[1.5mm]" />
+                    </div>
+                    <div className="bg-white px-[1.2mm] py-[0.6mm] flex items-center text-left">
+                      <span
+                        className={`text-[1.8mm] font-black leading-[1.1] text-black ${textClampClass}`}
+                      >
+                        {label.restrictions}
+                      </span>
+                    </div>
+                  </div>
+                )}
+                {(label.observations || label.additives) && (
+                  <div className="flex flex-col border-[1.5px] border-black rounded-[0.8mm] overflow-hidden shrink-0">
+                    <div className="bg-gray-200 border-b-[1.5px] border-black text-black px-[1.2mm] py-[0.6mm] text-[1.6mm] font-black uppercase tracking-widest flex justify-between items-center leading-none">
+                      <span>Observações</span>
+                      <Info className="h-[1.5mm] w-[1.5mm]" />
+                    </div>
+                    <div className="bg-white px-[1.2mm] py-[0.6mm] flex items-center text-left">
+                      <span
+                        className={`text-[1.8mm] font-bold leading-[1.1] text-black ${textClampClass}`}
+                      >
+                        {label.observations || label.additives}
+                      </span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="flex-1 mt-auto flex items-center justify-center border-[1.5px] border-dashed border-gray-400 rounded-[1mm] opacity-70 min-h-[10mm] bg-gray-50/50">
+                <span className="text-[2mm] font-bold uppercase text-gray-500 tracking-wider">
+                  Sem Restrições / Obs
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="space-y-6 animate-fade-in">
       <style type="text/css" media="print">
@@ -342,199 +515,34 @@ const Labels = () => {
         </div>
 
         <div className="mb-4 mt-8">
-          <h3 className="text-lg font-semibold border-b pb-2">
-            Pré-visualização das Etiquetas ({labelsToPrint.length})
-          </h3>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b pb-2 gap-2">
+            <h3 className="text-lg font-semibold">
+              Pré-visualização de Amostra
+            </h3>
+            {labelsToPrint.length > 0 && (
+              <span className="text-sm font-medium bg-primary/10 text-primary px-3 py-1 rounded-full">
+                Exibindo 1 amostra de {labelsToPrint.length} etiquetas no total
+              </span>
+            )}
+          </div>
+
+          <div className="mt-4 bg-slate-50 border border-dashed rounded-lg p-8 flex justify-center items-center min-h-[200px] overflow-x-auto">
+            {labelsToPrint.length > 0 ? (
+              <div className="shadow-md ring-1 ring-black/5 shrink-0 rounded">
+                {renderLabel(labelsToPrint[0], 0)}
+              </div>
+            ) : (
+              <div className="text-center text-muted-foreground flex flex-col items-center">
+                <Info className="h-8 w-8 mb-2 opacity-20" />
+                Nenhuma etiqueta selecionada para impressão.
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
-      <div
-        id="print-area"
-        className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 justify-items-center sm:justify-items-start print:grid-cols-1 print:gap-0"
-      >
-        {labelsToPrint.length === 0 && (
-          <div className="col-span-full w-full py-12 text-center text-muted-foreground print:hidden bg-slate-50 rounded-lg border border-dashed">
-            Nenhuma etiqueta selecionada para impressão.
-          </div>
-        )}
-
-        {labelsToPrint.map((label, index) => {
-          const isMilk = label.type === 'milk'
-          const expDate = new Date(
-            today.getTime() + label.expiryHours * 60 * 60 * 1000,
-          )
-          const expDateStr = expDate.toLocaleDateString('pt-BR', {
-            day: '2-digit',
-            month: '2-digit',
-          })
-          const expTimeStr = expDate.toLocaleTimeString('pt-BR', {
-            hour: '2-digit',
-            minute: '2-digit',
-          })
-
-          const birthDateStr = label.patient?.birthDate
-            ? label.patient.birthDate.split('-').reverse().join('/')
-            : null
-
-          const hasBothExtras = !!(
-            label.restrictions &&
-            (label.observations || label.additives)
-          )
-          const textClampClass = hasBothExtras ? 'line-clamp-2' : 'line-clamp-3'
-
-          return (
-            <div
-              key={index}
-              className="thermal-label relative box-border bg-white text-black overflow-hidden flex flex-col shadow-sm border border-gray-300"
-              style={{
-                width: `${width}${unit}`,
-                height: `${height}${unit}`,
-                padding: '2mm',
-              }}
-            >
-              {/* Header - Height approx 6mm */}
-              <div className="flex justify-between items-center border-b-[1.5px] border-black pb-[1mm] mb-[1mm] shrink-0">
-                <div className="flex items-center gap-[1.5mm]">
-                  <span className="text-[2.5mm] font-black uppercase leading-none tracking-tight">
-                    HCFMB
-                  </span>
-                  <span className="text-[2mm] font-bold leading-none border-l-[1.5px] border-black pl-[1.5mm]">
-                    Lactário
-                  </span>
-                </div>
-                <div className="text-[1.8mm] font-bold leading-none flex items-center gap-[1.5mm]">
-                  <span>
-                    Prep: {prepDate} {prepTime} ({userInitialsOrName})
-                  </span>
-                  <span className="bg-black text-white px-[1.2mm] py-[0.8mm] rounded-[0.5mm] font-black flex items-center gap-[0.8mm]">
-                    Val: {label.expiryHours}h
-                    <span className="font-semibold text-[1.5mm] opacity-90">
-                      ({expDateStr} {expTimeStr})
-                    </span>
-                  </span>
-                </div>
-              </div>
-
-              {/* Main Body - Landscape optimized split */}
-              <div className="flex flex-1 min-h-0 gap-[2.5mm]">
-                {/* Left Column - Patient (approx 55%) */}
-                <div className="flex-[0.55] flex flex-col min-h-0 border-r-[1.5px] border-black pr-[2.5mm]">
-                  <div className="flex justify-between items-end mb-[0.8mm] shrink-0">
-                    <span className="text-[1.8mm] font-black uppercase text-gray-500 leading-none tracking-wider">
-                      Paciente
-                    </span>
-                    <span className="text-[1.8mm] font-bold leading-none text-gray-700">
-                      ID: {label.patient?.recordId || '--'}
-                      {birthDateStr && ` | DN: ${birthDateStr}`}
-                    </span>
-                  </div>
-
-                  <div className="text-[3.5mm] font-black uppercase leading-[1.1] line-clamp-2 text-ellipsis overflow-hidden mb-[1mm]">
-                    {label.patient?.name}
-                  </div>
-
-                  <div className="flex justify-between items-end mt-auto shrink-0 pt-[1mm]">
-                    <div className="flex flex-col min-w-0 pr-[1mm]">
-                      <span className="text-[1.8mm] font-black uppercase text-gray-500 leading-none mb-[0.8mm] tracking-wider block">
-                        Leito / Ala
-                      </span>
-                      <div className="font-black leading-none flex items-baseline gap-[1mm] truncate">
-                        <span className="text-[3.8mm] shrink-0">
-                          {label.patient?.bed}
-                        </span>
-                        <span className="text-[2.2mm] truncate">
-                          {label.patient?.ward}
-                        </span>
-                      </div>
-                    </div>
-
-                    {label.patient && label.patient.allergies.length > 0 && (
-                      <div className="bg-black text-white px-[1.5mm] py-[1mm] rounded-[0.5mm] flex flex-col items-center justify-center border-[1px] border-black max-w-[20mm] shrink-0">
-                        <span className="text-[1.5mm] uppercase font-black leading-none tracking-widest mb-[0.4mm]">
-                          Alergia
-                        </span>
-                        <span className="font-black text-[2mm] uppercase leading-[1] text-center line-clamp-2">
-                          {label.patient.allergies.join(', ')}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Right Column - Diet & Obs (approx 45%) */}
-                <div className="flex-[0.45] flex flex-col min-h-0">
-                  <div className="flex items-center gap-[1.2mm] mb-[1mm] shrink-0 text-gray-800">
-                    {isMilk ? (
-                      <Milk className="h-[2.5mm] w-[2.5mm]" strokeWidth={2.5} />
-                    ) : (
-                      <Utensils
-                        className="h-[2.5mm] w-[2.5mm]"
-                        strokeWidth={2.5}
-                      />
-                    )}
-                    <span className="font-black uppercase text-[2.2mm] leading-none mt-[0.5mm] tracking-wide">
-                      {isMilk ? 'Lactário' : 'Refeição'}
-                    </span>
-                  </div>
-
-                  <div className="text-[2.8mm] font-black leading-[1.15] line-clamp-2 text-ellipsis overflow-hidden mb-[0.5mm] shrink-0">
-                    {isMilk
-                      ? `${label.volume}ml - ${label.milkType}`
-                      : label.description}
-                  </div>
-
-                  <div className="text-[2mm] font-bold leading-tight text-gray-700 mb-[1.5mm] line-clamp-2">
-                    Horários: {label.times.join(', ')}
-                  </div>
-
-                  {/* Observations & Restrictions Box */}
-                  {label.observations ||
-                  label.restrictions ||
-                  label.additives ? (
-                    <div className="flex-1 mt-auto flex flex-col gap-[1mm] overflow-hidden justify-end min-h-0 pt-[1mm]">
-                      {label.restrictions && (
-                        <div className="flex flex-col border-[1.5px] border-black rounded-[0.8mm] overflow-hidden shrink-0">
-                          <div className="bg-black text-white px-[1.2mm] py-[0.6mm] text-[1.6mm] font-black uppercase tracking-widest flex justify-between items-center leading-none">
-                            <span>Restrições</span>
-                            <AlertTriangle className="h-[1.5mm] w-[1.5mm]" />
-                          </div>
-                          <div className="bg-white px-[1.2mm] py-[0.6mm] flex items-center text-left">
-                            <span
-                              className={`text-[1.8mm] font-black leading-[1.1] text-black ${textClampClass}`}
-                            >
-                              {label.restrictions}
-                            </span>
-                          </div>
-                        </div>
-                      )}
-                      {(label.observations || label.additives) && (
-                        <div className="flex flex-col border-[1.5px] border-black rounded-[0.8mm] overflow-hidden shrink-0">
-                          <div className="bg-gray-200 border-b-[1.5px] border-black text-black px-[1.2mm] py-[0.6mm] text-[1.6mm] font-black uppercase tracking-widest flex justify-between items-center leading-none">
-                            <span>Observações</span>
-                            <Info className="h-[1.5mm] w-[1.5mm]" />
-                          </div>
-                          <div className="bg-white px-[1.2mm] py-[0.6mm] flex items-center text-left">
-                            <span
-                              className={`text-[1.8mm] font-bold leading-[1.1] text-black ${textClampClass}`}
-                            >
-                              {label.observations || label.additives}
-                            </span>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    <div className="flex-1 mt-auto flex items-center justify-center border-[1.5px] border-dashed border-gray-400 rounded-[1mm] opacity-70 min-h-[10mm] bg-gray-50/50">
-                      <span className="text-[2mm] font-bold uppercase text-gray-500 tracking-wider">
-                        Sem Restrições / Obs
-                      </span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          )
-        })}
+      <div id="print-area" className="hidden">
+        {labelsToPrint.map((label, index) => renderLabel(label, index))}
       </div>
     </div>
   )
