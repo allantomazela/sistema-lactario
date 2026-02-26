@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useLactary } from '@/contexts/LactaryContext'
 import { useAuth } from '@/contexts/AuthContext'
 import { useSettings } from '@/contexts/SettingsContext'
@@ -11,15 +11,32 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Input } from '@/components/ui/input'
+import { Checkbox } from '@/components/ui/checkbox'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
+import { Calendar } from '@/components/ui/calendar'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
 import {
   Printer,
-  Filter,
+  Calendar as CalendarIcon,
   AlertTriangle,
   Milk,
   Utensils,
   Info,
 } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
+import { cn, getLocalYYYYMMDD } from '@/lib/utils'
 
 const Labels = () => {
   const { patients, prescriptions } = useLactary()
@@ -27,17 +44,20 @@ const Labels = () => {
   const { labelSettings } = useSettings()
   const { toast } = useToast()
 
-  const [selectedTime, setSelectedTime] = useState<string>('11:00')
+  const [date, setDate] = useState<Date | undefined>(new Date())
   const [selectedWard, setSelectedWard] = useState<string>('all')
 
-  const labelsToPrint = prescriptions
-    .filter((p) => p.status === 'active' && p.times.includes(selectedTime))
+  const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
+  const [quantities, setQuantities] = useState<Record<string, number>>({})
+  const [batchQty, setBatchQty] = useState<string>('1')
+
+  const dateStr = date ? getLocalYYYYMMDD(date) : ''
+
+  const dailyPrescriptions = prescriptions
+    .filter((p) => p.status === 'active' && p.date === dateStr)
     .map((p) => {
       const patient = patients.find((pat) => pat.id === p.patientId)
-      return {
-        ...p,
-        patient,
-      }
+      return { ...p, patient }
     })
     .filter(
       (l) =>
@@ -45,10 +65,50 @@ const Labels = () => {
         (selectedWard === 'all' || l.patient.ward === selectedWard),
     )
 
+  useEffect(() => {
+    setSelectedRows(new Set())
+  }, [dateStr, selectedWard])
+
+  const handleSelectAll = (checked: boolean) => {
+    if (checked) {
+      setSelectedRows(new Set(dailyPrescriptions.map((p) => p.id)))
+    } else {
+      setSelectedRows(new Set())
+    }
+  }
+
+  const handleSelectRow = (id: string, checked: boolean) => {
+    const newSet = new Set(selectedRows)
+    if (checked) newSet.add(id)
+    else newSet.delete(id)
+    setSelectedRows(newSet)
+  }
+
+  const handleApplyBatch = () => {
+    const qty = parseInt(batchQty, 10)
+    if (isNaN(qty) || qty < 1) return
+    const newQuantities = { ...quantities }
+    selectedRows.forEach((id) => {
+      newQuantities[id] = qty
+    })
+    setQuantities(newQuantities)
+    toast({
+      title: 'Lote Aplicado',
+      description: `Quantidade ${qty} aplicada a ${selectedRows.size} prescrição(ões).`,
+    })
+  }
+
+  const labelsToPrint = Array.from(selectedRows).flatMap((id) => {
+    const p = dailyPrescriptions.find((p) => p.id === id)
+    if (!p) return []
+    const qty = quantities[p.id] ?? 1
+    return Array.from({ length: qty }).map(() => p)
+  })
+
   const handlePrint = () => {
     toast({
       title: 'Enviado para Impressão',
-      description: `${labelsToPrint.length} etiquetas enviadas para a impressora térmica.`,
+      description: `${labelsToPrint.length} etiquetas enviadas para a impressora.`,
     })
     window.print()
   }
@@ -106,76 +166,195 @@ const Labels = () => {
         `}
       </style>
 
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 no-print">
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight">
-            Central de Impressão
-          </h2>
-          <p className="text-muted-foreground mt-1">
-            Gere e imprima etiquetas térmicas para frascos e refeições.
-          </p>
+      <div className="print:hidden space-y-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight">
+              Central de Impressão
+            </h2>
+            <p className="text-muted-foreground mt-1">
+              Gere e imprima etiquetas térmicas para frascos e refeições.
+            </p>
+          </div>
+          <Button
+            onClick={handlePrint}
+            className="gap-2"
+            size="lg"
+            disabled={labelsToPrint.length === 0}
+          >
+            <Printer className="h-5 w-5" />
+            Imprimir {labelsToPrint.length} Etiquetas
+          </Button>
         </div>
-        <Button
-          onClick={handlePrint}
-          className="gap-2"
-          size="lg"
-          disabled={labelsToPrint.length === 0}
-        >
-          <Printer className="h-5 w-5" />
-          Imprimir Lote ({labelsToPrint.length})
-        </Button>
-      </div>
 
-      <Card className="no-print border-dashed bg-slate-50">
-        <CardContent className="p-4 flex flex-wrap gap-4 items-end">
-          <div className="space-y-1.5 flex-1 min-w-[200px]">
-            <label className="text-sm font-medium flex items-center gap-2">
-              <Filter className="h-4 w-4" /> Horário de Preparo
-            </label>
-            <Select value={selectedTime} onValueChange={setSelectedTime}>
-              <SelectTrigger className="bg-white">
-                <SelectValue placeholder="Selecione o horário" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="08:00">08:00</SelectItem>
-                <SelectItem value="11:00">11:00</SelectItem>
-                <SelectItem value="14:00">14:00</SelectItem>
-                <SelectItem value="17:00">17:00</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-1.5 flex-1 min-w-[200px]">
-            <label className="text-sm font-medium">Ala / Setor</label>
-            <Select value={selectedWard} onValueChange={setSelectedWard}>
-              <SelectTrigger className="bg-white">
-                <SelectValue placeholder="Todas as alas" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Todas as Alas</SelectItem>
-                <SelectItem value="Pediatria">Pediatria</SelectItem>
-                <SelectItem value="UTI Neonatal">UTI Neonatal</SelectItem>
-                <SelectItem value="Berçário">Berçário</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </CardContent>
-      </Card>
+        <Card className="border-dashed bg-slate-50">
+          <CardContent className="p-4 flex flex-col md:flex-row gap-4 items-end">
+            <div className="space-y-1.5 flex-1 min-w-[200px] max-w-xs">
+              <label className="text-sm font-medium flex items-center gap-2">
+                <CalendarIcon className="h-4 w-4" /> Data de Produção
+              </label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className={cn(
+                      'w-full justify-start text-left font-normal bg-white',
+                      !date && 'text-muted-foreground',
+                    )}
+                  >
+                    {date ? (
+                      date.toLocaleDateString('pt-BR')
+                    ) : (
+                      <span>Selecione uma data</span>
+                    )}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={date}
+                    onSelect={setDate}
+                    initialFocus
+                  />
+                </PopoverContent>
+              </Popover>
+            </div>
 
-      <div className="no-print mb-4">
-        <h3 className="text-lg font-semibold border-b pb-2">
-          Pré-visualização das Etiquetas (Padrão: {width}
-          {unit} x {height}
-          {unit})
-        </h3>
+            <div className="space-y-1.5 flex-1 min-w-[200px] max-w-xs">
+              <label className="text-sm font-medium">Ala / Setor</label>
+              <Select value={selectedWard} onValueChange={setSelectedWard}>
+                <SelectTrigger className="bg-white">
+                  <SelectValue placeholder="Todas as alas" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Todas as Alas</SelectItem>
+                  <SelectItem value="Pediatria">Pediatria</SelectItem>
+                  <SelectItem value="UTI Neonatal">UTI Neonatal</SelectItem>
+                  <SelectItem value="Berçário">Berçário</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="flex-1" />
+
+            <div className="flex items-end gap-2 p-3 bg-white rounded-md border shadow-sm">
+              <div className="space-y-1.5 w-24">
+                <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                  Lote (Qtd)
+                </label>
+                <Input
+                  type="number"
+                  min="1"
+                  value={batchQty}
+                  onChange={(e) => setBatchQty(e.target.value)}
+                  className="h-9"
+                />
+              </div>
+              <Button
+                variant="secondary"
+                onClick={handleApplyBatch}
+                className="h-9"
+                disabled={selectedRows.size === 0}
+              >
+                Aplicar Lote
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        <div className="border rounded-md bg-white shadow-sm overflow-hidden">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-slate-50">
+                <TableHead className="w-[50px] text-center">
+                  <Checkbox
+                    checked={
+                      selectedRows.size > 0 &&
+                      selectedRows.size === dailyPrescriptions.length
+                    }
+                    onCheckedChange={handleSelectAll}
+                  />
+                </TableHead>
+                <TableHead>Paciente</TableHead>
+                <TableHead>Ala/Leito</TableHead>
+                <TableHead>Dieta</TableHead>
+                <TableHead>Horários</TableHead>
+                <TableHead className="w-[100px] text-center">
+                  Quantidade
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {dailyPrescriptions.map((p) => (
+                <TableRow
+                  key={p.id}
+                  className={selectedRows.has(p.id) ? 'bg-primary/5' : ''}
+                >
+                  <TableCell className="text-center">
+                    <Checkbox
+                      checked={selectedRows.has(p.id)}
+                      onCheckedChange={(c) => handleSelectRow(p.id, !!c)}
+                    />
+                  </TableCell>
+                  <TableCell className="font-semibold">
+                    {p.patient?.name}
+                  </TableCell>
+                  <TableCell className="text-muted-foreground text-sm">
+                    {p.patient?.ward} - {p.patient?.bed}
+                  </TableCell>
+                  <TableCell>
+                    {p.type === 'milk' ? p.milkType : p.description}
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-xs bg-slate-100 px-2 py-1 rounded-md">
+                      {p.times.join(', ')}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <Input
+                      type="number"
+                      min="1"
+                      value={quantities[p.id] ?? 1}
+                      onChange={(e) => {
+                        const val = parseInt(e.target.value) || 1
+                        setQuantities((prev) => ({ ...prev, [p.id]: val }))
+                        if (!selectedRows.has(p.id)) {
+                          handleSelectRow(p.id, true)
+                        }
+                      }}
+                      className="w-16 h-8 mx-auto text-center"
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+              {dailyPrescriptions.length === 0 && (
+                <TableRow>
+                  <TableCell
+                    colSpan={6}
+                    className="text-center py-12 text-muted-foreground"
+                  >
+                    Nenhuma prescrição encontrada para os filtros selecionados.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+
+        <div className="mb-4 mt-8">
+          <h3 className="text-lg font-semibold border-b pb-2">
+            Pré-visualização das Etiquetas ({labelsToPrint.length})
+          </h3>
+        </div>
       </div>
 
       <div
         id="print-area"
-        className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 justify-items-center sm:justify-items-start"
+        className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 justify-items-center sm:justify-items-start print:grid-cols-1 print:gap-0"
       >
         {labelsToPrint.length === 0 && (
-          <div className="col-span-full w-full py-12 text-center text-muted-foreground no-print bg-slate-50 rounded-lg border border-dashed">
-            Nenhuma etiqueta pendente para os filtros selecionados.
+          <div className="col-span-full w-full py-12 text-center text-muted-foreground print:hidden bg-slate-50 rounded-lg border border-dashed">
+            Nenhuma etiqueta selecionada para impressão.
           </div>
         )}
 
@@ -294,14 +473,18 @@ const Labels = () => {
                       />
                     )}
                     <span className="font-black uppercase text-[2.2mm] leading-none mt-[0.5mm] tracking-wide">
-                      {isMilk ? 'Lactário' : 'Refeição'} - {selectedTime}
+                      {isMilk ? 'Lactário' : 'Refeição'}
                     </span>
                   </div>
 
-                  <div className="text-[2.8mm] font-black leading-[1.15] line-clamp-2 text-ellipsis overflow-hidden mb-[1.5mm] shrink-0">
+                  <div className="text-[2.8mm] font-black leading-[1.15] line-clamp-2 text-ellipsis overflow-hidden mb-[0.5mm] shrink-0">
                     {isMilk
                       ? `${label.volume}ml - ${label.milkType}`
                       : label.description}
+                  </div>
+
+                  <div className="text-[2mm] font-bold leading-tight text-gray-700 mb-[1.5mm] line-clamp-2">
+                    Horários: {label.times.join(', ')}
                   </div>
 
                   {/* Observations & Restrictions Box */}

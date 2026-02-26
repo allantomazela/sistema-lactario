@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react'
+import { getLocalYYYYMMDD } from '@/lib/utils'
 
 export type Patient = {
   id: string
@@ -27,6 +28,7 @@ export type Prescription = {
   times: string[]
   expiryHours: number
   status: 'active' | 'inactive'
+  date: string
 }
 
 interface LactaryContextType {
@@ -74,6 +76,8 @@ const mockPatients: Patient[] = [
   },
 ]
 
+const todayStr = getLocalYYYYMMDD(new Date())
+
 const mockPrescriptions: Prescription[] = [
   {
     id: 'pr1',
@@ -87,6 +91,7 @@ const mockPrescriptions: Prescription[] = [
     times: ['08:00', '11:00', '14:00', '17:00'],
     expiryHours: 24,
     status: 'active',
+    date: todayStr,
   },
   {
     id: 'pr2',
@@ -97,6 +102,7 @@ const mockPrescriptions: Prescription[] = [
     times: ['09:00', '12:00', '15:00'],
     expiryHours: 12,
     status: 'active',
+    date: todayStr,
   },
   {
     id: 'pr3',
@@ -106,6 +112,7 @@ const mockPrescriptions: Prescription[] = [
     times: ['11:30', '17:30'],
     expiryHours: 6,
     status: 'active',
+    date: todayStr,
   },
 ]
 

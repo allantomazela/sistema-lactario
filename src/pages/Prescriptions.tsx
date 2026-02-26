@@ -19,7 +19,6 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Badge } from '@/components/ui/badge'
 import {
   Dialog,
   DialogContent,
@@ -27,8 +26,27 @@ import {
   DialogTitle,
   DialogFooter,
 } from '@/components/ui/dialog'
+import { Checkbox } from '@/components/ui/checkbox'
 import { useToast } from '@/hooks/use-toast'
 import { Check, Info, Plus } from 'lucide-react'
+import { getLocalYYYYMMDD } from '@/lib/utils'
+
+const PREDEFINED_TIMES = [
+  '06:00',
+  '08:00',
+  '09:00',
+  '11:00',
+  '12:00',
+  '14:00',
+  '15:00',
+  '17:00',
+  '18:00',
+  '20:00',
+  '21:00',
+  '23:00',
+  '00:00',
+  '03:00',
+]
 
 const Prescriptions = () => {
   const { patients, addPrescription, addPatient } = useLactary()
@@ -41,7 +59,15 @@ const Prescriptions = () => {
   const [description, setDescription] = useState('')
   const [observations, setObservations] = useState('')
   const [restrictions, setRestrictions] = useState('')
-  const [times, setTimes] = useState('08:00, 11:00, 14:00, 17:00, 20:00, 23:00')
+
+  const [selectedTimes, setSelectedTimes] = useState<string[]>([
+    '08:00',
+    '11:00',
+    '14:00',
+    '17:00',
+    '20:00',
+    '23:00',
+  ])
 
   const [isAddPatientOpen, setIsAddPatientOpen] = useState(false)
   const [patientFormData, setPatientFormData] = useState({
@@ -54,11 +80,28 @@ const Prescriptions = () => {
 
   const patient = patients.find((p) => p.id === selectedPatient)
 
+  const handleToggleTime = (time: string) => {
+    setSelectedTimes((prev) =>
+      prev.includes(time)
+        ? prev.filter((t) => t !== time)
+        : [...prev, time].sort(),
+    )
+  }
+
   const handleSavePrescription = () => {
     if (!selectedPatient) {
       toast({
         title: 'Erro',
         description: 'Selecione um paciente.',
+        variant: 'destructive',
+      })
+      return
+    }
+
+    if (selectedTimes.length === 0) {
+      toast({
+        title: 'Erro',
+        description: 'Selecione ao menos um horário de entrega.',
         variant: 'destructive',
       })
       return
@@ -72,9 +115,10 @@ const Prescriptions = () => {
       description: type === 'meal' ? description : undefined,
       observations: observations.trim() || undefined,
       restrictions: restrictions.trim() || undefined,
-      times: times.split(',').map((t) => t.trim()),
+      times: selectedTimes,
       expiryHours: type === 'milk' ? 24 : 6,
       status: 'active',
+      date: getLocalYYYYMMDD(new Date()),
     })
 
     toast({
@@ -86,6 +130,7 @@ const Prescriptions = () => {
     setSelectedPatient('')
     setObservations('')
     setRestrictions('')
+    setSelectedTimes(['08:00', '11:00', '14:00', '17:00', '20:00', '23:00'])
   }
 
   const handleSavePatient = () => {
@@ -307,33 +352,28 @@ const Prescriptions = () => {
               </div>
             </div>
 
-            <div className="mt-8 space-y-2 pt-6 border-t">
-              <Label>Horários de Administração</Label>
-              <Input
-                value={times}
-                onChange={(e) => setTimes(e.target.value)}
-                className="bg-white"
-                placeholder="Ex: 08:00, 11:00, 14:00"
-              />
-              <p className="text-xs text-muted-foreground">
-                Separe os horários por vírgula. Uma etiqueta será gerada para
-                cada horário na impressão em lote.
-              </p>
-
-              <div className="flex flex-wrap gap-2 mt-3">
-                {times
-                  .split(',')
-                  .filter((t) => t.trim())
-                  .map((t, i) => (
-                    <Badge
-                      key={i}
-                      variant="secondary"
-                      className="px-3 py-1 text-sm"
+            <div className="mt-8 space-y-4 pt-6 border-t">
+              <Label>Horários de Entrega</Label>
+              <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-4">
+                {PREDEFINED_TIMES.map((time) => (
+                  <div key={time} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`time-${time}`}
+                      checked={selectedTimes.includes(time)}
+                      onCheckedChange={() => handleToggleTime(time)}
+                    />
+                    <label
+                      htmlFor={`time-${time}`}
+                      className="text-sm font-medium leading-none cursor-pointer"
                     >
-                      {t.trim()}
-                    </Badge>
-                  ))}
+                      {time}
+                    </label>
+                  </div>
+                ))}
               </div>
+              <p className="text-xs text-muted-foreground mt-2">
+                Selecione os horários em que esta dieta será entregue.
+              </p>
             </div>
           </Tabs>
         </CardContent>
