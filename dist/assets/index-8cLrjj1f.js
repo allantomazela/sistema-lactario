@@ -1100,7 +1100,7 @@ var require_react_dom_development = /* @__PURE__ */ __commonJSMin(((exports) => 
 			return dispatcher;
 		}
 		"undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-		var React$4 = require_react(), Internals = {
+		var React$5 = require_react(), Internals = {
 			d: {
 				f: noop,
 				r: function() {
@@ -1116,7 +1116,7 @@ var require_react_dom_development = /* @__PURE__ */ __commonJSMin(((exports) => 
 			},
 			p: 0,
 			findDOMNode: null
-		}, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React$4.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+		}, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React$5.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
 		"function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error("React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills");
 		exports.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE = Internals;
 		exports.createPortal = function(children, container) {
@@ -2356,7 +2356,7 @@ var require_react_dom_client_development = /* @__PURE__ */ __commonJSMin(((expor
 			"number" === type && getActiveElement(node.ownerDocument) === node || node.defaultValue === "" + value || (node.defaultValue = "" + value);
 		}
 		function validateOptionProps(element, props) {
-			props.value ?? ("object" === typeof props.children && null !== props.children ? React$4.Children.forEach(props.children, function(child) {
+			props.value ?? ("object" === typeof props.children && null !== props.children ? React$5.Children.forEach(props.children, function(child) {
 				null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = !0, console.error("Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."));
 			}) : null == props.dangerouslySetInnerHTML || didWarnInvalidInnerHTML || (didWarnInvalidInnerHTML = !0, console.error("Pass a `value` prop if you set dangerouslyInnerHTML so React knows which value should be selected.")));
 			null == props.selected || didWarnSelectedSetOnOption || (console.error("Use the `defaultValue` or `value` props on <select> instead of setting `selected` on <option>."), didWarnSelectedSetOnOption = !0);
@@ -12647,10 +12647,10 @@ var require_react_dom_client_development = /* @__PURE__ */ __commonJSMin(((expor
 			container[internalContainerInstanceKey] && (container._reactRootContainer ? console.error("You are calling ReactDOMClient.createRoot() on a container that was previously passed to ReactDOM.render(). This is not supported.") : console.error("You are calling ReactDOMClient.createRoot() on a container that has already been passed to createRoot() before. Instead, call root.render() on the existing root instead if you want to update it."));
 		}
 		"undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-		var Scheduler = require_scheduler(), React$4 = require_react(), ReactDOM$2 = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = Symbol.for("react.element"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE$1 = Symbol.for("react.lazy");
+		var Scheduler = require_scheduler(), React$5 = require_react(), ReactDOM$2 = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = Symbol.for("react.element"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE$1 = Symbol.for("react.lazy");
 		var REACT_ACTIVITY_TYPE = Symbol.for("react.activity");
 		var REACT_MEMO_CACHE_SENTINEL = Symbol.for("react.memo_cache_sentinel");
-		var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React$4.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM$2.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+		var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React$5.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM$2.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
 			pending: !1,
 			data: null,
 			method: null,
@@ -15272,7 +15272,7 @@ var require_react_dom_client_development = /* @__PURE__ */ __commonJSMin(((expor
 			}
 		};
 		(function() {
-			var isomorphicReactPackageVersion = React$4.version;
+			var isomorphicReactPackageVersion = React$5.version;
 			if ("19.2.4" !== isomorphicReactPackageVersion) throw Error("Incompatible React versions: The \"react\" and \"react-dom\" packages must have the exact same version. Instead got:\n  - react:      " + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.4\nLearn more: https://react.dev/warnings/version-mismatch"));
 		})();
 		"function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error("React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://react.dev/link/react-polyfills");
@@ -17552,15 +17552,15 @@ var require_react_jsx_runtime_development = /* @__PURE__ */ __commonJSMin(((expo
 		function isValidElement(object) {
 			return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
 		}
-		var React$4 = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE$1 = Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), ReactSharedInternals = React$4.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+		var React$5 = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE$1 = Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), ReactSharedInternals = React$5.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
 			return null;
 		};
-		React$4 = { react_stack_bottom_frame: function(callStackForError) {
+		React$5 = { react_stack_bottom_frame: function(callStackForError) {
 			return callStackForError();
 		} };
 		var specialPropKeyWarningShown;
 		var didWarnAboutElementRef = {};
-		var unknownOwnerDebugStack = React$4.react_stack_bottom_frame.bind(React$4, UnknownOwner)();
+		var unknownOwnerDebugStack = React$5.react_stack_bottom_frame.bind(React$5, UnknownOwner)();
 		var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
 		var didWarnAboutKeySpread = {};
 		exports.Fragment = REACT_FRAGMENT_TYPE;
@@ -28693,9 +28693,35 @@ var Prescriptions = () => {
 	});
 };
 var Prescriptions_default = Prescriptions;
+var defaultSettings = {
+	width: 10.5,
+	height: 4,
+	unit: "cm"
+};
+var SettingsContext = (0, import_react.createContext)(void 0);
+function SettingsProvider({ children }) {
+	const [labelSettings, setLabelSettings] = (0, import_react.useState)(() => {
+		const stored = localStorage.getItem("labelSettings");
+		return stored ? JSON.parse(stored) : defaultSettings;
+	});
+	const updateLabelSettings = (settings) => {
+		setLabelSettings(settings);
+		localStorage.setItem("labelSettings", JSON.stringify(settings));
+	};
+	return import_react.createElement(SettingsContext.Provider, { value: {
+		labelSettings,
+		updateLabelSettings
+	} }, children);
+}
+function useSettings() {
+	const context = (0, import_react.useContext)(SettingsContext);
+	if (context === void 0) throw new Error("useSettings must be used within a SettingsProvider");
+	return context;
+}
 var Labels = () => {
 	const { patients, prescriptions } = useLactary();
 	const { currentUser } = useAuth();
+	const { labelSettings } = useSettings();
 	const { toast: toast$2 } = useToast();
 	const [selectedTime, setSelectedTime] = (0, import_react.useState)("11:00");
 	const [selectedWard, setSelectedWard] = (0, import_react.useState)("all");
@@ -28720,9 +28746,62 @@ var Labels = () => {
 		minute: "2-digit"
 	});
 	const userInitialsOrName = currentUser?.name.split(" ")[0] || "___";
+	const { width, height, unit } = labelSettings;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "space-y-6 animate-fade-in",
 		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("style", {
+				type: "text/css",
+				media: "print",
+				children: `
+          @page {
+            size: ${width}${unit} ${height}${unit};
+            margin: 0;
+          }
+          #print-area {
+            display: block !important;
+          }
+          .thermal-label {
+            width: ${width}${unit} !important;
+            height: ${height}${unit} !important;
+            max-width: none !important;
+            min-height: 0 !important;
+            margin: 0 !important;
+            padding: 2mm !important;
+            page-break-after: always;
+            border: none !important;
+            overflow: hidden;
+            box-sizing: border-box;
+          }
+          /* Adjust font sizes down slightly when printing specifically restricted heights */
+          @media print {
+            .thermal-label {
+              font-size: 80%;
+            }
+            .thermal-label .text-2xl {
+              font-size: 1.25rem !important;
+              line-height: 1.2 !important;
+            }
+            .thermal-label .text-xl {
+              font-size: 1rem !important;
+              line-height: 1.1 !important;
+            }
+            .thermal-label .text-lg {
+              font-size: 0.875rem !important;
+              line-height: 1.1 !important;
+            }
+            .thermal-label .text-sm {
+              font-size: 0.75rem !important;
+            }
+            .thermal-label .text-xs {
+              font-size: 0.65rem !important;
+            }
+            .thermal-label .text-[10px] {
+              font-size: 0.5rem !important;
+            }
+          }
+        `
+			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 no-print",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
@@ -28813,9 +28892,17 @@ var Labels = () => {
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 				className: "no-print mb-4",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h3", {
 					className: "text-lg font-semibold border-b pb-2",
-					children: "Pré-visualização das Etiquetas"
+					children: [
+						"Pré-visualização das Etiquetas (Padrão: ",
+						width,
+						unit,
+						" x ",
+						height,
+						unit,
+						")"
+					]
 				})
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -28836,18 +28923,14 @@ var Labels = () => {
 						className: "thermal-label flex flex-col justify-between h-auto min-h-[320px]",
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								className: "text-center border-b-2 border-black pb-2 mb-2",
-								children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h4", {
+								className: "text-center border-b-2 border-black pb-1 mb-1",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
 									className: "text-[10px] font-bold uppercase tracking-wider leading-tight",
-									children: [
-										"Hospital das Clínicas de Botucatu",
-										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
-										"HCFMB - Lactário"
-									]
+									children: "HCFMB - Lactário"
 								})
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex-1 space-y-3",
+								className: "flex-1 space-y-1",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 										className: "text-[10px] uppercase font-bold text-gray-600",
@@ -28857,7 +28940,7 @@ var Labels = () => {
 										children: label.patient?.name
 									})] }),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "flex justify-between border-y-2 border-black py-2 my-2",
+										className: "flex justify-between border-y-2 border-black py-1 my-1",
 										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 											className: "text-[10px] uppercase font-bold text-gray-600",
 											children: "Leito"
@@ -28876,12 +28959,12 @@ var Labels = () => {
 										})]
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "bg-gray-100 p-2 rounded-sm border border-gray-300",
+										className: "bg-gray-100 p-1 rounded-sm border border-gray-300",
 										children: [
 											/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-												className: "flex items-center gap-2 mb-1",
-												children: [isMilk ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Milk, { className: "h-4 w-4" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Utensils, { className: "h-4 w-4" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-													className: "font-bold uppercase text-sm",
+												className: "flex items-center gap-1 mb-0.5",
+												children: [isMilk ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Milk, { className: "h-3 w-3" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Utensils, { className: "h-3 w-3" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+													className: "font-bold uppercase text-xs",
 													children: [
 														isMilk ? "Lactário" : "Refeição",
 														" - ",
@@ -28890,29 +28973,29 @@ var Labels = () => {
 												})]
 											}),
 											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-												className: "text-lg font-black leading-tight",
+												className: "text-sm font-black leading-tight",
 												children: isMilk ? `${label.volume}ml - ${label.milkType}` : label.description
 											}),
 											label.additives && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-												className: "text-xs font-bold mt-1",
+												className: "text-xs font-bold",
 												children: ["+ ", label.additives]
 											})
 										]
 									}),
 									label.patient && label.patient.allergies.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "bg-black text-white p-2 rounded-sm flex items-start gap-2 border-2 border-black",
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TriangleAlert, { className: "h-5 w-5 shrink-0" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										className: "bg-black text-white p-1 rounded-sm flex items-start gap-1 border-2 border-black",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TriangleAlert, { className: "h-4 w-4 shrink-0" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 											className: "text-[10px] uppercase font-bold",
-											children: "Atenção - Alergia"
+											children: "Alergia"
 										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-											className: "font-black text-sm uppercase",
+											className: "font-black text-xs uppercase",
 											children: label.patient.allergies.join(", ")
 										})] })]
 									})
 								]
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "mt-4 pt-2 border-t-2 border-black text-xs grid grid-cols-2 gap-2 font-medium",
+								className: "mt-2 pt-1 border-t-2 border-black text-xs grid grid-cols-2 gap-1 font-medium leading-tight",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
 									"Prep: ",
 									prepDate,
@@ -28924,7 +29007,7 @@ var Labels = () => {
 								] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 									className: "text-right",
 									children: [
-										"Validade: ",
+										"Val: ",
 										label.expiryHours,
 										"h",
 										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
@@ -29061,10 +29144,14 @@ Switch.displayName = Root.displayName;
 var Settings = () => {
 	const { currentUser } = useAuth();
 	const { toast: toast$2 } = useToast();
+	const { labelSettings, updateLabelSettings } = useSettings();
 	const [apiBaseUrl, setApiBaseUrl] = (0, import_react.useState)("https://api.mv.com.br/v1");
 	const [apiToken, setApiToken] = (0, import_react.useState)("************************");
 	const [clientId, setClientId] = (0, import_react.useState)("HCFMB-01");
 	const [integrationEnabled, setIntegrationEnabled] = (0, import_react.useState)(false);
+	const [labelWidth, setLabelWidth] = (0, import_react.useState)(labelSettings.width.toString());
+	const [labelHeight, setLabelHeight] = (0, import_react.useState)(labelSettings.height.toString());
+	const [labelUnit, setLabelUnit] = (0, import_react.useState)(labelSettings.unit);
 	if (currentUser?.role !== "admin") return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Navigate, {
 		to: "/",
 		replace: true
@@ -29081,6 +29168,32 @@ var Settings = () => {
 			description: "As preferências do sistema foram atualizadas."
 		});
 	};
+	const handleSaveLabels = () => {
+		const w = parseFloat(labelWidth);
+		const h = parseFloat(labelHeight);
+		if (isNaN(w) || isNaN(h) || w <= 0 || h <= 0) {
+			toast$2({
+				title: "Valores Inválidos",
+				description: "As dimensões devem ser números positivos maiores que zero.",
+				variant: "destructive"
+			});
+			return;
+		}
+		updateLabelSettings({
+			width: w,
+			height: h,
+			unit: labelUnit
+		});
+		toast$2({
+			title: "Padrões de Impressão Salvos",
+			description: "As dimensões das etiquetas foram atualizadas."
+		});
+	};
+	const handleRestoreLabelDefaults = () => {
+		setLabelWidth("10.5");
+		setLabelHeight("4");
+		setLabelUnit("cm");
+	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "space-y-6 animate-fade-in max-w-4xl",
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
@@ -29094,15 +29207,23 @@ var Settings = () => {
 			className: "w-full",
 			children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsList, {
-					className: "grid w-full md:w-[400px] grid-cols-2 mb-6",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsTrigger, {
-						value: "general",
-						children: "Geral"
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsTrigger, {
-						value: "integrations",
-						className: "gap-2",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link2, { className: "h-4 w-4" }), "Integrações"]
-					})]
+					className: "grid w-full md:w-[600px] grid-cols-3 mb-6",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsTrigger, {
+							value: "general",
+							children: "Geral"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsTrigger, {
+							value: "labels",
+							className: "gap-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tags, { className: "h-4 w-4" }), "Padrões de Impressão"]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsTrigger, {
+							value: "integrations",
+							className: "gap-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link2, { className: "h-4 w-4" }), "Integrações"]
+						})
+					]
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsContent, {
 					value: "general",
@@ -29179,6 +29300,83 @@ var Settings = () => {
 							})
 						})
 					] })]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
+					value: "labels",
+					className: "space-y-6",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, { children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, { children: "Padrões de Impressão de Etiquetas" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardDescription, { children: "Configure as dimensões físicas das etiquetas para a impressora térmica." })] }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
+							className: "space-y-6",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "grid grid-cols-1 md:grid-cols-3 gap-4",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "space-y-2",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+											htmlFor: "labelWidth",
+											children: "Comprimento (Largura)"
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+											id: "labelWidth",
+											type: "number",
+											step: "0.1",
+											min: "0.1",
+											value: labelWidth,
+											onChange: (e) => setLabelWidth(e.target.value),
+											className: "bg-white"
+										})]
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "space-y-2",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+											htmlFor: "labelHeight",
+											children: "Altura"
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+											id: "labelHeight",
+											type: "number",
+											step: "0.1",
+											min: "0.1",
+											value: labelHeight,
+											onChange: (e) => setLabelHeight(e.target.value),
+											className: "bg-white"
+										})]
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "space-y-2",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Unidade de Medida" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+											value: labelUnit,
+											onValueChange: (v) => setLabelUnit(v),
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectTrigger, {
+												className: "bg-white",
+												children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectValue, {})
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SelectContent, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
+												value: "cm",
+												children: "Centímetros (cm)"
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
+												value: "mm",
+												children: "Milímetros (mm)"
+											})] })]
+										})]
+									})
+								]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "flex justify-end pt-2",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+									variant: "outline",
+									onClick: handleRestoreLabelDefaults,
+									children: "Restaurar Padrão (10.5cm x 4cm)"
+								})
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardFooter, {
+							className: "flex justify-end border-t pt-6 bg-slate-50/50 rounded-b-lg",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+								onClick: handleSaveLabels,
+								className: "gap-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Save, { className: "h-4 w-4" }), "Salvar Padrões"]
+							})
+						})
+					] })
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
 					value: "integrations",
@@ -29809,7 +30007,7 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 		v7_startTransition: false,
 		v7_relativeSplatPath: false
 	},
-	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LactaryProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TooltipProvider, { children: [
+	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LactaryProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SettingsProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TooltipProvider, { children: [
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toaster, {}),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toaster$1, {}),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Routes, { children: [
@@ -29864,9 +30062,9 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 				element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NotFound_default, {})
 			})
 		] })
-	] }) }) })
+	] }) }) }) })
 });
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-4jmRpKqC.js.map
+//# sourceMappingURL=index-8cLrjj1f.js.map

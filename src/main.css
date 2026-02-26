@@ -120,9 +120,7 @@
       left: 0;
       top: 0;
       width: 100%;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1rem;
+      /* grid overridden in inline component style */
     }
     .no-print {
       display: none !important;

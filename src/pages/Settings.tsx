@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
+import { useSettings } from '@/contexts/SettingsContext'
 import { useToast } from '@/hooks/use-toast'
 import {
   Card,
@@ -15,16 +16,30 @@ import { Switch } from '@/components/ui/switch'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Save, Link2 } from 'lucide-react'
+import { Save, Link2, Tags } from 'lucide-react'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 const Settings = () => {
   const { currentUser } = useAuth()
   const { toast } = useToast()
+  const { labelSettings, updateLabelSettings } = useSettings()
 
   const [apiBaseUrl, setApiBaseUrl] = useState('https://api.mv.com.br/v1')
   const [apiToken, setApiToken] = useState('************************')
   const [clientId, setClientId] = useState('HCFMB-01')
   const [integrationEnabled, setIntegrationEnabled] = useState(false)
+
+  const [labelWidth, setLabelWidth] = useState(labelSettings.width.toString())
+  const [labelHeight, setLabelHeight] = useState(
+    labelSettings.height.toString(),
+  )
+  const [labelUnit, setLabelUnit] = useState<'cm' | 'mm'>(labelSettings.unit)
 
   if (currentUser?.role !== 'admin') {
     return <Navigate to="/" replace />
@@ -45,6 +60,33 @@ const Settings = () => {
     })
   }
 
+  const handleSaveLabels = () => {
+    const w = parseFloat(labelWidth)
+    const h = parseFloat(labelHeight)
+
+    if (isNaN(w) || isNaN(h) || w <= 0 || h <= 0) {
+      toast({
+        title: 'Valores Inválidos',
+        description:
+          'As dimensões devem ser números positivos maiores que zero.',
+        variant: 'destructive',
+      })
+      return
+    }
+
+    updateLabelSettings({ width: w, height: h, unit: labelUnit })
+    toast({
+      title: 'Padrões de Impressão Salvos',
+      description: 'As dimensões das etiquetas foram atualizadas.',
+    })
+  }
+
+  const handleRestoreLabelDefaults = () => {
+    setLabelWidth('10.5')
+    setLabelHeight('4')
+    setLabelUnit('cm')
+  }
+
   return (
     <div className="space-y-6 animate-fade-in max-w-4xl">
       <div>
@@ -55,8 +97,12 @@ const Settings = () => {
       </div>
 
       <Tabs defaultValue="general" className="w-full">
-        <TabsList className="grid w-full md:w-[400px] grid-cols-2 mb-6">
+        <TabsList className="grid w-full md:w-[600px] grid-cols-3 mb-6">
           <TabsTrigger value="general">Geral</TabsTrigger>
+          <TabsTrigger value="labels" className="gap-2">
+            <Tags className="h-4 w-4" />
+            Padrões de Impressão
+          </TabsTrigger>
           <TabsTrigger value="integrations" className="gap-2">
             <Link2 className="h-4 w-4" />
             Integrações
@@ -123,6 +169,72 @@ const Settings = () => {
               <Button onClick={handleSaveGeneral} className="gap-2">
                 <Save className="h-4 w-4" />
                 Salvar Alterações
+              </Button>
+            </CardFooter>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="labels" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Padrões de Impressão de Etiquetas</CardTitle>
+              <CardDescription>
+                Configure as dimensões físicas das etiquetas para a impressora
+                térmica.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="labelWidth">Comprimento (Largura)</Label>
+                  <Input
+                    id="labelWidth"
+                    type="number"
+                    step="0.1"
+                    min="0.1"
+                    value={labelWidth}
+                    onChange={(e) => setLabelWidth(e.target.value)}
+                    className="bg-white"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="labelHeight">Altura</Label>
+                  <Input
+                    id="labelHeight"
+                    type="number"
+                    step="0.1"
+                    min="0.1"
+                    value={labelHeight}
+                    onChange={(e) => setLabelHeight(e.target.value)}
+                    className="bg-white"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Unidade de Medida</Label>
+                  <Select
+                    value={labelUnit}
+                    onValueChange={(v) => setLabelUnit(v as 'cm' | 'mm')}
+                  >
+                    <SelectTrigger className="bg-white">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="cm">Centímetros (cm)</SelectItem>
+                      <SelectItem value="mm">Milímetros (mm)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div className="flex justify-end pt-2">
+                <Button variant="outline" onClick={handleRestoreLabelDefaults}>
+                  Restaurar Padrão (10.5cm x 4cm)
+                </Button>
+              </div>
+            </CardContent>
+            <CardFooter className="flex justify-end border-t pt-6 bg-slate-50/50 rounded-b-lg">
+              <Button onClick={handleSaveLabels} className="gap-2">
+                <Save className="h-4 w-4" />
+                Salvar Padrões
               </Button>
             </CardFooter>
           </Card>
