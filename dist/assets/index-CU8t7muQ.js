@@ -28740,7 +28740,11 @@ var Labels = () => {
 		window.print();
 	};
 	const today = /* @__PURE__ */ new Date();
-	const prepDate = today.toLocaleDateString("pt-BR");
+	const prepDate = today.toLocaleDateString("pt-BR", {
+		day: "2-digit",
+		month: "2-digit",
+		year: "2-digit"
+	});
 	const prepTime = today.toLocaleTimeString("pt-BR", {
 		hour: "2-digit",
 		minute: "2-digit"
@@ -28762,25 +28766,28 @@ var Labels = () => {
             display: block !important;
             grid-template-columns: 1fr !important;
             gap: 0 !important;
+            padding: 0 !important;
+            margin: 0 !important;
           }
           .thermal-label {
             width: ${width}${unit} !important;
             height: ${height}${unit} !important;
-            max-width: none !important;
-            min-height: 0 !important;
+            max-width: ${width}${unit} !important;
+            max-height: ${height}${unit} !important;
             margin: 0 !important;
-            padding: 0 !important;
+            padding: 2mm !important;
             page-break-after: always;
             border: none !important;
             border-radius: 0 !important;
             box-shadow: none !important;
-            aspect-ratio: auto !important;
             background: white !important;
+            overflow: hidden !important;
           }
           @media print {
             body {
               -webkit-print-color-adjust: exact;
               print-color-adjust: exact;
+              background: white;
             }
           }
         `
@@ -28890,48 +28897,58 @@ var Labels = () => {
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				id: "print-area",
-				className: "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6",
+				className: "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 justify-items-center sm:justify-items-start",
 				children: [labelsToPrint.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "col-span-full py-12 text-center text-muted-foreground no-print bg-slate-50 rounded-lg border border-dashed",
+					className: "col-span-full w-full py-12 text-center text-muted-foreground no-print bg-slate-50 rounded-lg border border-dashed",
 					children: "Nenhuma etiqueta pendente para os filtros selecionados."
 				}), labelsToPrint.map((label, index$1) => {
 					const isMilk = label.type === "milk";
 					const expDate = new Date(today.getTime() + label.expiryHours * 60 * 60 * 1e3);
-					const expDateStr = expDate.toLocaleDateString("pt-BR");
+					const expDateStr = expDate.toLocaleDateString("pt-BR", {
+						day: "2-digit",
+						month: "2-digit"
+					});
 					const expTimeStr = expDate.toLocaleTimeString("pt-BR", {
 						hour: "2-digit",
 						minute: "2-digit"
 					});
 					const birthDateStr = label.patient?.birthDate ? label.patient.birthDate.split("-").reverse().join("/") : null;
 					return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "thermal-label flex flex-col justify-between",
-						style: { aspectRatio: `${width}/${height}` },
+						className: "thermal-label relative box-border bg-white text-black overflow-hidden flex flex-col shadow-sm border border-gray-300",
+						style: {
+							width: `${width}${unit}`,
+							height: `${height}${unit}`,
+							padding: "2mm"
+						},
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "flex justify-between items-center border-b-[2px] border-black pb-1 mb-1 shrink-0 px-2 pt-2",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
-								className: "text-xs font-black uppercase tracking-wider leading-tight",
-								children: "HCFMB - Lactário"
+							className: "flex justify-between items-center border-b-[1.5px] border-black pb-[1mm] mb-[1mm] shrink-0",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center gap-[1.5mm]",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "text-[2.5mm] font-black uppercase leading-none tracking-tight",
+									children: "HCFMB"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "text-[2mm] font-bold leading-none border-l-[1.5px] border-black pl-[1.5mm]",
+									children: "Lactário"
+								})]
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "text-[9px] text-right font-semibold leading-tight flex items-center gap-2",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-									className: "text-gray-700",
-									children: [
-										"Prep: ",
-										prepDate,
-										" ",
-										prepTime,
-										" (",
-										userInitialsOrName,
-										")"
-									]
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-									className: "font-black bg-black text-white px-1.5 py-0.5 rounded-sm inline-flex items-center gap-1",
+								className: "text-[1.8mm] font-bold leading-none flex items-center gap-[1.5mm]",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+									"Prep: ",
+									prepDate,
+									" ",
+									prepTime,
+									" (",
+									userInitialsOrName,
+									")"
+								] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+									className: "bg-black text-white px-[1.2mm] py-[0.8mm] rounded-[0.5mm] font-black flex items-center gap-[0.8mm]",
 									children: [
 										"Val: ",
 										label.expiryHours,
 										"h",
 										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-											className: "text-[8px] opacity-90 font-bold ml-0.5",
+											className: "font-semibold text-[1.5mm] opacity-90",
 											children: [
 												"(",
 												expDateStr,
@@ -28944,87 +28961,101 @@ var Labels = () => {
 								})]
 							})]
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "flex flex-1 gap-3 min-h-0 px-2 pb-2",
+							className: "flex flex-1 min-h-0 gap-[2.5mm]",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex-[0.55] flex flex-col justify-between border-r-[2px] border-black pr-3 min-h-0",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "flex flex-col min-h-0",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "flex justify-between items-end mb-0.5",
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-											className: "text-[10px] uppercase font-black text-gray-500 tracking-wider leading-none",
+								className: "flex-[0.55] flex flex-col min-h-0 border-r-[1.5px] border-black pr-[2.5mm]",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "flex justify-between items-end mb-[0.8mm] shrink-0",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											className: "text-[1.8mm] font-black uppercase text-gray-500 leading-none tracking-wider",
 											children: "Paciente"
-										}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-											className: "text-[9px] font-bold text-gray-700 leading-none",
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+											className: "text-[1.8mm] font-bold leading-none text-gray-700",
 											children: [
 												"ID: ",
 												label.patient?.recordId || "--",
 												birthDateStr && ` | DN: ${birthDateStr}`
 											]
 										})]
-									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-										className: "text-[1.15rem] font-black uppercase leading-[1.1] line-clamp-2 mt-0.5",
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										className: "text-[3.5mm] font-black uppercase leading-[1.1] line-clamp-2 text-ellipsis overflow-hidden mb-[1mm]",
 										children: label.patient?.name
-									})]
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "flex justify-between items-end shrink-0 mt-1",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-										className: "text-[10px] uppercase font-black text-gray-500 tracking-wider leading-none mb-1",
-										children: "Leito / Ala"
-									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "font-black leading-none flex items-baseline gap-1.5",
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-											className: "text-[1.35rem]",
-											children: label.patient?.bed
-										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-											className: "text-xs",
-											children: label.patient?.ward
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "flex justify-between items-end mt-auto shrink-0 pt-[1mm]",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "flex flex-col min-w-0 pr-[1mm]",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+												className: "text-[1.8mm] font-black uppercase text-gray-500 leading-none mb-[0.8mm] tracking-wider block",
+												children: "Leito / Ala"
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+												className: "font-black leading-none flex items-baseline gap-[1mm] truncate",
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+													className: "text-[3.8mm] shrink-0",
+													children: label.patient?.bed
+												}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+													className: "text-[2.2mm] truncate",
+													children: label.patient?.ward
+												})]
+											})]
+										}), label.patient && label.patient.allergies.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "bg-black text-white px-[1.5mm] py-[1mm] rounded-[0.5mm] flex flex-col items-center justify-center border-[1px] border-black max-w-[20mm] shrink-0",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+												className: "text-[1.5mm] uppercase font-black leading-none tracking-widest mb-[0.4mm]",
+												children: "Alergia"
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+												className: "font-black text-[2mm] uppercase leading-[1] text-center line-clamp-2",
+												children: label.patient.allergies.join(", ")
+											})]
 										})]
-									})] }), label.patient && label.patient.allergies.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "bg-black text-white px-1.5 py-1 rounded flex items-center gap-1 border border-black shadow-sm",
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TriangleAlert, { className: "h-3 w-3 shrink-0" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-											className: "font-black text-[9px] uppercase leading-none mt-0.5",
-											children: label.patient.allergies.join(", ")
-										})]
-									})]
-								})]
+									})
+								]
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex-[0.45] flex flex-col min-h-0 justify-between",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "flex flex-col min-h-0 mb-1.5",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "flex items-center gap-1.5 mb-1 text-gray-700",
-										children: [isMilk ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Milk, { className: "h-3.5 w-3.5" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Utensils, { className: "h-3.5 w-3.5" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-											className: "font-black uppercase text-[10px] leading-none tracking-wider mt-0.5",
+								className: "flex-[0.45] flex flex-col min-h-0",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "flex items-center gap-[1.2mm] mb-[1mm] shrink-0 text-gray-800",
+										children: [isMilk ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Milk, {
+											className: "h-[2.5mm] w-[2.5mm]",
+											strokeWidth: 2.5
+										}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Utensils, {
+											className: "h-[2.5mm] w-[2.5mm]",
+											strokeWidth: 2.5
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+											className: "font-black uppercase text-[2.2mm] leading-none mt-[0.5mm] tracking-wide",
 											children: [
 												isMilk ? "Lactário" : "Refeição",
 												" - ",
 												selectedTime
 											]
 										})]
-									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-										className: "text-sm font-black leading-tight line-clamp-2",
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										className: "text-[2.8mm] font-black leading-[1.15] line-clamp-2 text-ellipsis overflow-hidden mb-[1.5mm]",
 										children: isMilk ? `${label.volume}ml - ${label.milkType}` : label.description
-									})]
-								}), label.additives ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "flex-1 flex flex-col border-[2.5px] border-black rounded min-h-0 overflow-hidden",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "bg-black text-white text-[9px] uppercase font-black px-1.5 py-0.5 tracking-widest shrink-0 flex items-center justify-between",
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Observações" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "!" })]
-									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-										className: "p-1.5 text-[0.85rem] font-black leading-tight text-black overflow-hidden break-words flex-1 bg-white flex items-center",
+									}),
+									label.additives ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "flex-1 mt-auto flex flex-col border-[1.8px] border-black rounded-[1mm] overflow-hidden min-h-[10mm]",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "bg-black text-white px-[1.5mm] py-[0.8mm] text-[1.8mm] font-black uppercase tracking-widest flex justify-between items-center shrink-0 leading-none",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Atenção / Obs" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TriangleAlert, { className: "h-[1.8mm] w-[1.8mm]" })]
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+											className: "flex-1 bg-white p-[1.5mm] flex items-center text-left overflow-hidden relative",
+											children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+												className: "text-[2.4mm] font-black leading-[1.15] text-black line-clamp-3",
+												children: label.additives
+											})
+										})]
+									}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										className: "flex-1 mt-auto flex items-center justify-center border-[1.5px] border-dashed border-gray-400 rounded-[1mm] opacity-70 min-h-[10mm] bg-gray-50/50",
 										children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-											className: "line-clamp-2",
-											children: label.additives
+											className: "text-[2mm] font-bold uppercase text-gray-500 tracking-wider",
+											children: "Sem Observações"
 										})
-									})]
-								}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									className: "flex-1 flex flex-col border-2 border-dashed border-gray-300 rounded min-h-0 justify-center items-center opacity-70",
-									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: "text-[10px] font-bold uppercase text-gray-400 tracking-wider",
-										children: "Sem Observações"
 									})
-								})]
+								]
 							})]
 						})]
 					}, index$1);
@@ -30074,4 +30105,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-B3II72Z4.js.map
+//# sourceMappingURL=index-CU8t7muQ.js.map
