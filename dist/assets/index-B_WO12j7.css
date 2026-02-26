@@ -1038,8 +1038,8 @@ section[aria-label='Notifications alt+T'] {
   height: var(--cell-size);
 }
 
-.h-\[1\.8mm\]{
-  height: 1.8mm;
+.h-\[1\.5mm\]{
+  height: 1.5mm;
 }
 
 .h-\[1px\]{
@@ -1198,8 +1198,8 @@ section[aria-label='Notifications alt+T'] {
   width: var(--sidebar-width);
 }
 
-.w-\[1\.8mm\]{
-  width: 1.8mm;
+.w-\[1\.5mm\]{
+  width: 1.5mm;
 }
 
 .w-\[100px\]{
@@ -1457,6 +1457,10 @@ section[aria-label='Notifications alt+T'] {
           user-select: none;
 }
 
+.resize-none{
+  resize: none;
+}
+
 .list-none{
   list-style-type: none;
 }
@@ -1655,6 +1659,10 @@ section[aria-label='Notifications alt+T'] {
   border-radius: 0.5mm;
 }
 
+.rounded-\[0\.8mm\]{
+  border-radius: 0.8mm;
+}
+
 .rounded-\[1mm\]{
   border-radius: 1mm;
 }
@@ -1730,10 +1738,6 @@ section[aria-label='Notifications alt+T'] {
 
 .border-\[1\.5px\]{
   border-width: 1.5px;
-}
-
-.border-\[1\.8px\]{
-  border-width: 1.8px;
 }
 
 .border-\[1px\]{
@@ -1909,6 +1913,11 @@ section[aria-label='Notifications alt+T'] {
   background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
 }
 
+.bg-gray-200{
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));
+}
+
 .bg-gray-50\/50{
   background-color: rgb(249 250 251 / 0.5);
 }
@@ -2007,10 +2016,6 @@ section[aria-label='Notifications alt+T'] {
 
 .p-8{
   padding: 2rem;
-}
-
-.p-\[1\.5mm\]{
-  padding: 1.5mm;
 }
 
 .p-\[1px\]{
@@ -2115,6 +2120,11 @@ section[aria-label='Notifications alt+T'] {
 .py-8{
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+
+.py-\[0\.6mm\]{
+  padding-top: 0.6mm;
+  padding-bottom: 0.6mm;
 }
 
 .py-\[0\.8mm\]{
@@ -2258,16 +2268,20 @@ section[aria-label='Notifications alt+T'] {
   font-size: 1.5mm;
 }
 
+.text-\[1\.6mm\]{
+  font-size: 1.6mm;
+}
+
 .text-\[1\.8mm\]{
   font-size: 1.8mm;
 }
 
-.text-\[2\.2mm\]{
-  font-size: 2.2mm;
+.text-\[11px\]{
+  font-size: 11px;
 }
 
-.text-\[2\.4mm\]{
-  font-size: 2.4mm;
+.text-\[2\.2mm\]{
+  font-size: 2.2mm;
 }
 
 .text-\[2\.5mm\]{

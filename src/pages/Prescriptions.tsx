@@ -10,6 +10,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
+import { Textarea } from '@/components/ui/textarea'
 import {
   Select,
   SelectContent,
@@ -38,6 +39,8 @@ const Prescriptions = () => {
   const [volume, setVolume] = useState('100')
   const [milkType, setMilkType] = useState('Fórmula Infantil')
   const [description, setDescription] = useState('')
+  const [observations, setObservations] = useState('')
+  const [restrictions, setRestrictions] = useState('')
   const [times, setTimes] = useState('08:00, 11:00, 14:00, 17:00, 20:00, 23:00')
 
   const [isAddPatientOpen, setIsAddPatientOpen] = useState(false)
@@ -67,6 +70,8 @@ const Prescriptions = () => {
       milkType: type === 'milk' ? milkType : undefined,
       volume: type === 'milk' ? Number(volume) : undefined,
       description: type === 'meal' ? description : undefined,
+      observations: observations.trim() || undefined,
+      restrictions: restrictions.trim() || undefined,
       times: times.split(',').map((t) => t.trim()),
       expiryHours: type === 'milk' ? 24 : 6,
       status: 'active',
@@ -79,6 +84,8 @@ const Prescriptions = () => {
     })
 
     setSelectedPatient('')
+    setObservations('')
+    setRestrictions('')
   }
 
   const handleSavePatient = () => {
@@ -265,6 +272,40 @@ const Prescriptions = () => {
                 </p>
               </div>
             </TabsContent>
+
+            <div className="mt-8 space-y-4 pt-6 border-t">
+              <h3 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
+                Informações Adicionais (Impressas na Etiqueta)
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label>Restrições</Label>
+                  <Textarea
+                    placeholder="Ex: Alergia a PLV, Não usar bico ortodôntico..."
+                    value={restrictions}
+                    onChange={(e) => setRestrictions(e.target.value)}
+                    className="bg-white resize-none"
+                    rows={2}
+                  />
+                  <p className="text-[11px] text-muted-foreground">
+                    Instruções críticas que exigem atenção extra.
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <Label>Observações</Label>
+                  <Textarea
+                    placeholder="Ex: Aquecer a 37°C, Espessante 2g..."
+                    value={observations}
+                    onChange={(e) => setObservations(e.target.value)}
+                    className="bg-white resize-none"
+                    rows={2}
+                  />
+                  <p className="text-[11px] text-muted-foreground">
+                    Instruções de preparo ou administração.
+                  </p>
+                </div>
+              </div>
+            </div>
 
             <div className="mt-8 space-y-2 pt-6 border-t">
               <Label>Horários de Administração</Label>

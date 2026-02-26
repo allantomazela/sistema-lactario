@@ -22,6 +22,8 @@ export type Prescription = {
   volume?: number
   additives?: string
   description?: string
+  observations?: string
+  restrictions?: string
   times: string[]
   expiryHours: number
   status: 'active' | 'inactive'
@@ -80,6 +82,8 @@ const mockPrescriptions: Prescription[] = [
     milkType: 'Fórmula Especial',
     volume: 120,
     additives: 'Espessante 2g',
+    observations: 'Aquecer a 37 graus. Oferecer na mamadeira.',
+    restrictions: 'Não usar bico ortodôntico. Alergia a PLV.',
     times: ['08:00', '11:00', '14:00', '17:00'],
     expiryHours: 24,
     status: 'active',

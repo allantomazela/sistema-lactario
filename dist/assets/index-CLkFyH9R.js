@@ -26111,6 +26111,8 @@ var mockPrescriptions = [
 		milkType: "Fórmula Especial",
 		volume: 120,
 		additives: "Espessante 2g",
+		observations: "Aquecer a 37 graus. Oferecer na mamadeira.",
+		restrictions: "Não usar bico ortodôntico. Alergia a PLV.",
 		times: [
 			"08:00",
 			"11:00",
@@ -26945,6 +26947,14 @@ var Patients = () => {
 	});
 };
 var Patients_default = Patients;
+var Textarea = import_react.forwardRef(({ className, ...props }, ref) => {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("textarea", {
+		className: cn("flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm", className),
+		ref,
+		...props
+	});
+});
+Textarea.displayName = "Textarea";
 function clamp(value, [min$1, max$1]) {
 	return Math.min(max$1, Math.max(min$1, value));
 }
@@ -28320,6 +28330,8 @@ var Prescriptions = () => {
 	const [volume, setVolume] = (0, import_react.useState)("100");
 	const [milkType, setMilkType] = (0, import_react.useState)("Fórmula Infantil");
 	const [description, setDescription] = (0, import_react.useState)("");
+	const [observations, setObservations] = (0, import_react.useState)("");
+	const [restrictions, setRestrictions] = (0, import_react.useState)("");
 	const [times, setTimes] = (0, import_react.useState)("08:00, 11:00, 14:00, 17:00, 20:00, 23:00");
 	const [isAddPatientOpen, setIsAddPatientOpen] = (0, import_react.useState)(false);
 	const [patientFormData, setPatientFormData] = (0, import_react.useState)({
@@ -28345,6 +28357,8 @@ var Prescriptions = () => {
 			milkType: type === "milk" ? milkType : void 0,
 			volume: type === "milk" ? Number(volume) : void 0,
 			description: type === "meal" ? description : void 0,
+			observations: observations.trim() || void 0,
+			restrictions: restrictions.trim() || void 0,
 			times: times.split(",").map((t) => t.trim()),
 			expiryHours: type === "milk" ? 24 : 6,
 			status: "active"
@@ -28355,6 +28369,8 @@ var Prescriptions = () => {
 			action: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { className: "h-4 w-4" })
 		});
 		setSelectedPatient("");
+		setObservations("");
+		setRestrictions("");
 	};
 	const handleSavePatient = () => {
 		if (!patientFormData.name.trim() || !patientFormData.ward.trim() || !patientFormData.bed.trim()) {
@@ -28547,6 +28563,48 @@ var Prescriptions = () => {
 										})
 									]
 								})
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "mt-8 space-y-4 pt-6 border-t",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+									className: "text-sm font-medium uppercase tracking-wider text-muted-foreground",
+									children: "Informações Adicionais (Impressas na Etiqueta)"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "grid grid-cols-1 md:grid-cols-2 gap-6",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "space-y-2",
+										children: [
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Restrições" }),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Textarea, {
+												placeholder: "Ex: Alergia a PLV, Não usar bico ortodôntico...",
+												value: restrictions,
+												onChange: (e) => setRestrictions(e.target.value),
+												className: "bg-white resize-none",
+												rows: 2
+											}),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+												className: "text-[11px] text-muted-foreground",
+												children: "Instruções críticas que exigem atenção extra."
+											})
+										]
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "space-y-2",
+										children: [
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Observações" }),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Textarea, {
+												placeholder: "Ex: Aquecer a 37°C, Espessante 2g...",
+												value: observations,
+												onChange: (e) => setObservations(e.target.value),
+												className: "bg-white resize-none",
+												rows: 2
+											}),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+												className: "text-[11px] text-muted-foreground",
+												children: "Instruções de preparo ou administração."
+											})
+										]
+									})]
+								})]
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 								className: "mt-8 space-y-2 pt-6 border-t",
@@ -28913,6 +28971,7 @@ var Labels = () => {
 						minute: "2-digit"
 					});
 					const birthDateStr = label.patient?.birthDate ? label.patient.birthDate.split("-").reverse().join("/") : null;
+					const textClampClass = !!(label.restrictions && (label.observations || label.additives)) ? "line-clamp-2" : "line-clamp-3";
 					return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "thermal-label relative box-border bg-white text-black overflow-hidden flex flex-col shadow-sm border border-gray-300",
 						style: {
@@ -29033,26 +29092,41 @@ var Labels = () => {
 										})]
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-										className: "text-[2.8mm] font-black leading-[1.15] line-clamp-2 text-ellipsis overflow-hidden mb-[1.5mm]",
+										className: "text-[2.8mm] font-black leading-[1.15] line-clamp-2 text-ellipsis overflow-hidden mb-[1.5mm] shrink-0",
 										children: isMilk ? `${label.volume}ml - ${label.milkType}` : label.description
 									}),
-									label.additives ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "flex-1 mt-auto flex flex-col border-[1.8px] border-black rounded-[1mm] overflow-hidden min-h-[10mm]",
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-											className: "bg-black text-white px-[1.5mm] py-[0.8mm] text-[1.8mm] font-black uppercase tracking-widest flex justify-between items-center shrink-0 leading-none",
-											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Atenção / Obs" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TriangleAlert, { className: "h-[1.8mm] w-[1.8mm]" })]
-										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-											className: "flex-1 bg-white p-[1.5mm] flex items-center text-left overflow-hidden relative",
-											children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-												className: "text-[2.4mm] font-black leading-[1.15] text-black line-clamp-3",
-												children: label.additives
-											})
+									label.observations || label.restrictions || label.additives ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "flex-1 mt-auto flex flex-col gap-[1mm] overflow-hidden justify-end min-h-0 pt-[1mm]",
+										children: [label.restrictions && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "flex flex-col border-[1.5px] border-black rounded-[0.8mm] overflow-hidden shrink-0",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+												className: "bg-black text-white px-[1.2mm] py-[0.6mm] text-[1.6mm] font-black uppercase tracking-widest flex justify-between items-center leading-none",
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Restrições" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TriangleAlert, { className: "h-[1.5mm] w-[1.5mm]" })]
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+												className: "bg-white px-[1.2mm] py-[0.6mm] flex items-center text-left",
+												children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+													className: `text-[1.8mm] font-black leading-[1.1] text-black ${textClampClass}`,
+													children: label.restrictions
+												})
+											})]
+										}), (label.observations || label.additives) && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "flex flex-col border-[1.5px] border-black rounded-[0.8mm] overflow-hidden shrink-0",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+												className: "bg-gray-200 border-b-[1.5px] border-black text-black px-[1.2mm] py-[0.6mm] text-[1.6mm] font-black uppercase tracking-widest flex justify-between items-center leading-none",
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Observações" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Info, { className: "h-[1.5mm] w-[1.5mm]" })]
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+												className: "bg-white px-[1.2mm] py-[0.6mm] flex items-center text-left",
+												children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+													className: `text-[1.8mm] font-bold leading-[1.1] text-black ${textClampClass}`,
+													children: label.observations || label.additives
+												})
+											})]
 										})]
 									}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 										className: "flex-1 mt-auto flex items-center justify-center border-[1.5px] border-dashed border-gray-400 rounded-[1mm] opacity-70 min-h-[10mm] bg-gray-50/50",
 										children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 											className: "text-[2mm] font-bold uppercase text-gray-500 tracking-wider",
-											children: "Sem Observações"
+											children: "Sem Restrições / Obs"
 										})
 									})
 								]
@@ -30105,4 +30179,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-CU8t7muQ.js.map
+//# sourceMappingURL=index-CLkFyH9R.js.map

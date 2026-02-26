@@ -11,7 +11,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Printer, Filter, AlertTriangle, Milk, Utensils } from 'lucide-react'
+import {
+  Printer,
+  Filter,
+  AlertTriangle,
+  Milk,
+  Utensils,
+  Info,
+} from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 
 const Labels = () => {
@@ -190,6 +197,12 @@ const Labels = () => {
             ? label.patient.birthDate.split('-').reverse().join('/')
             : null
 
+          const hasBothExtras = !!(
+            label.restrictions &&
+            (label.observations || label.additives)
+          )
+          const textClampClass = hasBothExtras ? 'line-clamp-2' : 'line-clamp-3'
+
           return (
             <div
               key={index}
@@ -285,30 +298,52 @@ const Labels = () => {
                     </span>
                   </div>
 
-                  <div className="text-[2.8mm] font-black leading-[1.15] line-clamp-2 text-ellipsis overflow-hidden mb-[1.5mm]">
+                  <div className="text-[2.8mm] font-black leading-[1.15] line-clamp-2 text-ellipsis overflow-hidden mb-[1.5mm] shrink-0">
                     {isMilk
                       ? `${label.volume}ml - ${label.milkType}`
                       : label.description}
                   </div>
 
-                  {/* Observations Box - Highly visible block */}
-                  {label.additives ? (
-                    <div className="flex-1 mt-auto flex flex-col border-[1.8px] border-black rounded-[1mm] overflow-hidden min-h-[10mm]">
-                      <div className="bg-black text-white px-[1.5mm] py-[0.8mm] text-[1.8mm] font-black uppercase tracking-widest flex justify-between items-center shrink-0 leading-none">
-                        <span>Atenção / Obs</span>
-                        <AlertTriangle className="h-[1.8mm] w-[1.8mm]" />
-                      </div>
-                      <div className="flex-1 bg-white p-[1.5mm] flex items-center text-left overflow-hidden relative">
-                        {/* Soft background pattern for attention could be added, but solid white is safer for printing text clearly */}
-                        <span className="text-[2.4mm] font-black leading-[1.15] text-black line-clamp-3">
-                          {label.additives}
-                        </span>
-                      </div>
+                  {/* Observations & Restrictions Box */}
+                  {label.observations ||
+                  label.restrictions ||
+                  label.additives ? (
+                    <div className="flex-1 mt-auto flex flex-col gap-[1mm] overflow-hidden justify-end min-h-0 pt-[1mm]">
+                      {label.restrictions && (
+                        <div className="flex flex-col border-[1.5px] border-black rounded-[0.8mm] overflow-hidden shrink-0">
+                          <div className="bg-black text-white px-[1.2mm] py-[0.6mm] text-[1.6mm] font-black uppercase tracking-widest flex justify-between items-center leading-none">
+                            <span>Restrições</span>
+                            <AlertTriangle className="h-[1.5mm] w-[1.5mm]" />
+                          </div>
+                          <div className="bg-white px-[1.2mm] py-[0.6mm] flex items-center text-left">
+                            <span
+                              className={`text-[1.8mm] font-black leading-[1.1] text-black ${textClampClass}`}
+                            >
+                              {label.restrictions}
+                            </span>
+                          </div>
+                        </div>
+                      )}
+                      {(label.observations || label.additives) && (
+                        <div className="flex flex-col border-[1.5px] border-black rounded-[0.8mm] overflow-hidden shrink-0">
+                          <div className="bg-gray-200 border-b-[1.5px] border-black text-black px-[1.2mm] py-[0.6mm] text-[1.6mm] font-black uppercase tracking-widest flex justify-between items-center leading-none">
+                            <span>Observações</span>
+                            <Info className="h-[1.5mm] w-[1.5mm]" />
+                          </div>
+                          <div className="bg-white px-[1.2mm] py-[0.6mm] flex items-center text-left">
+                            <span
+                              className={`text-[1.8mm] font-bold leading-[1.1] text-black ${textClampClass}`}
+                            >
+                              {label.observations || label.additives}
+                            </span>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   ) : (
                     <div className="flex-1 mt-auto flex items-center justify-center border-[1.5px] border-dashed border-gray-400 rounded-[1mm] opacity-70 min-h-[10mm] bg-gray-50/50">
                       <span className="text-[2mm] font-bold uppercase text-gray-500 tracking-wider">
-                        Sem Observações
+                        Sem Restrições / Obs
                       </span>
                     </div>
                   )}
