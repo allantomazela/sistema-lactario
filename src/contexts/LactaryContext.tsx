@@ -11,6 +11,8 @@ export type Patient = {
   allergies: string[]
   active: boolean
   birthDate?: string
+  observations?: string
+  restrictions?: string
 }
 
 export type PrescriptionType = 'milk' | 'meal'
@@ -36,6 +38,8 @@ interface LactaryContextType {
   prescriptions: Prescription[]
   addPatient: (patient: Patient) => void
   addPatients: (patients: Patient[]) => void
+  updatePatient: (id: string, updates: Partial<Patient>) => void
+  deletePatient: (id: string) => void
   addPrescription: (prescription: Omit<Prescription, 'id'>) => void
   getPatient: (id: string) => Patient | undefined
 }
@@ -131,6 +135,16 @@ export function LactaryProvider({ children }: { children: ReactNode }) {
     setPatients((prev) => [...prev, ...newPatients])
   }
 
+  const updatePatient = (id: string, updates: Partial<Patient>) => {
+    setPatients((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, ...updates } : p)),
+    )
+  }
+
+  const deletePatient = (id: string) => {
+    setPatients((prev) => prev.filter((p) => p.id !== id))
+  }
+
   const addPrescription = (prescription: Omit<Prescription, 'id'>) => {
     setPrescriptions((prev) => [
       ...prev,
@@ -148,6 +162,8 @@ export function LactaryProvider({ children }: { children: ReactNode }) {
         prescriptions,
         addPatient,
         addPatients,
+        updatePatient,
+        deletePatient,
         addPrescription,
         getPatient,
       },

@@ -18063,7 +18063,7 @@ var Root$8 = DismissableLayer;
 var Branch = DismissableLayerBranch;
 var useLayoutEffect2 = globalThis?.document ? import_react.useLayoutEffect : () => {};
 var import_react_dom$5 = /* @__PURE__ */ __toESM(require_react_dom(), 1);
-var PORTAL_NAME$4 = "Portal";
+var PORTAL_NAME$5 = "Portal";
 var Portal = import_react.forwardRef((props, forwardedRef) => {
 	const { container: containerProp, ...portalProps } = props;
 	const [mounted, setMounted] = import_react.useState(false);
@@ -18074,7 +18074,7 @@ var Portal = import_react.forwardRef((props, forwardedRef) => {
 		ref: forwardedRef
 	}), container) : null;
 });
-Portal.displayName = PORTAL_NAME$4;
+Portal.displayName = PORTAL_NAME$5;
 function useStateMachine(initialState, machine) {
 	return import_react.useReducer((state, event) => {
 		return machine[state][event] ?? state;
@@ -18652,7 +18652,7 @@ var ToastAnnounce = (props) => {
 		})
 	});
 };
-var TITLE_NAME$1 = "ToastTitle";
+var TITLE_NAME$2 = "ToastTitle";
 var ToastTitle$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeToast, ...titleProps } = props;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
@@ -18660,8 +18660,8 @@ var ToastTitle$1 = import_react.forwardRef((props, forwardedRef) => {
 		ref: forwardedRef
 	});
 });
-ToastTitle$1.displayName = TITLE_NAME$1;
-var DESCRIPTION_NAME$1 = "ToastDescription";
+ToastTitle$1.displayName = TITLE_NAME$2;
+var DESCRIPTION_NAME$2 = "ToastDescription";
 var ToastDescription$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeToast, ...descriptionProps } = props;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.div, {
@@ -18669,12 +18669,12 @@ var ToastDescription$1 = import_react.forwardRef((props, forwardedRef) => {
 		ref: forwardedRef
 	});
 });
-ToastDescription$1.displayName = DESCRIPTION_NAME$1;
-var ACTION_NAME = "ToastAction";
+ToastDescription$1.displayName = DESCRIPTION_NAME$2;
+var ACTION_NAME$1 = "ToastAction";
 var ToastAction$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { altText, ...actionProps } = props;
 	if (!altText.trim()) {
-		console.error(`Invalid prop \`altText\` supplied to \`${ACTION_NAME}\`. Expected non-empty \`string\`.`);
+		console.error(`Invalid prop \`altText\` supplied to \`${ACTION_NAME$1}\`. Expected non-empty \`string\`.`);
 		return null;
 	}
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ToastAnnounceExclude, {
@@ -18686,7 +18686,7 @@ var ToastAction$1 = import_react.forwardRef((props, forwardedRef) => {
 		})
 	});
 });
-ToastAction$1.displayName = ACTION_NAME;
+ToastAction$1.displayName = ACTION_NAME$1;
 var CLOSE_NAME$2 = "ToastClose";
 var ToastClose$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeToast, ...closeProps } = props;
@@ -18779,10 +18779,10 @@ function focusFirst$2(candidates) {
 }
 var Provider$1 = ToastProvider$1;
 var Viewport$1 = ToastViewport$1;
-var Root2$4 = Toast$2;
+var Root2$5 = Toast$2;
 var Title$1 = ToastTitle$1;
 var Description$1 = ToastDescription$1;
-var Action = ToastAction$1;
+var Action$1 = ToastAction$1;
 var Close$1 = ToastClose$1;
 function r(e) {
 	var t, f, n = "";
@@ -19279,6 +19279,13 @@ var ShieldPlus = createLucideIcon("shield-plus", [
 		key: "199k2o"
 	}]
 ]);
+var SquarePen = createLucideIcon("square-pen", [["path", {
+	d: "M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7",
+	key: "1m0v6g"
+}], ["path", {
+	d: "M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z",
+	key: "ohrbg2"
+}]]);
 var Tags = createLucideIcon("tags", [
 	["path", {
 		d: "M13.172 2a2 2 0 0 1 1.414.586l6.71 6.71a2.4 2.4 0 0 1 0 3.408l-4.592 4.592a2.4 2.4 0 0 1-3.408 0l-6.71-6.71A2 2 0 0 1 6 9.172V3a1 1 0 0 1 1-1z",
@@ -19294,6 +19301,28 @@ var Tags = createLucideIcon("tags", [
 		r: ".5",
 		fill: "currentColor",
 		key: "12ikhr"
+	}]
+]);
+var Trash2 = createLucideIcon("trash-2", [
+	["path", {
+		d: "M10 11v6",
+		key: "nco0om"
+	}],
+	["path", {
+		d: "M14 11v6",
+		key: "outv1u"
+	}],
+	["path", {
+		d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6",
+		key: "miytrc"
+	}],
+	["path", {
+		d: "M3 6h18",
+		key: "d0wm0j"
+	}],
+	["path", {
+		d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2",
+		key: "e791ji"
 	}]
 ]);
 var TriangleAlert = createLucideIcon("triangle-alert", [
@@ -20802,19 +20831,19 @@ var toastVariants = cva("group pointer-events-auto relative flex w-full items-ce
 	defaultVariants: { variant: "default" }
 });
 var Toast$1 = import_react.forwardRef(({ className, variant, ...props }, ref) => {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root2$4, {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root2$5, {
 		ref,
 		className: cn(toastVariants({ variant }), className),
 		...props
 	});
 });
-Toast$1.displayName = Root2$4.displayName;
-var ToastAction = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Action, {
+Toast$1.displayName = Root2$5.displayName;
+var ToastAction = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Action$1, {
 	ref,
 	className: cn("inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium ring-offset-background transition-colors hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-muted/40 group-[.destructive]:hover:border-destructive/30 group-[.destructive]:hover:bg-destructive group-[.destructive]:hover:text-destructive-foreground group-[.destructive]:focus:ring-destructive", className),
 	...props
 }));
-ToastAction.displayName = Action.displayName;
+ToastAction.displayName = Action$1.displayName;
 var ToastClose = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Close$1, {
 	ref,
 	className: cn("absolute right-2 top-2 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600", className),
@@ -21188,10 +21217,10 @@ var Observer = class {
 			if (typeof id !== "string" && typeof id !== "number") return { unwrap };
 			else return Object.assign(id, { unwrap });
 		};
-		this.custom = (jsx$24, data) => {
+		this.custom = (jsx$25, data) => {
 			const id = (data == null ? void 0 : data.id) || toastsCounter++;
 			this.create({
-				jsx: jsx$24(id),
+				jsx: jsx$25(id),
 				id,
 				...data
 			});
@@ -23398,11 +23427,11 @@ var PopperAnchor = import_react.forwardRef((props, forwardedRef) => {
 	});
 });
 PopperAnchor.displayName = ANCHOR_NAME$1;
-var CONTENT_NAME$5 = "PopperContent";
-var [PopperContentProvider, useContentContext] = createPopperContext(CONTENT_NAME$5);
+var CONTENT_NAME$6 = "PopperContent";
+var [PopperContentProvider, useContentContext] = createPopperContext(CONTENT_NAME$6);
 var PopperContent = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopePopper, side = "bottom", sideOffset = 0, align = "center", alignOffset = 0, arrowPadding = 0, avoidCollisions = true, collisionBoundary = [], collisionPadding: collisionPaddingProp = 0, sticky = "partial", hideWhenDetached = false, updatePositionStrategy = "optimized", onPlaced, ...contentProps } = props;
-	const context = usePopperContext(CONTENT_NAME$5, __scopePopper);
+	const context = usePopperContext(CONTENT_NAME$6, __scopePopper);
 	const [content, setContent] = import_react.useState(null);
 	const composedRefs = useComposedRefs(forwardedRef, (node) => setContent(node));
 	const [arrow$3, setArrow] = import_react.useState(null);
@@ -23515,7 +23544,7 @@ var PopperContent = import_react.forwardRef((props, forwardedRef) => {
 		})
 	});
 });
-PopperContent.displayName = CONTENT_NAME$5;
+PopperContent.displayName = CONTENT_NAME$6;
 var ARROW_NAME$3 = "PopperArrow";
 var OPPOSITE_SIDE = {
 	top: "bottom",
@@ -23603,7 +23632,7 @@ function getSideAndAlignFromPlacement(placement) {
 	const [side, align = "center"] = placement.split("-");
 	return [side, align];
 }
-var Root2$3 = Popper;
+var Root2$4 = Popper;
 var Anchor = PopperAnchor;
 var Content$2 = PopperContent;
 var Arrow = PopperArrow;
@@ -23697,7 +23726,7 @@ var Tooltip$1 = (props) => {
 			}
 		};
 	}, []);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root2$3, {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root2$4, {
 		...popperScope,
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TooltipContextProvider, {
 			scope: __scopeTooltip,
@@ -23729,11 +23758,11 @@ var Tooltip$1 = (props) => {
 	});
 };
 Tooltip$1.displayName = TOOLTIP_NAME;
-var TRIGGER_NAME$5 = "TooltipTrigger";
+var TRIGGER_NAME$6 = "TooltipTrigger";
 var TooltipTrigger$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeTooltip, ...triggerProps } = props;
-	const context = useTooltipContext(TRIGGER_NAME$5, __scopeTooltip);
-	const providerContext = useTooltipProviderContext(TRIGGER_NAME$5, __scopeTooltip);
+	const context = useTooltipContext(TRIGGER_NAME$6, __scopeTooltip);
+	const providerContext = useTooltipProviderContext(TRIGGER_NAME$6, __scopeTooltip);
 	const popperScope = usePopperScope$2(__scopeTooltip);
 	const composedRefs = useComposedRefs(forwardedRef, import_react.useRef(null), context.onTriggerChange);
 	const isPointerDownRef = import_react.useRef(false);
@@ -23774,12 +23803,12 @@ var TooltipTrigger$1 = import_react.forwardRef((props, forwardedRef) => {
 		})
 	});
 });
-TooltipTrigger$1.displayName = TRIGGER_NAME$5;
-var PORTAL_NAME$3 = "TooltipPortal";
-var [PortalProvider$2, usePortalContext$2] = createTooltipContext(PORTAL_NAME$3, { forceMount: void 0 });
+TooltipTrigger$1.displayName = TRIGGER_NAME$6;
+var PORTAL_NAME$4 = "TooltipPortal";
+var [PortalProvider$2, usePortalContext$2] = createTooltipContext(PORTAL_NAME$4, { forceMount: void 0 });
 var TooltipPortal = (props) => {
 	const { __scopeTooltip, forceMount, children, container } = props;
-	const context = useTooltipContext(PORTAL_NAME$3, __scopeTooltip);
+	const context = useTooltipContext(PORTAL_NAME$4, __scopeTooltip);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PortalProvider$2, {
 		scope: __scopeTooltip,
 		forceMount,
@@ -23793,12 +23822,12 @@ var TooltipPortal = (props) => {
 		})
 	});
 };
-TooltipPortal.displayName = PORTAL_NAME$3;
-var CONTENT_NAME$4 = "TooltipContent";
+TooltipPortal.displayName = PORTAL_NAME$4;
+var CONTENT_NAME$5 = "TooltipContent";
 var TooltipContent$1 = import_react.forwardRef((props, forwardedRef) => {
-	const portalContext = usePortalContext$2(CONTENT_NAME$4, props.__scopeTooltip);
+	const portalContext = usePortalContext$2(CONTENT_NAME$5, props.__scopeTooltip);
 	const { forceMount = portalContext.forceMount, side = "top", ...contentProps } = props;
-	const context = useTooltipContext(CONTENT_NAME$4, props.__scopeTooltip);
+	const context = useTooltipContext(CONTENT_NAME$5, props.__scopeTooltip);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Presence, {
 		present: forceMount || context.open,
 		children: context.disableHoverableContent ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TooltipContentImpl, {
@@ -23813,8 +23842,8 @@ var TooltipContent$1 = import_react.forwardRef((props, forwardedRef) => {
 	});
 });
 var TooltipContentHoverable = import_react.forwardRef((props, forwardedRef) => {
-	const context = useTooltipContext(CONTENT_NAME$4, props.__scopeTooltip);
-	const providerContext = useTooltipProviderContext(CONTENT_NAME$4, props.__scopeTooltip);
+	const context = useTooltipContext(CONTENT_NAME$5, props.__scopeTooltip);
+	const providerContext = useTooltipProviderContext(CONTENT_NAME$5, props.__scopeTooltip);
 	const ref = import_react.useRef(null);
 	const composedRefs = useComposedRefs(forwardedRef, ref);
 	const [pointerGraceArea, setPointerGraceArea] = import_react.useState(null);
@@ -23888,10 +23917,10 @@ var TooltipContentHoverable = import_react.forwardRef((props, forwardedRef) => {
 	});
 });
 var [VisuallyHiddenContentContextProvider, useVisuallyHiddenContentContext] = createTooltipContext(TOOLTIP_NAME, { isInside: false });
-var Slottable = /* @__PURE__ */ createSlottable("TooltipContent");
+var Slottable$1 = /* @__PURE__ */ createSlottable("TooltipContent");
 var TooltipContentImpl = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeTooltip, children, "aria-label": ariaLabel, onEscapeKeyDown, onPointerDownOutside, ...contentProps } = props;
-	const context = useTooltipContext(CONTENT_NAME$4, __scopeTooltip);
+	const context = useTooltipContext(CONTENT_NAME$5, __scopeTooltip);
 	const popperScope = usePopperScope$2(__scopeTooltip);
 	const { onClose } = context;
 	import_react.useEffect(() => {
@@ -23927,7 +23956,7 @@ var TooltipContentImpl = import_react.forwardRef((props, forwardedRef) => {
 				"--radix-tooltip-trigger-width": "var(--radix-popper-anchor-width)",
 				"--radix-tooltip-trigger-height": "var(--radix-popper-anchor-height)"
 			},
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Slottable, { children }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(VisuallyHiddenContentContextProvider, {
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Slottable$1, { children }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(VisuallyHiddenContentContextProvider, {
 				scope: __scopeTooltip,
 				isInside: true,
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$7, {
@@ -23939,7 +23968,7 @@ var TooltipContentImpl = import_react.forwardRef((props, forwardedRef) => {
 		})
 	});
 });
-TooltipContent$1.displayName = CONTENT_NAME$4;
+TooltipContent$1.displayName = CONTENT_NAME$5;
 var ARROW_NAME$2 = "TooltipArrow";
 var TooltipArrow = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeTooltip, ...arrowProps } = props;
@@ -24084,17 +24113,17 @@ function getHullPresorted(points) {
 var Provider = TooltipProvider$1;
 var Root3 = Tooltip$1;
 var Trigger$4 = TooltipTrigger$1;
-var Content2$2 = TooltipContent$1;
+var Content2$3 = TooltipContent$1;
 var TooltipProvider = Provider;
 var Tooltip = Root3;
 var TooltipTrigger = Trigger$4;
-var TooltipContent = import_react.forwardRef(({ className, sideOffset = 4, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Content2$2, {
+var TooltipContent = import_react.forwardRef(({ className, sideOffset = 4, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Content2$3, {
 	ref,
 	sideOffset,
 	className: cn("z-50 overflow-hidden rounded-md border bg-popover px-3 py-1.5 text-sm text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-[--radix-tooltip-content-transform-origin]", className),
 	...props
 }));
-TooltipContent.displayName = Content2$2.displayName;
+TooltipContent.displayName = Content2$3.displayName;
 var REACT_LAZY_TYPE = Symbol.for("react.lazy");
 var use = import_react[" use ".trim().toString()];
 function isPromiseLike(value) {
@@ -25241,10 +25270,10 @@ var Dialog$1 = (props) => {
 	});
 };
 Dialog$1.displayName = DIALOG_NAME;
-var TRIGGER_NAME$4 = "DialogTrigger";
+var TRIGGER_NAME$5 = "DialogTrigger";
 var DialogTrigger$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeDialog, ...triggerProps } = props;
-	const context = useDialogContext(TRIGGER_NAME$4, __scopeDialog);
+	const context = useDialogContext(TRIGGER_NAME$5, __scopeDialog);
 	const composedTriggerRef = useComposedRefs(forwardedRef, context.triggerRef);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.button, {
 		type: "button",
@@ -25257,12 +25286,12 @@ var DialogTrigger$1 = import_react.forwardRef((props, forwardedRef) => {
 		onClick: composeEventHandlers(props.onClick, context.onOpenToggle)
 	});
 });
-DialogTrigger$1.displayName = TRIGGER_NAME$4;
-var PORTAL_NAME$2 = "DialogPortal";
-var [PortalProvider$1, usePortalContext$1] = createDialogContext(PORTAL_NAME$2, { forceMount: void 0 });
+DialogTrigger$1.displayName = TRIGGER_NAME$5;
+var PORTAL_NAME$3 = "DialogPortal";
+var [PortalProvider$1, usePortalContext$1] = createDialogContext(PORTAL_NAME$3, { forceMount: void 0 });
 var DialogPortal$1 = (props) => {
 	const { __scopeDialog, forceMount, children, container } = props;
-	const context = useDialogContext(PORTAL_NAME$2, __scopeDialog);
+	const context = useDialogContext(PORTAL_NAME$3, __scopeDialog);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PortalProvider$1, {
 		scope: __scopeDialog,
 		forceMount,
@@ -25276,12 +25305,12 @@ var DialogPortal$1 = (props) => {
 		}))
 	});
 };
-DialogPortal$1.displayName = PORTAL_NAME$2;
-var OVERLAY_NAME = "DialogOverlay";
+DialogPortal$1.displayName = PORTAL_NAME$3;
+var OVERLAY_NAME$1 = "DialogOverlay";
 var DialogOverlay$1 = import_react.forwardRef((props, forwardedRef) => {
-	const portalContext = usePortalContext$1(OVERLAY_NAME, props.__scopeDialog);
+	const portalContext = usePortalContext$1(OVERLAY_NAME$1, props.__scopeDialog);
 	const { forceMount = portalContext.forceMount, ...overlayProps } = props;
-	const context = useDialogContext(OVERLAY_NAME, props.__scopeDialog);
+	const context = useDialogContext(OVERLAY_NAME$1, props.__scopeDialog);
 	return context.modal ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Presence, {
 		present: forceMount || context.open,
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogOverlayImpl, {
@@ -25290,11 +25319,11 @@ var DialogOverlay$1 = import_react.forwardRef((props, forwardedRef) => {
 		})
 	}) : null;
 });
-DialogOverlay$1.displayName = OVERLAY_NAME;
+DialogOverlay$1.displayName = OVERLAY_NAME$1;
 var Slot$3 = /* @__PURE__ */ createSlot("DialogOverlay.RemoveScroll");
 var DialogOverlayImpl = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeDialog, ...overlayProps } = props;
-	const context = useDialogContext(OVERLAY_NAME, __scopeDialog);
+	const context = useDialogContext(OVERLAY_NAME$1, __scopeDialog);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Combination_default, {
 		as: Slot$3,
 		allowPinchZoom: true,
@@ -25310,11 +25339,11 @@ var DialogOverlayImpl = import_react.forwardRef((props, forwardedRef) => {
 		})
 	});
 });
-var CONTENT_NAME$3 = "DialogContent";
+var CONTENT_NAME$4 = "DialogContent";
 var DialogContent$1 = import_react.forwardRef((props, forwardedRef) => {
-	const portalContext = usePortalContext$1(CONTENT_NAME$3, props.__scopeDialog);
+	const portalContext = usePortalContext$1(CONTENT_NAME$4, props.__scopeDialog);
 	const { forceMount = portalContext.forceMount, ...contentProps } = props;
-	const context = useDialogContext(CONTENT_NAME$3, props.__scopeDialog);
+	const context = useDialogContext(CONTENT_NAME$4, props.__scopeDialog);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Presence, {
 		present: forceMount || context.open,
 		children: context.modal ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogContentModal, {
@@ -25326,9 +25355,9 @@ var DialogContent$1 = import_react.forwardRef((props, forwardedRef) => {
 		})
 	});
 });
-DialogContent$1.displayName = CONTENT_NAME$3;
+DialogContent$1.displayName = CONTENT_NAME$4;
 var DialogContentModal = import_react.forwardRef((props, forwardedRef) => {
-	const context = useDialogContext(CONTENT_NAME$3, props.__scopeDialog);
+	const context = useDialogContext(CONTENT_NAME$4, props.__scopeDialog);
 	const contentRef = import_react.useRef(null);
 	const composedRefs = useComposedRefs(forwardedRef, context.contentRef, contentRef);
 	import_react.useEffect(() => {
@@ -25353,7 +25382,7 @@ var DialogContentModal = import_react.forwardRef((props, forwardedRef) => {
 	});
 });
 var DialogContentNonModal = import_react.forwardRef((props, forwardedRef) => {
-	const context = useDialogContext(CONTENT_NAME$3, props.__scopeDialog);
+	const context = useDialogContext(CONTENT_NAME$4, props.__scopeDialog);
 	const hasInteractedOutsideRef = import_react.useRef(false);
 	const hasPointerDownOutsideRef = import_react.useRef(false);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogContentImpl, {
@@ -25384,7 +25413,7 @@ var DialogContentNonModal = import_react.forwardRef((props, forwardedRef) => {
 });
 var DialogContentImpl = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeDialog, trapFocus, onOpenAutoFocus, onCloseAutoFocus, ...contentProps } = props;
-	const context = useDialogContext(CONTENT_NAME$3, __scopeDialog);
+	const context = useDialogContext(CONTENT_NAME$4, __scopeDialog);
 	const contentRef = import_react.useRef(null);
 	const composedRefs = useComposedRefs(forwardedRef, contentRef);
 	useFocusGuards();
@@ -25404,33 +25433,33 @@ var DialogContentImpl = import_react.forwardRef((props, forwardedRef) => {
 			ref: composedRefs,
 			onDismiss: () => context.onOpenChange(false)
 		})
-	}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TitleWarning, { titleId: context.titleId }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DescriptionWarning, {
+	}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TitleWarning, { titleId: context.titleId }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DescriptionWarning$1, {
 		contentRef,
 		descriptionId: context.descriptionId
 	})] })] });
 });
-var TITLE_NAME = "DialogTitle";
+var TITLE_NAME$1 = "DialogTitle";
 var DialogTitle$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeDialog, ...titleProps } = props;
-	const context = useDialogContext(TITLE_NAME, __scopeDialog);
+	const context = useDialogContext(TITLE_NAME$1, __scopeDialog);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.h2, {
 		id: context.titleId,
 		...titleProps,
 		ref: forwardedRef
 	});
 });
-DialogTitle$1.displayName = TITLE_NAME;
-var DESCRIPTION_NAME = "DialogDescription";
+DialogTitle$1.displayName = TITLE_NAME$1;
+var DESCRIPTION_NAME$1 = "DialogDescription";
 var DialogDescription$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeDialog, ...descriptionProps } = props;
-	const context = useDialogContext(DESCRIPTION_NAME, __scopeDialog);
+	const context = useDialogContext(DESCRIPTION_NAME$1, __scopeDialog);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.p, {
 		id: context.descriptionId,
 		...descriptionProps,
 		ref: forwardedRef
 	});
 });
-DialogDescription$1.displayName = DESCRIPTION_NAME;
+DialogDescription$1.displayName = DESCRIPTION_NAME$1;
 var CLOSE_NAME$1 = "DialogClose";
 var DialogClose$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeDialog, ...closeProps } = props;
@@ -25448,8 +25477,8 @@ function getState$3(open) {
 }
 var TITLE_WARNING_NAME = "DialogTitleWarning";
 var [WarningProvider, useWarningContext] = createContext2(TITLE_WARNING_NAME, {
-	contentName: CONTENT_NAME$3,
-	titleName: TITLE_NAME,
+	contentName: CONTENT_NAME$4,
+	titleName: TITLE_NAME$1,
 	docsSlug: "dialog"
 });
 var TitleWarning = ({ titleId }) => {
@@ -25467,7 +25496,7 @@ For more information, see https://radix-ui.com/primitives/docs/components/${titl
 	return null;
 };
 var DESCRIPTION_WARNING_NAME = "DialogDescriptionWarning";
-var DescriptionWarning = ({ contentRef, descriptionId }) => {
+var DescriptionWarning$1 = ({ contentRef, descriptionId }) => {
 	const MESSAGE = `Warning: Missing \`Description\` or \`aria-describedby={undefined}\` for {${useWarningContext(DESCRIPTION_WARNING_NAME).contentName}}.`;
 	import_react.useEffect(() => {
 		const describedById = contentRef.current?.getAttribute("aria-describedby");
@@ -25482,6 +25511,7 @@ var DescriptionWarning = ({ contentRef, descriptionId }) => {
 	return null;
 };
 var Root$4 = Dialog$1;
+var Trigger$3 = DialogTrigger$1;
 var Portal$3 = DialogPortal$1;
 var Overlay = DialogOverlay$1;
 var Content$1 = DialogContent$1;
@@ -26280,6 +26310,15 @@ function LactaryProvider({ children }) {
 	const addPatients = (newPatients) => {
 		setPatients((prev) => [...prev, ...newPatients]);
 	};
+	const updatePatient = (id, updates) => {
+		setPatients((prev) => prev.map((p) => p.id === id ? {
+			...p,
+			...updates
+		} : p));
+	};
+	const deletePatient = (id) => {
+		setPatients((prev) => prev.filter((p) => p.id !== id));
+	};
 	const addPrescription = (prescription) => {
 		setPrescriptions((prev) => [...prev, {
 			...prescription,
@@ -26292,6 +26331,8 @@ function LactaryProvider({ children }) {
 		prescriptions,
 		addPatient,
 		addPatients,
+		updatePatient,
+		deletePatient,
 		addPrescription,
 		getPatient
 	} }, children);
@@ -27082,12 +27123,228 @@ var Patients = () => {
 	});
 };
 var Patients_default = Patients;
+var Textarea = import_react.forwardRef(({ className, ...props }, ref) => {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("textarea", {
+		className: cn("flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm", className),
+		ref,
+		...props
+	});
+});
+Textarea.displayName = "Textarea";
+var ROOT_NAME = "AlertDialog";
+var [createAlertDialogContext, createAlertDialogScope] = createContextScope(ROOT_NAME, [createDialogScope]);
+var useDialogScope = createDialogScope();
+var AlertDialog$1 = (props) => {
+	const { __scopeAlertDialog, ...alertDialogProps } = props;
+	const dialogScope = useDialogScope(__scopeAlertDialog);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root$4, {
+		...dialogScope,
+		...alertDialogProps,
+		modal: true
+	});
+};
+AlertDialog$1.displayName = ROOT_NAME;
+var TRIGGER_NAME$4 = "AlertDialogTrigger";
+var AlertDialogTrigger$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeAlertDialog, ...triggerProps } = props;
+	const dialogScope = useDialogScope(__scopeAlertDialog);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trigger$3, {
+		...dialogScope,
+		...triggerProps,
+		ref: forwardedRef
+	});
+});
+AlertDialogTrigger$1.displayName = TRIGGER_NAME$4;
+var PORTAL_NAME$2 = "AlertDialogPortal";
+var AlertDialogPortal$1 = (props) => {
+	const { __scopeAlertDialog, ...portalProps } = props;
+	const dialogScope = useDialogScope(__scopeAlertDialog);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Portal$3, {
+		...dialogScope,
+		...portalProps
+	});
+};
+AlertDialogPortal$1.displayName = PORTAL_NAME$2;
+var OVERLAY_NAME = "AlertDialogOverlay";
+var AlertDialogOverlay$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeAlertDialog, ...overlayProps } = props;
+	const dialogScope = useDialogScope(__scopeAlertDialog);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Overlay, {
+		...dialogScope,
+		...overlayProps,
+		ref: forwardedRef
+	});
+});
+AlertDialogOverlay$1.displayName = OVERLAY_NAME;
+var CONTENT_NAME$3 = "AlertDialogContent";
+var [AlertDialogContentProvider, useAlertDialogContentContext] = createAlertDialogContext(CONTENT_NAME$3);
+var Slottable = /* @__PURE__ */ createSlottable("AlertDialogContent");
+var AlertDialogContent$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeAlertDialog, children, ...contentProps } = props;
+	const dialogScope = useDialogScope(__scopeAlertDialog);
+	const contentRef = import_react.useRef(null);
+	const composedRefs = useComposedRefs(forwardedRef, contentRef);
+	const cancelRef = import_react.useRef(null);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(WarningProvider, {
+		contentName: CONTENT_NAME$3,
+		titleName: TITLE_NAME,
+		docsSlug: "alert-dialog",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AlertDialogContentProvider, {
+			scope: __scopeAlertDialog,
+			cancelRef,
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Content$1, {
+				role: "alertdialog",
+				...dialogScope,
+				...contentProps,
+				ref: composedRefs,
+				onOpenAutoFocus: composeEventHandlers(contentProps.onOpenAutoFocus, (event) => {
+					event.preventDefault();
+					cancelRef.current?.focus({ preventScroll: true });
+				}),
+				onPointerDownOutside: (event) => event.preventDefault(),
+				onInteractOutside: (event) => event.preventDefault(),
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Slottable, { children }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DescriptionWarning, { contentRef })]
+			})
+		})
+	});
+});
+AlertDialogContent$1.displayName = CONTENT_NAME$3;
+var TITLE_NAME = "AlertDialogTitle";
+var AlertDialogTitle$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeAlertDialog, ...titleProps } = props;
+	const dialogScope = useDialogScope(__scopeAlertDialog);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Title, {
+		...dialogScope,
+		...titleProps,
+		ref: forwardedRef
+	});
+});
+AlertDialogTitle$1.displayName = TITLE_NAME;
+var DESCRIPTION_NAME = "AlertDialogDescription";
+var AlertDialogDescription$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeAlertDialog, ...descriptionProps } = props;
+	const dialogScope = useDialogScope(__scopeAlertDialog);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Description, {
+		...dialogScope,
+		...descriptionProps,
+		ref: forwardedRef
+	});
+});
+AlertDialogDescription$1.displayName = DESCRIPTION_NAME;
+var ACTION_NAME = "AlertDialogAction";
+var AlertDialogAction$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeAlertDialog, ...actionProps } = props;
+	const dialogScope = useDialogScope(__scopeAlertDialog);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Close, {
+		...dialogScope,
+		...actionProps,
+		ref: forwardedRef
+	});
+});
+AlertDialogAction$1.displayName = ACTION_NAME;
+var CANCEL_NAME = "AlertDialogCancel";
+var AlertDialogCancel$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeAlertDialog, ...cancelProps } = props;
+	const { cancelRef } = useAlertDialogContentContext(CANCEL_NAME, __scopeAlertDialog);
+	const dialogScope = useDialogScope(__scopeAlertDialog);
+	const ref = useComposedRefs(forwardedRef, cancelRef);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Close, {
+		...dialogScope,
+		...cancelProps,
+		ref
+	});
+});
+AlertDialogCancel$1.displayName = CANCEL_NAME;
+var DescriptionWarning = ({ contentRef }) => {
+	const MESSAGE = `\`${CONTENT_NAME$3}\` requires a description for the component to be accessible for screen reader users.
+
+You can add a description to the \`${CONTENT_NAME$3}\` by passing a \`${DESCRIPTION_NAME}\` component as a child, which also benefits sighted users by adding visible context to the dialog.
+
+Alternatively, you can use your own component as a description by assigning it an \`id\` and passing the same value to the \`aria-describedby\` prop in \`${CONTENT_NAME$3}\`. If the description is confusing or duplicative for sighted users, you can use the \`@radix-ui/react-visually-hidden\` primitive as a wrapper around your description component.
+
+For more information, see https://radix-ui.com/primitives/docs/components/alert-dialog`;
+	import_react.useEffect(() => {
+		if (!document.getElementById(contentRef.current?.getAttribute("aria-describedby"))) console.warn(MESSAGE);
+	}, [MESSAGE, contentRef]);
+	return null;
+};
+var Root2$3 = AlertDialog$1;
+var Trigger2 = AlertDialogTrigger$1;
+var Portal2 = AlertDialogPortal$1;
+var Overlay2 = AlertDialogOverlay$1;
+var Content2$2 = AlertDialogContent$1;
+var Action = AlertDialogAction$1;
+var Cancel = AlertDialogCancel$1;
+var Title2 = AlertDialogTitle$1;
+var Description2 = AlertDialogDescription$1;
+var AlertDialog = Root2$3;
+var AlertDialogTrigger = Trigger2;
+var AlertDialogPortal = Portal2;
+var AlertDialogOverlay = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Overlay2, {
+	className: cn("fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0", className),
+	...props,
+	ref
+}));
+AlertDialogOverlay.displayName = Overlay2.displayName;
+var AlertDialogContent = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(AlertDialogPortal, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(AlertDialogOverlay, {}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Content2$2, {
+	ref,
+	className: cn("fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg", className),
+	...props
+})] }));
+AlertDialogContent.displayName = Content2$2.displayName;
+var AlertDialogHeader = ({ className, ...props }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+	className: cn("flex flex-col space-y-2 text-center sm:text-left", className),
+	...props
+});
+AlertDialogHeader.displayName = "AlertDialogHeader";
+var AlertDialogFooter = ({ className, ...props }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+	className: cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className),
+	...props
+});
+AlertDialogFooter.displayName = "AlertDialogFooter";
+var AlertDialogTitle = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Title2, {
+	ref,
+	className: cn("text-lg font-semibold", className),
+	...props
+}));
+AlertDialogTitle.displayName = Title2.displayName;
+var AlertDialogDescription = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Description2, {
+	ref,
+	className: cn("text-sm text-muted-foreground", className),
+	...props
+}));
+AlertDialogDescription.displayName = Description2.displayName;
+var AlertDialogAction = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Action, {
+	ref,
+	className: cn(buttonVariants(), className),
+	...props
+}));
+AlertDialogAction.displayName = Action.displayName;
+var AlertDialogCancel = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Cancel, {
+	ref,
+	className: cn(buttonVariants({ variant: "outline" }), "mt-2 sm:mt-0", className),
+	...props
+}));
+AlertDialogCancel.displayName = Cancel.displayName;
 var PatientProfile = () => {
 	const { id } = useParams();
-	const { getPatient, prescriptions } = useLactary();
+	const navigate = useNavigate();
+	const { toast: toast$2 } = useToast();
+	const { getPatient, prescriptions, updatePatient, deletePatient } = useLactary();
+	const [isEditing, setIsEditing] = (0, import_react.useState)(false);
+	const [editForm, setEditForm] = (0, import_react.useState)({
+		name: "",
+		bed: "",
+		observations: "",
+		restrictions: ""
+	});
 	const patient = (0, import_react.useMemo)(() => {
 		return id ? getPatient(id) : void 0;
-	}, [id, getPatient]);
+	}, [
+		id,
+		getPatient,
+		isEditing
+	]);
 	const patientPrescriptions = (0, import_react.useMemo)(() => {
 		if (!id) return [];
 		return prescriptions.filter((p) => p.patientId === id).sort((a, b$1) => new Date(b$1.date).getTime() - new Date(a.date).getTime());
@@ -27111,32 +27368,190 @@ var PatientProfile = () => {
 		]
 	});
 	const birthDateStr = patient.birthDate ? patient.birthDate.split("-").reverse().join("/") : "Não informado";
+	const handleEditClick = () => {
+		setEditForm({
+			name: patient.name,
+			bed: patient.bed,
+			observations: patient.observations || "",
+			restrictions: patient.restrictions || ""
+		});
+		setIsEditing(true);
+	};
+	const handleSave = () => {
+		if (!editForm.name.trim() || !editForm.bed.trim()) {
+			toast$2({
+				title: "Campos Obrigatórios",
+				description: "Nome e Leito não podem ficar em branco.",
+				variant: "destructive"
+			});
+			return;
+		}
+		updatePatient(patient.id, {
+			name: editForm.name.toUpperCase(),
+			bed: editForm.bed,
+			observations: editForm.observations,
+			restrictions: editForm.restrictions
+		});
+		setIsEditing(false);
+		toast$2({
+			title: "Sucesso",
+			description: "Dados do paciente atualizados com sucesso."
+		});
+	};
+	const handleDelete = () => {
+		deletePatient(patient.id);
+		toast$2({
+			title: "Paciente Excluído",
+			description: "O registro do paciente foi removido."
+		});
+		navigate("/pacientes", { replace: true });
+	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "space-y-6 animate-slide-up max-w-6xl mx-auto",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "flex items-center gap-4",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-					asChild: true,
-					variant: "ghost",
-					size: "icon",
-					className: "shrink-0",
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
-						to: "/pacientes",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLeft, { className: "h-5 w-5" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "sr-only",
-							children: "Voltar"
-						})]
-					})
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-					className: "text-3xl font-bold tracking-tight text-slate-800",
-					children: "Perfil do Paciente"
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "text-muted-foreground mt-1 flex items-center gap-2",
-					children: "Registro detalhado e histórico de prescrições do lactário."
-				})] })]
+				className: "flex flex-col sm:flex-row sm:items-center justify-between gap-4",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex items-center gap-4",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						asChild: true,
+						variant: "ghost",
+						size: "icon",
+						className: "shrink-0",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+							to: "/pacientes",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLeft, { className: "h-5 w-5" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "sr-only",
+								children: "Voltar"
+							})]
+						})
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+						className: "text-3xl font-bold tracking-tight text-slate-800",
+						children: "Perfil do Paciente"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-muted-foreground mt-1 flex items-center gap-2",
+						children: "Registro detalhado e histórico de prescrições do lactário."
+					})] })]
+				}), !isEditing && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex items-center gap-2 self-start sm:self-auto",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+						variant: "outline",
+						onClick: handleEditClick,
+						className: "gap-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SquarePen, { className: "h-4 w-4" }), "Editar"]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(AlertDialog, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(AlertDialogTrigger, {
+						asChild: true,
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+							variant: "destructive",
+							className: "gap-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash2, { className: "h-4 w-4" }), "Excluir Paciente"]
+						})
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(AlertDialogContent, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(AlertDialogHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(AlertDialogTitle, { children: "Excluir permanentemente?" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(AlertDialogDescription, { children: [
+						"Você tem certeza que deseja excluir o registro de",
+						" ",
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: patient.name }),
+						"? Esta ação não pode ser desfeita e removerá o paciente da lista ativa."
+					] })] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(AlertDialogFooter, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(AlertDialogCancel, { children: "Cancelar" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AlertDialogAction, {
+						onClick: handleDelete,
+						className: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+						children: "Sim, Excluir"
+					})] })] })] })]
+				})]
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			isEditing ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
+				className: "shadow-sm border-t-4 border-t-primary animate-fade-in",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardTitle, {
+					className: "text-xl flex items-center gap-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SquarePen, { className: "h-5 w-5 text-primary" }), "Editar Dados do Paciente"]
+				}) }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
+					className: "space-y-6",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "grid md:grid-cols-2 gap-6",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "space-y-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+									htmlFor: "edit-name",
+									children: "Nome do Paciente *"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+									id: "edit-name",
+									value: editForm.name,
+									onChange: (e) => setEditForm({
+										...editForm,
+										name: e.target.value
+									}),
+									className: "bg-slate-50"
+								})]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "space-y-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+									htmlFor: "edit-bed",
+									className: "text-primary font-bold",
+									children: "Leito (Localização) *"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+									id: "edit-bed",
+									value: editForm.bed,
+									onChange: (e) => setEditForm({
+										...editForm,
+										bed: e.target.value
+									}),
+									className: "border-primary/50 focus-visible:ring-primary bg-primary/5",
+									placeholder: "Ex: 12A"
+								})]
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "grid md:grid-cols-2 gap-6",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "space-y-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+									htmlFor: "edit-restrictions",
+									children: "Restrições / Alergias"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Textarea, {
+									id: "edit-restrictions",
+									value: editForm.restrictions,
+									onChange: (e) => setEditForm({
+										...editForm,
+										restrictions: e.target.value
+									}),
+									rows: 3,
+									className: "bg-slate-50 resize-none",
+									placeholder: "Ex: APLV, intolerância a lactose..."
+								})]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "space-y-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+									htmlFor: "edit-obs",
+									children: "Observações Adicionais"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Textarea, {
+									id: "edit-obs",
+									value: editForm.observations,
+									onChange: (e) => setEditForm({
+										...editForm,
+										observations: e.target.value
+									}),
+									rows: 3,
+									className: "bg-slate-50 resize-none",
+									placeholder: "Informações clínicas relevantes para o lactário..."
+								})]
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex justify-end gap-3 pt-4 border-t",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+								variant: "outline",
+								onClick: () => setIsEditing(false),
+								className: "gap-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "h-4 w-4" }), " Cancelar"]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+								onClick: handleSave,
+								className: "gap-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Save, { className: "h-4 w-4" }), " Salvar Alterações"]
+							})]
+						})
+					]
+				})]
+			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "grid gap-6 md:grid-cols-3",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
 					className: "md:col-span-2 shadow-sm border-t-4 border-t-primary",
@@ -27157,65 +27572,81 @@ var PatientProfile = () => {
 						})
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
 						className: "grid sm:grid-cols-2 gap-6",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "space-y-4",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex items-center gap-3 text-sm",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "space-y-4",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex items-center gap-3 text-sm",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										className: "p-2 bg-slate-100 rounded-md",
+										children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Hash, { className: "h-4 w-4 text-slate-500" })
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										className: "text-muted-foreground text-xs font-semibold uppercase tracking-wider",
+										children: "Prontuário"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										className: "font-medium text-slate-900",
+										children: patient.recordId
+									})] })]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex items-center gap-3 text-sm",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										className: "p-2 bg-slate-100 rounded-md",
+										children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Calendar$1, { className: "h-4 w-4 text-slate-500" })
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										className: "text-muted-foreground text-xs font-semibold uppercase tracking-wider",
+										children: "Data de Nascimento"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										className: "font-medium text-slate-900",
+										children: birthDateStr
+									})] })]
+								})]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "space-y-4",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex items-center gap-3 text-sm",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										className: "p-2 bg-slate-100 rounded-md",
+										children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MapPin, { className: "h-4 w-4 text-slate-500" })
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										className: "text-muted-foreground text-xs font-semibold uppercase tracking-wider",
+										children: "Localização (Ala / Leito)"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+										className: "font-medium text-slate-900",
+										children: [
+											patient.ward,
+											" - Leito ",
+											patient.bed
+										]
+									})] })]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex items-center gap-3 text-sm",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										className: "p-2 bg-slate-100 rounded-md",
+										children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Activity, { className: "h-4 w-4 text-slate-500" })
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										className: "text-muted-foreground text-xs font-semibold uppercase tracking-wider",
+										children: "Dieta Atual Padrão"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										className: "font-medium text-slate-900",
+										children: patient.dietType
+									})] })]
+								})]
+							}),
+							patient.observations && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "mt-2 pt-4 border-t border-slate-100 flex items-start gap-3 text-sm col-span-full",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									className: "p-2 bg-slate-100 rounded-md",
-									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Hash, { className: "h-4 w-4 text-slate-500" })
+									className: "p-2 bg-slate-100 rounded-md shrink-0",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Info, { className: "h-4 w-4 text-slate-500" })
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 									className: "text-muted-foreground text-xs font-semibold uppercase tracking-wider",
-									children: "Prontuário"
+									children: "Observações"
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-									className: "font-medium text-slate-900",
-									children: patient.recordId
+									className: "font-medium text-slate-900 mt-1 whitespace-pre-wrap",
+									children: patient.observations
 								})] })]
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex items-center gap-3 text-sm",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									className: "p-2 bg-slate-100 rounded-md",
-									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Calendar$1, { className: "h-4 w-4 text-slate-500" })
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-									className: "text-muted-foreground text-xs font-semibold uppercase tracking-wider",
-									children: "Data de Nascimento"
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-									className: "font-medium text-slate-900",
-									children: birthDateStr
-								})] })]
-							})]
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "space-y-4",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex items-center gap-3 text-sm",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									className: "p-2 bg-slate-100 rounded-md",
-									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MapPin, { className: "h-4 w-4 text-slate-500" })
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-									className: "text-muted-foreground text-xs font-semibold uppercase tracking-wider",
-									children: "Localização (Ala / Leito)"
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-									className: "font-medium text-slate-900",
-									children: [
-										patient.ward,
-										" - Leito ",
-										patient.bed
-									]
-								})] })]
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex items-center gap-3 text-sm",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									className: "p-2 bg-slate-100 rounded-md",
-									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Activity, { className: "h-4 w-4 text-slate-500" })
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-									className: "text-muted-foreground text-xs font-semibold uppercase tracking-wider",
-									children: "Dieta Atual Padrão"
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-									className: "font-medium text-slate-900",
-									children: patient.dietType
-								})] })]
-							})]
-						})]
+							})
+						]
 					})]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
 					className: "shadow-sm border-t-4 border-t-destructive",
@@ -27227,19 +27658,26 @@ var PatientProfile = () => {
 						})
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardContent, {
 						className: "pt-4",
-						children: patient.allergies.length > 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						children: patient.allergies.length > 0 || patient.restrictions ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: "flex flex-col gap-3",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								className: "text-sm text-muted-foreground",
-								children: "Atenção rigorosa aos seguintes itens informados no cadastro:"
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								className: "flex flex-wrap gap-2",
-								children: patient.allergies.map((allergy, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Badge, {
-									variant: "destructive",
-									className: "px-3 py-1 text-sm font-semibold shadow-sm",
-									children: allergy
-								}, idx))
-							})]
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "text-sm text-muted-foreground",
+									children: "Atenção rigorosa aos seguintes itens informados:"
+								}),
+								patient.allergies.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "flex flex-wrap gap-2",
+									children: patient.allergies.map((allergy, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Badge, {
+										variant: "destructive",
+										className: "px-3 py-1 text-sm font-semibold shadow-sm",
+										children: allergy
+									}, idx))
+								}),
+								patient.restrictions && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "font-medium text-slate-800 text-sm mt-1 p-3 bg-white rounded-md border border-rose-100 whitespace-pre-wrap",
+									children: patient.restrictions
+								})
+							]
 						}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: "flex flex-col items-center justify-center text-center py-6 space-y-2",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Info, { className: "h-8 w-8 text-muted-foreground opacity-20" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
@@ -27369,14 +27807,6 @@ var PatientProfile = () => {
 	});
 };
 var PatientProfile_default = PatientProfile;
-var Textarea = import_react.forwardRef(({ className, ...props }, ref) => {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("textarea", {
-		className: cn("flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm", className),
-		ref,
-		...props
-	});
-});
-Textarea.displayName = "Textarea";
 function clamp(value, [min$2, max$2]) {
 	return Math.min(max$2, Math.max(min$2, value));
 }
@@ -27435,7 +27865,7 @@ var Select$2 = (props) => {
 	const isFormControl = trigger ? form || !!trigger.closest("form") : true;
 	const [nativeOptionsSet, setNativeOptionsSet] = import_react.useState(/* @__PURE__ */ new Set());
 	const nativeSelectKey = Array.from(nativeOptionsSet).map((option) => option.props.value).join(";");
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root2$3, {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root2$4, {
 		...popperScope,
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SelectProvider, {
 			required,
@@ -29438,7 +29868,7 @@ var Popover$1 = (props) => {
 		onChange: onOpenChange,
 		caller: POPOVER_NAME
 	});
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root2$3, {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root2$4, {
 		...popperScope,
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PopoverProvider, {
 			scope: __scopePopover,
@@ -34911,4 +35341,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-DM82znpA.js.map
+//# sourceMappingURL=index-kT4XShQH.js.map
