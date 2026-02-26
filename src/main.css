@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -104,7 +104,7 @@
   }
 
   .thermal-label {
-    @apply bg-white text-black border-2 border-black rounded-lg p-4 font-sans max-w-sm w-full mx-auto shadow-sm;
+    @apply bg-white text-black border border-gray-300 rounded font-sans w-full shadow-sm relative overflow-hidden box-border;
   }
 
   @media print {
@@ -128,7 +128,7 @@
     .thermal-label {
       break-inside: avoid;
       box-shadow: none;
-      border: 1px solid #000;
+      border: none !important;
     }
   }
 
