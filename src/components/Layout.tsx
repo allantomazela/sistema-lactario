@@ -24,17 +24,28 @@ import {
   Package,
   Truck,
   BarChart3,
+  Bell,
+  ShoppingCart,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
 import { useAuth } from '@/contexts/AuthContext'
+import { useInventory } from '@/contexts/InventoryContext'
 
 export default function Layout() {
   const location = useLocation()
   const { currentUser, logout } = useAuth()
+  const { items } = useInventory()
 
   if (!currentUser) {
     return <Navigate to="/login" state={{ from: location }} replace />
   }
+
+  const lowStockItems = items.filter((i) => i.quantity <= i.minLevel)
 
   const navItems = [
     { title: 'Início', path: '/', icon: Activity },
@@ -43,6 +54,7 @@ export default function Layout() {
     { title: 'Gerar Etiquetas', path: '/etiquetas', icon: Tags },
     { title: 'Estoque', path: '/estoque', icon: Package },
     { title: 'Fornecedores', path: '/fornecedores', icon: Truck },
+    { title: 'Pedidos', path: '/pedidos', icon: ShoppingCart },
     { title: 'Relatórios', path: '/relatorios', icon: BarChart3 },
   ]
 
@@ -113,6 +125,49 @@ export default function Layout() {
             </h1>
           </div>
           <div className="flex items-center gap-4">
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="ghost" size="icon" className="relative">
+                  <Bell className="h-5 w-5" />
+                  {lowStockItems.length > 0 && (
+                    <span className="absolute top-1.5 right-1.5 h-2.5 w-2.5 rounded-full bg-destructive border-2 border-white" />
+                  )}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-80 p-0" align="end">
+                <div className="p-4 border-b bg-slate-50">
+                  <h4 className="font-semibold">Notificações</h4>
+                  <p className="text-xs text-muted-foreground">
+                    Alertas de estoque mínimo
+                  </p>
+                </div>
+                <div className="max-h-[300px] overflow-auto">
+                  {lowStockItems.length === 0 ? (
+                    <div className="p-4 text-sm text-center text-muted-foreground">
+                      Nenhum item com estoque baixo.
+                    </div>
+                  ) : (
+                    lowStockItems.map((item) => (
+                      <div
+                        key={item.id}
+                        className="p-4 border-b last:border-0 hover:bg-slate-50 text-sm"
+                      >
+                        <div className="font-medium text-destructive mb-0.5">
+                          Estoque Crítico
+                        </div>
+                        <div className="text-slate-800 font-semibold">
+                          {item.name}
+                        </div>
+                        <div className="text-xs text-muted-foreground mt-1">
+                          Quantidade atual: {item.quantity} {item.unit} |
+                          Mínimo: {item.minLevel} {item.unit}
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </PopoverContent>
+            </Popover>
             <div className="hidden md:flex flex-col items-end text-sm mr-4">
               <span className="font-medium text-foreground line-clamp-1">
                 {currentUser.name}

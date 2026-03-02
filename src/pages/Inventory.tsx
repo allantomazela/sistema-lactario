@@ -1,6 +1,8 @@
 import { useState, useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useInventory, InventoryItem } from '@/contexts/InventoryContext'
 import { useSuppliers } from '@/contexts/SupplierContext'
+import { usePurchaseOrders } from '@/contexts/PurchaseOrderContext'
 import {
   Card,
   CardContent,
@@ -51,9 +53,11 @@ import { getLocalYYYYMMDD, cn } from '@/lib/utils'
 export default function Inventory() {
   const { items, addItem, updateItem, deleteItem } = useInventory()
   const { suppliers } = useSuppliers()
+  const { addOrders } = usePurchaseOrders()
+  const navigate = useNavigate()
   const { toast } = useToast()
-  const [searchTerm, setSearchTerm] = useState('')
 
+  const [searchTerm, setSearchTerm] = useState('')
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isShoppingListOpen, setIsShoppingListOpen] = useState(false)
   const [editingItem, setEditingItem] = useState<InventoryItem | null>(null)
@@ -135,6 +139,47 @@ export default function Inventory() {
     toast({ title: 'Item removido do estoque' })
   }
 
+  const handleGeneratePOs = () => {
+    const orders = Object.entries(shoppingList)
+      .map(([supId, supItems]) => {
+        return {
+          supplierId: supId === 'none' ? '' : supId,
+          date: getLocalYYYYMMDD(new Date()),
+          status: 'pending' as const,
+          items: supItems.map((item) => {
+            const shortage = item.minLevel - item.quantity
+            const suggested =
+              shortage > 0
+                ? shortage + Math.ceil(item.minLevel * 0.5)
+                : item.minLevel
+            return {
+              itemId: item.id,
+              name: item.name,
+              quantity: suggested,
+              unit: item.unit,
+            }
+          }),
+        }
+      })
+      .filter((o) => o.supplierId !== '')
+
+    if (orders.length > 0) {
+      addOrders(orders)
+      toast({
+        title: 'Pedidos Gerados',
+        description: `${orders.length} pedido(s) gerado(s) com sucesso.`,
+      })
+      setIsShoppingListOpen(false)
+      navigate('/pedidos')
+    } else {
+      toast({
+        title: 'Erro',
+        description: 'Nenhum fornecedor vinculado aos itens faltantes.',
+        variant: 'destructive',
+      })
+    }
+  }
+
   const todayStr = getLocalYYYYMMDD(new Date())
 
   const shoppingList = useMemo(() => {
@@ -196,8 +241,8 @@ export default function Inventory() {
               <TableRow className="bg-slate-50/50">
                 <TableHead>Insumo</TableHead>
                 <TableHead>Lote / Validade</TableHead>
-                <TableHead className="text-right">Quantidade Atual</TableHead>
-                <TableHead className="text-right">Nível Mínimo</TableHead>
+                <TableHead className="text-right">Qtd Atual</TableHead>
+                <TableHead className="text-right">Nível Mín.</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead className="text-right">Ações</TableHead>
               </TableRow>
@@ -209,7 +254,7 @@ export default function Inventory() {
                     colSpan={6}
                     className="text-center py-8 text-muted-foreground"
                   >
-                    Nenhum item encontrado no estoque.
+                    Nenhum item encontrado.
                   </TableCell>
                 </TableRow>
               ) : (
@@ -290,14 +335,14 @@ export default function Inventory() {
                                 (new Date(item.expirationDate!).getTime() -
                                   new Date(todayStr).getTime()) /
                                   (1000 * 3600 * 24),
-                              )}{' '}
+                              )}
                               d
                             </Badge>
                           )}
                           {!isLow && !isExpired && !isExpiringSoon && (
                             <Badge
                               variant="secondary"
-                              className="bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
+                              className="bg-emerald-100 text-emerald-700"
                             >
                               Adequado
                             </Badge>
@@ -344,7 +389,6 @@ export default function Inventory() {
             <div className="space-y-2">
               <Label>Nome do Insumo</Label>
               <Input
-                placeholder="Ex: Fórmula HA"
                 value={formData.name}
                 onChange={(e) =>
                   setFormData({ ...formData, name: e.target.value })
@@ -366,7 +410,6 @@ export default function Inventory() {
               <div className="space-y-2">
                 <Label>Unidade</Label>
                 <Input
-                  placeholder="latas, ml..."
                   value={formData.unit}
                   onChange={(e) =>
                     setFormData({ ...formData, unit: e.target.value })
@@ -391,7 +434,6 @@ export default function Inventory() {
               <div className="space-y-2">
                 <Label>Lote</Label>
                 <Input
-                  placeholder="Ex: LT-24"
                   value={formData.batch}
                   onChange={(e) =>
                     setFormData({ ...formData, batch: e.target.value })
@@ -459,9 +501,6 @@ export default function Inventory() {
             <div className="space-y-6 py-4">
               {Object.entries(shoppingList).map(([supId, supItems]) => {
                 const supplier = suppliers.find((s) => s.id === supId)
-                const supplierName = supplier
-                  ? supplier.name
-                  : 'Sem Fornecedor Vinculado'
                 return (
                   <div
                     key={supId}
@@ -470,13 +509,8 @@ export default function Inventory() {
                     <div className="bg-slate-50 px-4 py-3 border-b flex items-center gap-2">
                       <Truck className="h-5 w-5 text-primary" />
                       <h4 className="font-bold text-slate-800">
-                        {supplierName}
+                        {supplier ? supplier.name : 'Sem Fornecedor Vinculado'}
                       </h4>
-                      {supplier && (
-                        <span className="text-xs text-muted-foreground ml-auto">
-                          {supplier.contact}
-                        </span>
-                      )}
                     </div>
                     <Table>
                       <TableHeader>
@@ -523,8 +557,14 @@ export default function Inventory() {
             >
               Fechar
             </Button>
-            <Button className="gap-2" onClick={() => window.print()}>
-              <ShoppingCart className="h-4 w-4" /> Imprimir Lista
+            <Button variant="secondary" onClick={() => window.print()}>
+              <ShoppingCart className="h-4 w-4 mr-2" /> Imprimir
+            </Button>
+            <Button
+              onClick={handleGeneratePOs}
+              disabled={Object.keys(shoppingList).length === 0}
+            >
+              Gerar Pedido(s)
             </Button>
           </DialogFooter>
         </DialogContent>
