@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useLactary, Template } from '@/contexts/LactaryContext'
 import {
   Card,
@@ -19,7 +19,6 @@ import {
   SelectValue,
   SelectGroup,
   SelectLabel,
-  SelectSeparator,
 } from '@/components/ui/select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
@@ -31,8 +30,11 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog'
 import { Checkbox } from '@/components/ui/checkbox'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import { Badge } from '@/components/ui/badge'
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
 import { useToast } from '@/hooks/use-toast'
-import { Check, Info, Plus, Save, Bookmark } from 'lucide-react'
+import { Check, Info, Plus, Bookmark, AlertCircle } from 'lucide-react'
 import { getLocalYYYYMMDD } from '@/lib/utils'
 
 const PREDEFINED_TIMES = [
@@ -52,19 +54,41 @@ const PREDEFINED_TIMES = [
   '03:00',
 ]
 
+const STANDARD_FORMULAS = [
+  {
+    id: 'rn',
+    name: 'Padrão RN',
+    milkType: 'Fórmula Infantil',
+    mealDesc: undefined,
+  },
+  {
+    id: 'transicao',
+    name: 'Transição 6m',
+    milkType: 'Fórmula Infantil',
+    mealDesc: 'Papinha de Legumes e Carne',
+  },
+  {
+    id: 'alergia',
+    name: 'Alergia (PLV)',
+    milkType: 'Fórmula Especial (HA)',
+    mealDesc: 'Papinha sem Leite/Derivados',
+  },
+  {
+    id: 'leite-materno',
+    name: 'Leite Materno Exclusivo',
+    milkType: 'Leite Materno Pasteurizado',
+    mealDesc: undefined,
+  },
+]
+
 const Prescriptions = () => {
-  const {
-    patients,
-    addPrescription,
-    addPatient,
-    templates,
-    addTemplate,
-    deleteTemplate,
-  } = useLactary()
+  const { patients, addPrescription, addPatient, templates, addTemplate } =
+    useLactary()
   const { toast } = useToast()
 
   const [selectedPatient, setSelectedPatient] = useState<string>('')
   const [type, setType] = useState<'milk' | 'meal'>('milk')
+  const [standardFormula, setStandardFormula] = useState<string>('')
   const [volume, setVolume] = useState('100')
   const [milkType, setMilkType] = useState('Fórmula Infantil')
   const [description, setDescription] = useState('')
@@ -92,7 +116,33 @@ const Prescriptions = () => {
   const [isTemplateDialogOpen, setIsTemplateDialogOpen] = useState(false)
   const [templateName, setTemplateName] = useState('')
 
-  const patient = patients.find((p) => p.id === selectedPatient)
+  const patient = useMemo(
+    () => patients.find((p) => p.id === selectedPatient),
+    [patients, selectedPatient],
+  )
+
+  const currentStandard = useMemo(
+    () => STANDARD_FORMULAS.find((f) => f.id === standardFormula),
+    [standardFormula],
+  )
+
+  const isMilkDeviated = useMemo(
+    () =>
+      standardFormula !== '' &&
+      currentStandard?.milkType !== undefined &&
+      currentStandard.milkType !== milkType,
+    [standardFormula, currentStandard, milkType],
+  )
+
+  const isMealDeviated = useMemo(
+    () =>
+      standardFormula !== '' &&
+      currentStandard?.mealDesc !== undefined &&
+      currentStandard.mealDesc !== description,
+    [standardFormula, currentStandard, description],
+  )
+
+  const isDeviated = isMilkDeviated || isMealDeviated
 
   const handleToggleTime = (time: string) => {
     setSelectedTimes((prev) =>
@@ -102,10 +152,25 @@ const Prescriptions = () => {
     )
   }
 
+  const handleStandardFormulaChange = (value: string) => {
+    setStandardFormula(value)
+    if (!value) {
+      setMilkType('Fórmula Infantil')
+      setDescription('')
+      return
+    }
+    const formula = STANDARD_FORMULAS.find((f) => f.id === value)
+    if (formula) {
+      if (formula.milkType !== undefined) setMilkType(formula.milkType)
+      if (formula.mealDesc !== undefined) setDescription(formula.mealDesc)
+    }
+  }
+
   const handleLoadTemplate = (templateId: string) => {
     const t = templates.find((x) => x.id === templateId)
     if (!t) return
 
+    setStandardFormula('')
     setType(t.type)
     if (t.type === 'milk') {
       setMilkType(t.milkType || 'Fórmula Infantil')
@@ -163,6 +228,9 @@ const Prescriptions = () => {
     })
 
     setSelectedPatient('')
+    setStandardFormula('')
+    setMilkType('Fórmula Infantil')
+    setDescription('')
     setObservations('')
     setRestrictions('')
     setSelectedTimes(['08:00', '11:00', '14:00', '17:00', '20:00', '23:00'])
@@ -312,7 +380,7 @@ const Prescriptions = () => {
             </div>
 
             {patient && (
-              <div className="p-4 bg-slate-50 rounded-lg border flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+              <div className="p-4 bg-slate-50 rounded-lg border flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between animate-in fade-in zoom-in-95">
                 <div>
                   <p className="font-bold text-lg">{patient.name}</p>
                   <p className="text-sm text-muted-foreground">
@@ -342,23 +410,84 @@ const Prescriptions = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className="pt-6">
+          <div className="space-y-4 mb-6 pb-6 border-b">
+            <div className="space-y-2">
+              <Label className="text-base">
+                Fórmula Padrão (Preenchimento Rápido)
+              </Label>
+              <ToggleGroup
+                type="single"
+                value={standardFormula}
+                onValueChange={handleStandardFormulaChange}
+                className="justify-start flex-wrap gap-2"
+              >
+                {STANDARD_FORMULAS.map((f) => (
+                  <ToggleGroupItem
+                    key={f.id}
+                    value={f.id}
+                    variant="outline"
+                    className="data-[state=on]:bg-primary/10 data-[state=on]:text-primary data-[state=on]:border-primary/40 data-[state=on]:font-medium transition-all"
+                  >
+                    {f.name}
+                  </ToggleGroupItem>
+                ))}
+              </ToggleGroup>
+              <p className="text-xs text-muted-foreground">
+                Selecione uma fórmula para preencher automaticamente os campos
+                de prescrição.
+              </p>
+            </div>
+
+            {isDeviated && (
+              <Alert className="bg-amber-50 border-amber-200 text-amber-800 animate-in fade-in slide-in-from-top-2">
+                <AlertCircle className="h-4 w-4 text-amber-600" />
+                <AlertTitle className="text-amber-800 font-semibold">
+                  Seleção Modificada
+                </AlertTitle>
+                <AlertDescription className="text-amber-700">
+                  Você alterou manualmente as configurações que diferem da
+                  fórmula padrão selecionada.
+                </AlertDescription>
+              </Alert>
+            )}
+          </div>
+
           <Tabs
             value={type}
             onValueChange={(v) => setType(v as 'milk' | 'meal')}
           >
-            <TabsList className="grid w-full grid-cols-2 mb-6">
-              <TabsTrigger value="milk" className="text-base">
+            <TabsList className="grid w-full grid-cols-2 mb-6 h-12">
+              <TabsTrigger value="milk" className="text-base h-full">
                 Frasco de Leite
               </TabsTrigger>
-              <TabsTrigger value="meal" className="text-base">
+              <TabsTrigger value="meal" className="text-base h-full">
                 Refeição (Sólida/Pastosa)
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="milk" className="space-y-4">
+            <TabsContent value="milk" className="space-y-4 animate-in fade-in">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label>Tipo de Leite</Label>
+                  <div className="flex items-center gap-2 h-6">
+                    <Label>Tipo de Leite</Label>
+                    {isMilkDeviated ? (
+                      <Badge
+                        variant="outline"
+                        className="text-amber-600 border-amber-200 bg-amber-50 text-[10px] h-5 px-1.5 font-semibold"
+                      >
+                        Modificado
+                      </Badge>
+                    ) : standardFormula &&
+                      currentStandard?.milkType !== undefined ? (
+                      <Badge
+                        variant="outline"
+                        className="text-emerald-600 border-emerald-200 bg-emerald-50 text-[10px] h-5 px-1.5 flex items-center font-semibold"
+                      >
+                        <Check className="h-3 w-3 mr-1" />
+                        Sincronizado
+                      </Badge>
+                    ) : null}
+                  </div>
                   <Select value={milkType} onValueChange={setMilkType}>
                     <SelectTrigger className="bg-white">
                       <SelectValue placeholder="Selecione..." />
@@ -380,20 +509,42 @@ const Prescriptions = () => {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label>Volume (ml) por horário</Label>
+                  <div className="flex items-center gap-2 h-6">
+                    <Label>Volume (ml) por horário</Label>
+                  </div>
                   <Input
                     type="number"
                     value={volume}
                     onChange={(e) => setVolume(e.target.value)}
                     className="bg-white"
+                    min="1"
                   />
                 </div>
               </div>
             </TabsContent>
 
-            <TabsContent value="meal" className="space-y-4">
+            <TabsContent value="meal" className="space-y-4 animate-in fade-in">
               <div className="space-y-2">
-                <Label>Descrição da Refeição</Label>
+                <div className="flex items-center gap-2 h-6">
+                  <Label>Descrição da Refeição</Label>
+                  {isMealDeviated ? (
+                    <Badge
+                      variant="outline"
+                      className="text-amber-600 border-amber-200 bg-amber-50 text-[10px] h-5 px-1.5 font-semibold"
+                    >
+                      Modificado
+                    </Badge>
+                  ) : standardFormula &&
+                    currentStandard?.mealDesc !== undefined ? (
+                    <Badge
+                      variant="outline"
+                      className="text-emerald-600 border-emerald-200 bg-emerald-50 text-[10px] h-5 px-1.5 flex items-center font-semibold"
+                    >
+                      <Check className="h-3 w-3 mr-1" />
+                      Sincronizado
+                    </Badge>
+                  ) : null}
+                </div>
                 <Input
                   placeholder="Ex: Papinha de Legumes com Frango liquidificada"
                   value={description}
@@ -446,7 +597,7 @@ const Prescriptions = () => {
                     />
                     <label
                       htmlFor={`time-${time}`}
-                      className="text-sm font-medium leading-none cursor-pointer"
+                      className="text-sm font-medium leading-none cursor-pointer select-none"
                     >
                       {time}
                     </label>
