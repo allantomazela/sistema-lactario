@@ -25472,7 +25472,7 @@ var DialogTitle$1 = import_react.forwardRef((props, forwardedRef) => {
 });
 DialogTitle$1.displayName = TITLE_NAME$1;
 var DESCRIPTION_NAME$1 = "DialogDescription";
-var DialogDescription$2 = import_react.forwardRef((props, forwardedRef) => {
+var DialogDescription$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeDialog, ...descriptionProps } = props;
 	const context = useDialogContext(DESCRIPTION_NAME$1, __scopeDialog);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.p, {
@@ -25481,7 +25481,7 @@ var DialogDescription$2 = import_react.forwardRef((props, forwardedRef) => {
 		ref: forwardedRef
 	});
 });
-DialogDescription$2.displayName = DESCRIPTION_NAME$1;
+DialogDescription$1.displayName = DESCRIPTION_NAME$1;
 var CLOSE_NAME$1 = "DialogClose";
 var DialogClose$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeDialog, ...closeProps } = props;
@@ -25538,7 +25538,7 @@ var Portal$3 = DialogPortal$1;
 var Overlay = DialogOverlay$1;
 var Content$1 = DialogContent$1;
 var Title = DialogTitle$1;
-var Description = DialogDescription$2;
+var Description = DialogDescription$1;
 var Close = DialogClose$1;
 var Sheet = Root$4;
 var SheetPortal = Portal$3;
@@ -26824,12 +26824,12 @@ var DialogTitle = import_react.forwardRef(({ className, ...props }, ref) => /* @
 	...props
 }));
 DialogTitle.displayName = Title.displayName;
-var DialogDescription$1 = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Description, {
+var DialogDescription = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Description, {
 	ref,
 	className: cn("text-sm text-muted-foreground", className),
 	...props
 }));
-DialogDescription$1.displayName = Description.displayName;
+DialogDescription.displayName = Description.displayName;
 var NAME = "Label";
 var Label$2 = import_react.forwardRef((props, forwardedRef) => {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.label, {
@@ -29949,7 +29949,7 @@ var Prescriptions = () => {
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogContent, {
 					className: "sm:max-w-[425px]",
 					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogTitle, { children: "Salvar Template" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogDescription$1, { children: "Dê um nome para esta configuração. Ela ficará disponível para uso rápido." })] }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogTitle, { children: "Salvar Template" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogDescription, { children: "Dê um nome para esta configuração. Ela ficará disponível para uso rápido." })] }),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 							className: "py-4 space-y-4",
 							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -35880,4 +35880,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-DgKIKdHB.js.map
+//# sourceMappingURL=index-CdIW1ZHu.js.map
