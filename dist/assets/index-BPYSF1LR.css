@@ -855,10 +855,6 @@ section[aria-label='Notifications alt+T'] {
   margin-bottom: 1.5rem;
 }
 
-.mb-8{
-  margin-bottom: 2rem;
-}
-
 .mb-\[0\.4mm\]{
   margin-bottom: 0.4mm;
 }
@@ -1932,6 +1928,11 @@ section[aria-label='Notifications alt+T'] {
 .border-emerald-200{
   --tw-border-opacity: 1;
   border-color: rgb(167 243 208 / var(--tw-border-opacity, 1));
+}
+
+.border-gray-200{
+  --tw-border-opacity: 1;
+  border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
 }
 
 .border-gray-300{

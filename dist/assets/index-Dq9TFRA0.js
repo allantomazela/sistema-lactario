@@ -36878,6 +36878,10 @@ function Reports() {
 	const lastDayMonth = getLocalYYYYMMDD(new Date(d.getFullYear(), d.getMonth() + 1, 0));
 	const firstDayYear = getLocalYYYYMMDD(new Date(d.getFullYear(), 0, 1));
 	const lastDayYear = getLocalYYYYMMDD(new Date(d.getFullYear(), 11, 31));
+	const emitDate = `${d.toLocaleDateString("pt-BR")} às ${d.toLocaleTimeString("pt-BR", {
+		hour: "2-digit",
+		minute: "2-digit"
+	})}`;
 	const [preset, setPreset] = (0, import_react.useState)("month");
 	const [start, setStart] = (0, import_react.useState)(firstDayMonth);
 	const [end, setEnd] = (0, import_react.useState)(lastDayMonth);
@@ -36928,32 +36932,69 @@ function Reports() {
 				})] })
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "hidden print:block mb-8 border-b-2 border-black pb-4",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-					className: "text-2xl font-black uppercase tracking-wider text-center",
-					children: "Relatório de Prescrições"
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "flex justify-between text-sm mt-4 font-medium text-gray-800",
-					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
-							"Período: ",
-							start.split("-").reverse().join("/"),
-							" a",
-							" ",
-							end.split("-").reverse().join("/")
-						] }),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
-							"Paciente:",
-							" ",
-							patientId === "all" ? "Todos" : patients.find((p) => p.id === patientId)?.name
-						] }),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
-							"Dieta:",
-							" ",
-							diet === "all" ? "Todas" : diet === "milk" ? "Fórmulas/Leite" : "Refeições"
-						] })
-					]
-				})]
+				className: "hidden print:block mb-6 border-b border-gray-300 pb-6",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex items-center gap-3 pb-4 border-b-2 border-black",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Baby, { className: "h-10 w-10 text-black" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+							className: "text-lg font-bold uppercase tracking-tight text-black leading-tight",
+							children: "Lactário do Hospital das Clínicas da Faculdade de Medicina de Botucatu - HCFMB"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-sm text-gray-600 mt-0.5",
+							children: "Sistema de Gerenciamento de Lactário • Documento Oficial"
+						})] })]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "pt-4 flex justify-between items-end",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+							className: "text-3xl font-black uppercase tracking-wider text-black",
+							children: "Relatório de Prescrições"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+							className: "text-sm text-gray-600 mt-1 font-medium",
+							children: ["Emitido em: ", emitDate]
+						})] })
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex justify-between pt-4 mt-4 border-t border-gray-200 text-sm",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex-1",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "text-gray-500 uppercase text-xs font-bold block mb-0.5",
+									children: "Período"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("strong", {
+									className: "text-black text-base",
+									children: [
+										start.split("-").reverse().join("/"),
+										" a",
+										" ",
+										end.split("-").reverse().join("/")
+									]
+								})]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex-1 px-4 border-l border-gray-300",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "text-gray-500 uppercase text-xs font-bold block mb-0.5",
+									children: "Paciente"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", {
+									className: "text-black text-base",
+									children: patientId === "all" ? "Todos" : patients.find((p) => p.id === patientId)?.name
+								})]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex-1 pl-4 border-l border-gray-300 text-right",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "text-gray-500 uppercase text-xs font-bold block mb-0.5",
+									children: "Dieta"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", {
+									className: "text-black text-base",
+									children: diet === "all" ? "Todas" : diet === "milk" ? "Leite/Fórmulas" : "Refeições"
+								})]
+							})
+						]
+					})
+				]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Card, {
 				className: "no-print bg-slate-50 border-dashed",
@@ -37557,4 +37598,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-BZ9bQ_t9.js.map
+//# sourceMappingURL=index-Dq9TFRA0.js.map

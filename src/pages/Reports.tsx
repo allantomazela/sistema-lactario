@@ -19,7 +19,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
-import { Printer, FileText } from 'lucide-react'
+import { Printer, FileText, Baby } from 'lucide-react'
 import { getLocalYYYYMMDD } from '@/lib/utils'
 
 export default function Reports() {
@@ -34,6 +34,7 @@ export default function Reports() {
   )
   const firstDayYear = getLocalYYYYMMDD(new Date(d.getFullYear(), 0, 1))
   const lastDayYear = getLocalYYYYMMDD(new Date(d.getFullYear(), 11, 31))
+  const emitDate = `${d.toLocaleDateString('pt-BR')} às ${d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`
 
   const [preset, setPreset] = useState<'today' | 'month' | 'year' | 'custom'>(
     'month',
@@ -84,29 +85,62 @@ export default function Reports() {
         </div>
       </div>
 
-      <div className="hidden print:block mb-8 border-b-2 border-black pb-4">
-        <h1 className="text-2xl font-black uppercase tracking-wider text-center">
-          Relatório de Prescrições
-        </h1>
-        <div className="flex justify-between text-sm mt-4 font-medium text-gray-800">
-          <span>
-            Período: {start.split('-').reverse().join('/')} a{' '}
-            {end.split('-').reverse().join('/')}
-          </span>
-          <span>
-            Paciente:{' '}
-            {patientId === 'all'
-              ? 'Todos'
-              : patients.find((p) => p.id === patientId)?.name}
-          </span>
-          <span>
-            Dieta:{' '}
-            {diet === 'all'
-              ? 'Todas'
-              : diet === 'milk'
-                ? 'Fórmulas/Leite'
-                : 'Refeições'}
-          </span>
+      {/* Optimized Print Header */}
+      <div className="hidden print:block mb-6 border-b border-gray-300 pb-6">
+        <div className="flex items-center gap-3 pb-4 border-b-2 border-black">
+          <Baby className="h-10 w-10 text-black" />
+          <div>
+            <h2 className="text-lg font-bold uppercase tracking-tight text-black leading-tight">
+              Lactário do Hospital das Clínicas da Faculdade de Medicina de
+              Botucatu - HCFMB
+            </h2>
+            <p className="text-sm text-gray-600 mt-0.5">
+              Sistema de Gerenciamento de Lactário • Documento Oficial
+            </p>
+          </div>
+        </div>
+        <div className="pt-4 flex justify-between items-end">
+          <div>
+            <h1 className="text-3xl font-black uppercase tracking-wider text-black">
+              Relatório de Prescrições
+            </h1>
+            <p className="text-sm text-gray-600 mt-1 font-medium">
+              Emitido em: {emitDate}
+            </p>
+          </div>
+        </div>
+        <div className="flex justify-between pt-4 mt-4 border-t border-gray-200 text-sm">
+          <div className="flex-1">
+            <span className="text-gray-500 uppercase text-xs font-bold block mb-0.5">
+              Período
+            </span>
+            <strong className="text-black text-base">
+              {start.split('-').reverse().join('/')} a{' '}
+              {end.split('-').reverse().join('/')}
+            </strong>
+          </div>
+          <div className="flex-1 px-4 border-l border-gray-300">
+            <span className="text-gray-500 uppercase text-xs font-bold block mb-0.5">
+              Paciente
+            </span>
+            <strong className="text-black text-base">
+              {patientId === 'all'
+                ? 'Todos'
+                : patients.find((p) => p.id === patientId)?.name}
+            </strong>
+          </div>
+          <div className="flex-1 pl-4 border-l border-gray-300 text-right">
+            <span className="text-gray-500 uppercase text-xs font-bold block mb-0.5">
+              Dieta
+            </span>
+            <strong className="text-black text-base">
+              {diet === 'all'
+                ? 'Todas'
+                : diet === 'milk'
+                  ? 'Leite/Fórmulas'
+                  : 'Refeições'}
+            </strong>
+          </div>
         </div>
       </div>
 
