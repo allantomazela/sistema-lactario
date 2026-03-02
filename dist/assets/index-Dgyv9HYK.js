@@ -19257,6 +19257,28 @@ var Search = createLucideIcon("search", [["path", {
 	r: "8",
 	key: "4ej97u"
 }]]);
+var Settings2 = createLucideIcon("settings-2", [
+	["path", {
+		d: "M14 17H5",
+		key: "gfn3mx"
+	}],
+	["path", {
+		d: "M19 7h-9",
+		key: "6i9tg"
+	}],
+	["circle", {
+		cx: "17",
+		cy: "17",
+		r: "3",
+		key: "18b49y"
+	}],
+	["circle", {
+		cx: "7",
+		cy: "7",
+		r: "3",
+		key: "dfmy0x"
+	}]
+]);
 var Settings$1 = createLucideIcon("settings", [["path", {
 	d: "M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915",
 	key: "1i5ecw"
@@ -26352,11 +26374,38 @@ var mockTemplates = [{
 	times: ["11:00", "17:00"],
 	expiryHours: 6
 }];
+var mockStandardFormulas = [
+	{
+		id: "rn",
+		name: "Padrão RN",
+		milkType: "Fórmula Infantil",
+		mealDesc: void 0
+	},
+	{
+		id: "transicao",
+		name: "Transição 6m",
+		milkType: "Fórmula Infantil",
+		mealDesc: "Papinha de Legumes e Carne"
+	},
+	{
+		id: "alergia",
+		name: "Alergia (PLV)",
+		milkType: "Fórmula Especial (HA)",
+		mealDesc: "Papinha sem Leite/Derivados"
+	},
+	{
+		id: "leite-materno",
+		name: "Leite Materno Exclusivo",
+		milkType: "Leite Materno Pasteurizado",
+		mealDesc: void 0
+	}
+];
 var LactaryContext = (0, import_react.createContext)(void 0);
 function LactaryProvider({ children }) {
 	const [patients, setPatients] = (0, import_react.useState)(mockPatients);
 	const [prescriptions, setPrescriptions] = (0, import_react.useState)(mockPrescriptions);
 	const [templates, setTemplates] = (0, import_react.useState)(mockTemplates);
+	const [standardFormulas, setStandardFormulas] = (0, import_react.useState)(mockStandardFormulas);
 	const addPatient = (patient) => {
 		setPatients((prev) => [...prev, patient]);
 	};
@@ -26388,10 +26437,26 @@ function LactaryProvider({ children }) {
 	const deleteTemplate = (id) => {
 		setTemplates((prev) => prev.filter((t) => t.id !== id));
 	};
+	const addStandardFormula = (formula) => {
+		setStandardFormulas((prev) => [...prev, {
+			...formula,
+			id: crypto.randomUUID()
+		}]);
+	};
+	const updateStandardFormula = (id, updates) => {
+		setStandardFormulas((prev) => prev.map((f) => f.id === id ? {
+			...f,
+			...updates
+		} : f));
+	};
+	const deleteStandardFormula = (id) => {
+		setStandardFormulas((prev) => prev.filter((f) => f.id !== id));
+	};
 	return import_react.createElement(LactaryContext.Provider, { value: {
 		patients,
 		prescriptions,
 		templates,
+		standardFormulas,
 		addPatient,
 		addPatients,
 		updatePatient,
@@ -26399,7 +26464,10 @@ function LactaryProvider({ children }) {
 		addPrescription,
 		getPatient,
 		addTemplate,
-		deleteTemplate
+		deleteTemplate,
+		addStandardFormula,
+		updateStandardFormula,
+		deleteStandardFormula
 	} }, children);
 }
 function useLactary() {
@@ -29790,34 +29858,8 @@ var PREDEFINED_TIMES = [
 	"00:00",
 	"03:00"
 ];
-var STANDARD_FORMULAS = [
-	{
-		id: "rn",
-		name: "Padrão RN",
-		milkType: "Fórmula Infantil",
-		mealDesc: void 0
-	},
-	{
-		id: "transicao",
-		name: "Transição 6m",
-		milkType: "Fórmula Infantil",
-		mealDesc: "Papinha de Legumes e Carne"
-	},
-	{
-		id: "alergia",
-		name: "Alergia (PLV)",
-		milkType: "Fórmula Especial (HA)",
-		mealDesc: "Papinha sem Leite/Derivados"
-	},
-	{
-		id: "leite-materno",
-		name: "Leite Materno Exclusivo",
-		milkType: "Leite Materno Pasteurizado",
-		mealDesc: void 0
-	}
-];
 var Prescriptions = () => {
-	const { patients, addPrescription, addPatient, templates, addTemplate } = useLactary();
+	const { patients, addPrescription, addPatient, templates, addTemplate, standardFormulas, addStandardFormula, updateStandardFormula, deleteStandardFormula } = useLactary();
 	const { toast: toast$2 } = useToast();
 	const [selectedPatient, setSelectedPatient] = (0, import_react.useState)("");
 	const [type, setType] = (0, import_react.useState)("milk");
@@ -29845,8 +29887,13 @@ var Prescriptions = () => {
 	});
 	const [isTemplateDialogOpen, setIsTemplateDialogOpen] = (0, import_react.useState)(false);
 	const [templateName, setTemplateName] = (0, import_react.useState)("");
+	const [isManageFormulasOpen, setIsManageFormulasOpen] = (0, import_react.useState)(false);
+	const [editingFormula, setEditingFormula] = (0, import_react.useState)(null);
+	const [formulaName, setFormulaName] = (0, import_react.useState)("");
+	const [formulaMilkType, setFormulaMilkType] = (0, import_react.useState)("none");
+	const [formulaMealDesc, setFormulaMealDesc] = (0, import_react.useState)("none");
 	const patient = (0, import_react.useMemo)(() => patients.find((p) => p.id === selectedPatient), [patients, selectedPatient]);
-	const currentStandard = (0, import_react.useMemo)(() => STANDARD_FORMULAS.find((f) => f.id === standardFormula), [standardFormula]);
+	const currentStandard = (0, import_react.useMemo)(() => standardFormulas.find((f) => f.id === standardFormula), [standardFormula, standardFormulas]);
 	const isMilkDeviated = (0, import_react.useMemo)(() => standardFormula !== "" && currentStandard?.milkType !== void 0 && currentStandard.milkType !== milkType, [
 		standardFormula,
 		currentStandard,
@@ -29868,7 +29915,7 @@ var Prescriptions = () => {
 			setDescription("");
 			return;
 		}
-		const formula = STANDARD_FORMULAS.find((f) => f.id === value);
+		const formula = standardFormulas.find((f) => f.id === value);
 		if (formula) {
 			if (formula.milkType !== void 0) setMilkType(formula.milkType);
 			if (formula.mealDesc !== void 0) setDescription(formula.mealDesc);
@@ -30003,6 +30050,41 @@ var Prescriptions = () => {
 			birthDate: ""
 		});
 	};
+	const resetFormulaForm = () => {
+		setEditingFormula(null);
+		setFormulaName("");
+		setFormulaMilkType("none");
+		setFormulaMealDesc("none");
+	};
+	const handleEditFormula = (f) => {
+		setEditingFormula(f);
+		setFormulaName(f.name);
+		setFormulaMilkType(f.milkType || "none");
+		setFormulaMealDesc(f.mealDesc || "none");
+	};
+	const handleSaveFormula = () => {
+		if (!formulaName.trim()) {
+			toast$2({
+				title: "Nome Obrigatório",
+				description: "Informe um nome para a fórmula padrão.",
+				variant: "destructive"
+			});
+			return;
+		}
+		const payload = {
+			name: formulaName.trim(),
+			milkType: formulaMilkType === "none" ? void 0 : formulaMilkType,
+			mealDesc: formulaMealDesc === "none" ? void 0 : formulaMealDesc
+		};
+		if (editingFormula) {
+			updateStandardFormula(editingFormula.id, payload);
+			toast$2({ title: "Fórmula Atualizada" });
+		} else {
+			addStandardFormula(payload);
+			toast$2({ title: "Fórmula Criada" });
+		}
+		resetFormulaForm();
+	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "space-y-6 animate-slide-up max-w-4xl mx-auto",
 		children: [
@@ -30100,28 +30182,44 @@ var Prescriptions = () => {
 						className: "space-y-4 mb-6 pb-6 border-b",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: "space-y-2",
-							children: [
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center justify-between mb-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
 									className: "text-base",
 									children: "Fórmula Padrão (Preenchimento Rápido)"
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ToggleGroup, {
-									type: "single",
-									value: standardFormula,
-									onValueChange: handleStandardFormulaChange,
-									className: "justify-start flex-wrap gap-2",
-									children: STANDARD_FORMULAS.map((f) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ToggleGroupItem, {
-										value: f.id,
-										variant: "outline",
-										className: "data-[state=on]:bg-primary/10 data-[state=on]:text-primary data-[state=on]:border-primary/40 data-[state=on]:font-medium transition-all",
-										children: f.name
-									}, f.id))
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-									className: "text-xs text-muted-foreground",
-									children: "Selecione uma fórmula para preencher automaticamente os campos de prescrição."
-								})
-							]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+									variant: "ghost",
+									size: "sm",
+									onClick: () => setIsManageFormulasOpen(true),
+									className: "h-8 gap-1.5 text-primary",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Settings2, { className: "h-4 w-4" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "hidden sm:inline",
+										children: "Gerenciar Fórmulas"
+									})]
+								})]
+							}), standardFormulas.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "text-sm text-muted-foreground bg-slate-50 p-4 rounded-lg border border-dashed flex items-center justify-between",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Nenhuma fórmula padrão cadastrada." }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+									variant: "outline",
+									size: "sm",
+									onClick: () => setIsManageFormulasOpen(true),
+									children: "Criar Fórmula"
+								})]
+							}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ToggleGroup, {
+								type: "single",
+								value: standardFormula,
+								onValueChange: handleStandardFormulaChange,
+								className: "justify-start flex-wrap gap-2",
+								children: standardFormulas.map((f) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ToggleGroupItem, {
+									value: f.id,
+									variant: "outline",
+									className: "data-[state=on]:bg-primary/10 data-[state=on]:text-primary data-[state=on]:border-primary/40 data-[state=on]:font-medium transition-all",
+									children: f.name
+								}, f.id))
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								className: "text-xs text-muted-foreground mt-1",
+								children: "Selecione uma fórmula para preencher automaticamente os campos de prescrição."
+							})] })]
 						}), isDeviated && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Alert, {
 							className: "bg-amber-50 border-amber-200 text-amber-800 animate-in fade-in slide-in-from-top-2",
 							children: [
@@ -30297,7 +30395,10 @@ var Prescriptions = () => {
 					variant: "ghost",
 					onClick: () => setIsTemplateDialogOpen(true),
 					className: "gap-2 text-primary font-medium",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bookmark, { className: "h-4 w-4" }), "Salvar como Template"]
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bookmark, { className: "h-4 w-4" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "hidden sm:inline",
+						children: "Salvar como Template"
+					})]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "flex gap-4",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
@@ -30309,6 +30410,163 @@ var Prescriptions = () => {
 						children: "Salvar Prescrição"
 					})]
 				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Dialog, {
+				open: isManageFormulasOpen,
+				onOpenChange: (open) => {
+					setIsManageFormulasOpen(open);
+					if (!open) resetFormulaForm();
+				},
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogContent, {
+					className: "sm:max-w-[600px] max-h-[90vh] flex flex-col",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogTitle, { children: "Gerenciar Fórmulas Padrão" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogDescription, { children: "Crie e edite opções de preenchimento rápido para o lactário." })] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex-1 overflow-y-auto space-y-6 py-4",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "bg-slate-50 p-4 rounded-lg border space-y-4",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
+									className: "font-semibold text-sm",
+									children: editingFormula ? "Editar Fórmula" : "Nova Fórmula Padrão"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "grid gap-4 sm:grid-cols-2",
+									children: [
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "space-y-2 sm:col-span-2",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Nome da Fórmula *" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+												value: formulaName,
+												onChange: (e) => setFormulaName(e.target.value),
+												placeholder: "Ex: Padrão RN",
+												className: "bg-white"
+											})]
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "space-y-2",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Frasco de Leite" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+												value: formulaMilkType,
+												onValueChange: setFormulaMilkType,
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectTrigger, {
+													className: "bg-white",
+													children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectValue, {})
+												}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SelectContent, { children: [
+													/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
+														value: "none",
+														children: "Nenhum"
+													}),
+													/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
+														value: "Fórmula Infantil",
+														children: "Fórmula Infantil Padrão"
+													}),
+													/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
+														value: "Leite Materno Pasteurizado",
+														children: "Leite Materno Pasteurizado"
+													}),
+													/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
+														value: "Leite Materno Cru",
+														children: "Leite Materno Cru"
+													}),
+													/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
+														value: "Fórmula Especial (HA)",
+														children: "Fórmula Especial (HA)"
+													})
+												] })]
+											})]
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "space-y-2",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Refeição" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+												value: formulaMealDesc,
+												onValueChange: setFormulaMealDesc,
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectTrigger, {
+													className: "bg-white",
+													children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectValue, {})
+												}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SelectContent, { children: [
+													/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
+														value: "none",
+														children: "Nenhuma"
+													}),
+													/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
+														value: "Papinha de Legumes e Carne",
+														children: "Papinha de Legumes e Carne"
+													}),
+													/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
+														value: "Papinha sem Leite/Derivados",
+														children: "Papinha sem Leite/Derivados"
+													}),
+													/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
+														value: "Dieta Pastosa Almoço/Jantar",
+														children: "Dieta Pastosa Almoço/Jantar"
+													}),
+													/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
+														value: "Sopa Liquidificada",
+														children: "Sopa Liquidificada"
+													}),
+													/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
+														value: "Fruta Amassada",
+														children: "Fruta Amassada"
+													})
+												] })]
+											})]
+										})
+									]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex justify-end gap-2 pt-2",
+									children: [editingFormula && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+										variant: "ghost",
+										onClick: resetFormulaForm,
+										children: "Cancelar Edição"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+										onClick: handleSaveFormula,
+										className: "gap-2",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Save, { className: "h-4 w-4" }), editingFormula ? "Salvar Alterações" : "Adicionar Fórmula"]
+									})]
+								})
+							]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "space-y-3",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Fórmulas Cadastradas" }), standardFormulas.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "text-sm text-muted-foreground p-4 text-center border rounded-lg border-dashed",
+								children: "Nenhuma fórmula cadastrada."
+							}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "space-y-2",
+								children: standardFormulas.map((f) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex items-center justify-between p-3 border rounded-lg bg-white shadow-sm",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										className: "font-semibold text-sm",
+										children: f.name
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+										className: "text-xs text-muted-foreground flex gap-2 mt-1 flex-wrap",
+										children: [
+											f.milkType && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: ["Leite: ", f.milkType] }),
+											f.milkType && f.mealDesc && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "|" }),
+											f.mealDesc && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: ["Ref: ", f.mealDesc] })
+										]
+									})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "flex items-center gap-1 shrink-0",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+											variant: "ghost",
+											size: "icon",
+											onClick: () => handleEditFormula(f),
+											className: "h-8 w-8 text-slate-500 hover:text-primary",
+											children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SquarePen, { className: "h-4 w-4" })
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+											variant: "ghost",
+											size: "icon",
+											onClick: () => {
+												deleteStandardFormula(f.id);
+												if (standardFormula === f.id) setStandardFormula("");
+												toast$2({ title: "Fórmula Removida" });
+											},
+											className: "h-8 w-8 text-slate-500 hover:text-destructive",
+											children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash2, { className: "h-4 w-4" })
+										})]
+									})]
+								}, f.id))
+							})]
+						})]
+					})]
+				})
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Dialog, {
 				open: isTemplateDialogOpen,
@@ -36221,4 +36479,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-35vufX1U.js.map
+//# sourceMappingURL=index-Dgyv9HYK.js.map

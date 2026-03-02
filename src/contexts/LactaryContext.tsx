@@ -47,10 +47,18 @@ export type Template = {
   expiryHours: number
 }
 
+export type StandardFormula = {
+  id: string
+  name: string
+  milkType?: string
+  mealDesc?: string
+}
+
 interface LactaryContextType {
   patients: Patient[]
   prescriptions: Prescription[]
   templates: Template[]
+  standardFormulas: StandardFormula[]
   addPatient: (patient: Patient) => void
   addPatients: (patients: Patient[]) => void
   updatePatient: (id: string, updates: Partial<Patient>) => void
@@ -59,6 +67,9 @@ interface LactaryContextType {
   getPatient: (id: string) => Patient | undefined
   addTemplate: (template: Omit<Template, 'id'>) => void
   deleteTemplate: (id: string) => void
+  addStandardFormula: (formula: Omit<StandardFormula, 'id'>) => void
+  updateStandardFormula: (id: string, updates: Partial<StandardFormula>) => void
+  deleteStandardFormula: (id: string) => void
 }
 
 const mockPatients: Patient[] = [
@@ -166,6 +177,33 @@ const mockTemplates: Template[] = [
   },
 ]
 
+const mockStandardFormulas: StandardFormula[] = [
+  {
+    id: 'rn',
+    name: 'Padrão RN',
+    milkType: 'Fórmula Infantil',
+    mealDesc: undefined,
+  },
+  {
+    id: 'transicao',
+    name: 'Transição 6m',
+    milkType: 'Fórmula Infantil',
+    mealDesc: 'Papinha de Legumes e Carne',
+  },
+  {
+    id: 'alergia',
+    name: 'Alergia (PLV)',
+    milkType: 'Fórmula Especial (HA)',
+    mealDesc: 'Papinha sem Leite/Derivados',
+  },
+  {
+    id: 'leite-materno',
+    name: 'Leite Materno Exclusivo',
+    milkType: 'Leite Materno Pasteurizado',
+    mealDesc: undefined,
+  },
+]
+
 const LactaryContext = createContext<LactaryContextType | undefined>(undefined)
 
 export function LactaryProvider({ children }: { children: ReactNode }) {
@@ -173,6 +211,8 @@ export function LactaryProvider({ children }: { children: ReactNode }) {
   const [prescriptions, setPrescriptions] =
     useState<Prescription[]>(mockPrescriptions)
   const [templates, setTemplates] = useState<Template[]>(mockTemplates)
+  const [standardFormulas, setStandardFormulas] =
+    useState<StandardFormula[]>(mockStandardFormulas)
 
   const addPatient = (patient: Patient) => {
     setPatients((prev) => [...prev, patient])
@@ -209,6 +249,26 @@ export function LactaryProvider({ children }: { children: ReactNode }) {
     setTemplates((prev) => prev.filter((t) => t.id !== id))
   }
 
+  const addStandardFormula = (formula: Omit<StandardFormula, 'id'>) => {
+    setStandardFormulas((prev) => [
+      ...prev,
+      { ...formula, id: crypto.randomUUID() },
+    ])
+  }
+
+  const updateStandardFormula = (
+    id: string,
+    updates: Partial<StandardFormula>,
+  ) => {
+    setStandardFormulas((prev) =>
+      prev.map((f) => (f.id === id ? { ...f, ...updates } : f)),
+    )
+  }
+
+  const deleteStandardFormula = (id: string) => {
+    setStandardFormulas((prev) => prev.filter((f) => f.id !== id))
+  }
+
   return React.createElement(
     LactaryContext.Provider,
     {
@@ -216,6 +276,7 @@ export function LactaryProvider({ children }: { children: ReactNode }) {
         patients,
         prescriptions,
         templates,
+        standardFormulas,
         addPatient,
         addPatients,
         updatePatient,
@@ -224,6 +285,9 @@ export function LactaryProvider({ children }: { children: ReactNode }) {
         getPatient,
         addTemplate,
         deleteTemplate,
+        addStandardFormula,
+        updateStandardFormula,
+        deleteStandardFormula,
       },
     },
     children,

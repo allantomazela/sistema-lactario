@@ -1,5 +1,9 @@
 import { useState, useMemo } from 'react'
-import { useLactary, Template } from '@/contexts/LactaryContext'
+import {
+  useLactary,
+  Template,
+  StandardFormula,
+} from '@/contexts/LactaryContext'
 import {
   Card,
   CardContent,
@@ -34,7 +38,17 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Badge } from '@/components/ui/badge'
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
 import { useToast } from '@/hooks/use-toast'
-import { Check, Info, Plus, Bookmark, AlertCircle } from 'lucide-react'
+import {
+  Check,
+  Info,
+  Plus,
+  Bookmark,
+  AlertCircle,
+  Settings2,
+  Edit,
+  Trash2,
+  Save,
+} from 'lucide-react'
 import { getLocalYYYYMMDD } from '@/lib/utils'
 
 const PREDEFINED_TIMES = [
@@ -54,36 +68,18 @@ const PREDEFINED_TIMES = [
   '03:00',
 ]
 
-const STANDARD_FORMULAS = [
-  {
-    id: 'rn',
-    name: 'Padrão RN',
-    milkType: 'Fórmula Infantil',
-    mealDesc: undefined,
-  },
-  {
-    id: 'transicao',
-    name: 'Transição 6m',
-    milkType: 'Fórmula Infantil',
-    mealDesc: 'Papinha de Legumes e Carne',
-  },
-  {
-    id: 'alergia',
-    name: 'Alergia (PLV)',
-    milkType: 'Fórmula Especial (HA)',
-    mealDesc: 'Papinha sem Leite/Derivados',
-  },
-  {
-    id: 'leite-materno',
-    name: 'Leite Materno Exclusivo',
-    milkType: 'Leite Materno Pasteurizado',
-    mealDesc: undefined,
-  },
-]
-
 const Prescriptions = () => {
-  const { patients, addPrescription, addPatient, templates, addTemplate } =
-    useLactary()
+  const {
+    patients,
+    addPrescription,
+    addPatient,
+    templates,
+    addTemplate,
+    standardFormulas,
+    addStandardFormula,
+    updateStandardFormula,
+    deleteStandardFormula,
+  } = useLactary()
   const { toast } = useToast()
 
   const [selectedPatient, setSelectedPatient] = useState<string>('')
@@ -116,14 +112,22 @@ const Prescriptions = () => {
   const [isTemplateDialogOpen, setIsTemplateDialogOpen] = useState(false)
   const [templateName, setTemplateName] = useState('')
 
+  const [isManageFormulasOpen, setIsManageFormulasOpen] = useState(false)
+  const [editingFormula, setEditingFormula] = useState<StandardFormula | null>(
+    null,
+  )
+  const [formulaName, setFormulaName] = useState('')
+  const [formulaMilkType, setFormulaMilkType] = useState('none')
+  const [formulaMealDesc, setFormulaMealDesc] = useState('none')
+
   const patient = useMemo(
     () => patients.find((p) => p.id === selectedPatient),
     [patients, selectedPatient],
   )
 
   const currentStandard = useMemo(
-    () => STANDARD_FORMULAS.find((f) => f.id === standardFormula),
-    [standardFormula],
+    () => standardFormulas.find((f) => f.id === standardFormula),
+    [standardFormula, standardFormulas],
   )
 
   const isMilkDeviated = useMemo(
@@ -159,10 +163,14 @@ const Prescriptions = () => {
       setDescription('')
       return
     }
-    const formula = STANDARD_FORMULAS.find((f) => f.id === value)
+    const formula = standardFormulas.find((f) => f.id === value)
     if (formula) {
-      if (formula.milkType !== undefined) setMilkType(formula.milkType)
-      if (formula.mealDesc !== undefined) setDescription(formula.mealDesc)
+      if (formula.milkType !== undefined) {
+        setMilkType(formula.milkType)
+      }
+      if (formula.mealDesc !== undefined) {
+        setDescription(formula.mealDesc)
+      }
     }
   }
 
@@ -310,6 +318,46 @@ const Prescriptions = () => {
     })
   }
 
+  const resetFormulaForm = () => {
+    setEditingFormula(null)
+    setFormulaName('')
+    setFormulaMilkType('none')
+    setFormulaMealDesc('none')
+  }
+
+  const handleEditFormula = (f: StandardFormula) => {
+    setEditingFormula(f)
+    setFormulaName(f.name)
+    setFormulaMilkType(f.milkType || 'none')
+    setFormulaMealDesc(f.mealDesc || 'none')
+  }
+
+  const handleSaveFormula = () => {
+    if (!formulaName.trim()) {
+      toast({
+        title: 'Nome Obrigatório',
+        description: 'Informe um nome para a fórmula padrão.',
+        variant: 'destructive',
+      })
+      return
+    }
+
+    const payload = {
+      name: formulaName.trim(),
+      milkType: formulaMilkType === 'none' ? undefined : formulaMilkType,
+      mealDesc: formulaMealDesc === 'none' ? undefined : formulaMealDesc,
+    }
+
+    if (editingFormula) {
+      updateStandardFormula(editingFormula.id, payload)
+      toast({ title: 'Fórmula Atualizada' })
+    } else {
+      addStandardFormula(payload)
+      toast({ title: 'Fórmula Criada' })
+    }
+    resetFormulaForm()
+  }
+
   return (
     <div className="space-y-6 animate-slide-up max-w-4xl mx-auto">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -412,30 +460,57 @@ const Prescriptions = () => {
         <CardContent className="pt-6">
           <div className="space-y-4 mb-6 pb-6 border-b">
             <div className="space-y-2">
-              <Label className="text-base">
-                Fórmula Padrão (Preenchimento Rápido)
-              </Label>
-              <ToggleGroup
-                type="single"
-                value={standardFormula}
-                onValueChange={handleStandardFormulaChange}
-                className="justify-start flex-wrap gap-2"
-              >
-                {STANDARD_FORMULAS.map((f) => (
-                  <ToggleGroupItem
-                    key={f.id}
-                    value={f.id}
+              <div className="flex items-center justify-between mb-2">
+                <Label className="text-base">
+                  Fórmula Padrão (Preenchimento Rápido)
+                </Label>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsManageFormulasOpen(true)}
+                  className="h-8 gap-1.5 text-primary"
+                >
+                  <Settings2 className="h-4 w-4" />
+                  <span className="hidden sm:inline">Gerenciar Fórmulas</span>
+                </Button>
+              </div>
+
+              {standardFormulas.length === 0 ? (
+                <div className="text-sm text-muted-foreground bg-slate-50 p-4 rounded-lg border border-dashed flex items-center justify-between">
+                  <span>Nenhuma fórmula padrão cadastrada.</span>
+                  <Button
                     variant="outline"
-                    className="data-[state=on]:bg-primary/10 data-[state=on]:text-primary data-[state=on]:border-primary/40 data-[state=on]:font-medium transition-all"
+                    size="sm"
+                    onClick={() => setIsManageFormulasOpen(true)}
                   >
-                    {f.name}
-                  </ToggleGroupItem>
-                ))}
-              </ToggleGroup>
-              <p className="text-xs text-muted-foreground">
-                Selecione uma fórmula para preencher automaticamente os campos
-                de prescrição.
-              </p>
+                    Criar Fórmula
+                  </Button>
+                </div>
+              ) : (
+                <>
+                  <ToggleGroup
+                    type="single"
+                    value={standardFormula}
+                    onValueChange={handleStandardFormulaChange}
+                    className="justify-start flex-wrap gap-2"
+                  >
+                    {standardFormulas.map((f) => (
+                      <ToggleGroupItem
+                        key={f.id}
+                        value={f.id}
+                        variant="outline"
+                        className="data-[state=on]:bg-primary/10 data-[state=on]:text-primary data-[state=on]:border-primary/40 data-[state=on]:font-medium transition-all"
+                      >
+                        {f.name}
+                      </ToggleGroupItem>
+                    ))}
+                  </ToggleGroup>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Selecione uma fórmula para preencher automaticamente os
+                    campos de prescrição.
+                  </p>
+                </>
+              )}
             </div>
 
             {isDeviated && (
@@ -616,7 +691,7 @@ const Prescriptions = () => {
           className="gap-2 text-primary font-medium"
         >
           <Bookmark className="h-4 w-4" />
-          Salvar como Template
+          <span className="hidden sm:inline">Salvar como Template</span>
         </Button>
         <div className="flex gap-4">
           <Button variant="outline">Cancelar</Button>
@@ -628,6 +703,159 @@ const Prescriptions = () => {
           </Button>
         </div>
       </div>
+
+      <Dialog
+        open={isManageFormulasOpen}
+        onOpenChange={(open) => {
+          setIsManageFormulasOpen(open)
+          if (!open) resetFormulaForm()
+        }}
+      >
+        <DialogContent className="sm:max-w-[600px] max-h-[90vh] flex flex-col">
+          <DialogHeader>
+            <DialogTitle>Gerenciar Fórmulas Padrão</DialogTitle>
+            <DialogDescription>
+              Crie e edite opções de preenchimento rápido para o lactário.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="flex-1 overflow-y-auto space-y-6 py-4">
+            <div className="bg-slate-50 p-4 rounded-lg border space-y-4">
+              <h4 className="font-semibold text-sm">
+                {editingFormula ? 'Editar Fórmula' : 'Nova Fórmula Padrão'}
+              </h4>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="space-y-2 sm:col-span-2">
+                  <Label>Nome da Fórmula *</Label>
+                  <Input
+                    value={formulaName}
+                    onChange={(e) => setFormulaName(e.target.value)}
+                    placeholder="Ex: Padrão RN"
+                    className="bg-white"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Frasco de Leite</Label>
+                  <Select
+                    value={formulaMilkType}
+                    onValueChange={setFormulaMilkType}
+                  >
+                    <SelectTrigger className="bg-white">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="none">Nenhum</SelectItem>
+                      <SelectItem value="Fórmula Infantil">
+                        Fórmula Infantil Padrão
+                      </SelectItem>
+                      <SelectItem value="Leite Materno Pasteurizado">
+                        Leite Materno Pasteurizado
+                      </SelectItem>
+                      <SelectItem value="Leite Materno Cru">
+                        Leite Materno Cru
+                      </SelectItem>
+                      <SelectItem value="Fórmula Especial (HA)">
+                        Fórmula Especial (HA)
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label>Refeição</Label>
+                  <Select
+                    value={formulaMealDesc}
+                    onValueChange={setFormulaMealDesc}
+                  >
+                    <SelectTrigger className="bg-white">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="none">Nenhuma</SelectItem>
+                      <SelectItem value="Papinha de Legumes e Carne">
+                        Papinha de Legumes e Carne
+                      </SelectItem>
+                      <SelectItem value="Papinha sem Leite/Derivados">
+                        Papinha sem Leite/Derivados
+                      </SelectItem>
+                      <SelectItem value="Dieta Pastosa Almoço/Jantar">
+                        Dieta Pastosa Almoço/Jantar
+                      </SelectItem>
+                      <SelectItem value="Sopa Liquidificada">
+                        Sopa Liquidificada
+                      </SelectItem>
+                      <SelectItem value="Fruta Amassada">
+                        Fruta Amassada
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div className="flex justify-end gap-2 pt-2">
+                {editingFormula && (
+                  <Button variant="ghost" onClick={resetFormulaForm}>
+                    Cancelar Edição
+                  </Button>
+                )}
+                <Button onClick={handleSaveFormula} className="gap-2">
+                  <Save className="h-4 w-4" />
+                  {editingFormula ? 'Salvar Alterações' : 'Adicionar Fórmula'}
+                </Button>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <Label>Fórmulas Cadastradas</Label>
+              {standardFormulas.length === 0 ? (
+                <div className="text-sm text-muted-foreground p-4 text-center border rounded-lg border-dashed">
+                  Nenhuma fórmula cadastrada.
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  {standardFormulas.map((f) => (
+                    <div
+                      key={f.id}
+                      className="flex items-center justify-between p-3 border rounded-lg bg-white shadow-sm"
+                    >
+                      <div>
+                        <p className="font-semibold text-sm">{f.name}</p>
+                        <p className="text-xs text-muted-foreground flex gap-2 mt-1 flex-wrap">
+                          {f.milkType && <span>Leite: {f.milkType}</span>}
+                          {f.milkType && f.mealDesc && <span>|</span>}
+                          {f.mealDesc && <span>Ref: {f.mealDesc}</span>}
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-1 shrink-0">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleEditFormula(f)}
+                          className="h-8 w-8 text-slate-500 hover:text-primary"
+                        >
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => {
+                            deleteStandardFormula(f.id)
+                            if (standardFormula === f.id) {
+                              setStandardFormula('')
+                            }
+                            toast({ title: 'Fórmula Removida' })
+                          }}
+                          className="h-8 w-8 text-slate-500 hover:text-destructive"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       <Dialog
         open={isTemplateDialogOpen}
