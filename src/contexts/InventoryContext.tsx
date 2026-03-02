@@ -6,6 +6,9 @@ export type InventoryItem = {
   quantity: number
   minLevel: number
   unit: string
+  batch?: string
+  expirationDate?: string
+  supplierId?: string
 }
 
 interface InventoryContextType {
@@ -15,6 +18,9 @@ interface InventoryContextType {
   deleteItem: (id: string) => void
 }
 
+const offsetDays = (days: number) =>
+  new Date(Date.now() + days * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+
 const mockItems: InventoryItem[] = [
   {
     id: 'i1',
@@ -22,6 +28,9 @@ const mockItems: InventoryItem[] = [
     quantity: 5,
     minLevel: 10,
     unit: 'latas',
+    batch: 'LT2024-001',
+    expirationDate: offsetDays(5),
+    supplierId: 'sup1',
   },
   {
     id: 'i2',
@@ -29,6 +38,9 @@ const mockItems: InventoryItem[] = [
     quantity: 15,
     minLevel: 5,
     unit: 'latas',
+    batch: 'LT2023-099',
+    expirationDate: offsetDays(-2),
+    supplierId: 'sup2',
   },
   {
     id: 'i3',
@@ -36,6 +48,8 @@ const mockItems: InventoryItem[] = [
     quantity: 2,
     minLevel: 5,
     unit: 'unid',
+    batch: 'ESP-123',
+    expirationDate: offsetDays(365),
   },
   {
     id: 'i4',
@@ -43,6 +57,7 @@ const mockItems: InventoryItem[] = [
     quantity: 120,
     minLevel: 50,
     unit: 'unid',
+    supplierId: 'sup1',
   },
   {
     id: 'i5',
@@ -50,6 +65,8 @@ const mockItems: InventoryItem[] = [
     quantity: 8,
     minLevel: 15,
     unit: 'frascos',
+    batch: 'LMP-042',
+    expirationDate: offsetDays(1),
   },
 ]
 
