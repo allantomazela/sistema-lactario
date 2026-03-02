@@ -85,55 +85,48 @@ export default function Reports() {
         </div>
       </div>
 
-      {/* Optimized Print Header */}
-      <div className="hidden print:block mb-6 border-b border-gray-300 pb-6">
-        <div className="flex items-center gap-3 pb-4 border-b-2 border-black">
-          <Baby className="h-10 w-10 text-black" />
-          <div>
-            <h2 className="text-lg font-bold uppercase tracking-tight text-black leading-tight">
-              Lactário do Hospital das Clínicas da Faculdade de Medicina de
-              Botucatu - HCFMB
-            </h2>
-            <p className="text-sm text-gray-600 mt-0.5">
-              Sistema de Gerenciamento de Lactário • Documento Oficial
-            </p>
-          </div>
-        </div>
-        <div className="pt-4 flex justify-between items-end">
-          <div>
-            <h1 className="text-3xl font-black uppercase tracking-wider text-black">
-              Relatório de Prescrições
-            </h1>
-            <p className="text-sm text-gray-600 mt-1 font-medium">
-              Emitido em: {emitDate}
-            </p>
-          </div>
-        </div>
-        <div className="flex justify-between pt-4 mt-4 border-t border-gray-200 text-sm">
-          <div className="flex-1">
-            <span className="text-gray-500 uppercase text-xs font-bold block mb-0.5">
+      <div className="hidden print:flex flex-col items-center text-center mb-8 border-b-2 border-black pb-8">
+        <Baby className="h-12 w-12 text-black mb-3" />
+        <h2 className="text-2xl font-bold uppercase tracking-tight text-black leading-tight max-w-2xl mb-1.5">
+          Lactário do Hospital das Clínicas da Faculdade de Medicina de Botucatu
+          - HCFMB
+        </h2>
+        <p className="text-sm text-gray-600 mb-6 font-medium">
+          Sistema de Gerenciamento de Lactário • Documento Oficial
+        </p>
+
+        <h1 className="text-3xl font-black uppercase tracking-wider text-black mb-1">
+          Relatório de Prescrições
+        </h1>
+        <p className="text-sm text-gray-600 font-medium mb-8">
+          Emitido em: {emitDate}
+        </p>
+
+        <div className="flex justify-center w-full gap-12 pt-6 border-t border-gray-300 text-sm">
+          <div className="text-center">
+            <span className="text-gray-500 uppercase text-xs font-bold block mb-1">
               Período
             </span>
-            <strong className="text-black text-base">
+            <strong className="text-black text-lg">
               {start.split('-').reverse().join('/')} a{' '}
               {end.split('-').reverse().join('/')}
             </strong>
           </div>
-          <div className="flex-1 px-4 border-l border-gray-300">
-            <span className="text-gray-500 uppercase text-xs font-bold block mb-0.5">
+          <div className="text-center px-12 border-x border-gray-300">
+            <span className="text-gray-500 uppercase text-xs font-bold block mb-1">
               Paciente
             </span>
-            <strong className="text-black text-base">
+            <strong className="text-black text-lg">
               {patientId === 'all'
                 ? 'Todos'
                 : patients.find((p) => p.id === patientId)?.name}
             </strong>
           </div>
-          <div className="flex-1 pl-4 border-l border-gray-300 text-right">
-            <span className="text-gray-500 uppercase text-xs font-bold block mb-0.5">
+          <div className="text-center">
+            <span className="text-gray-500 uppercase text-xs font-bold block mb-1">
               Dieta
             </span>
-            <strong className="text-black text-base">
+            <strong className="text-black text-lg">
               {diet === 'all'
                 ? 'Todas'
                 : diet === 'milk'

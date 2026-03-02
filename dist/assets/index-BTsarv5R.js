@@ -36932,38 +36932,35 @@ function Reports() {
 				})] })
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "hidden print:block mb-6 border-b border-gray-300 pb-6",
+				className: "hidden print:flex flex-col items-center text-center mb-8 border-b-2 border-black pb-8",
 				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "flex items-center gap-3 pb-4 border-b-2 border-black",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Baby, { className: "h-10 w-10 text-black" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-							className: "text-lg font-bold uppercase tracking-tight text-black leading-tight",
-							children: "Lactário do Hospital das Clínicas da Faculdade de Medicina de Botucatu - HCFMB"
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "text-sm text-gray-600 mt-0.5",
-							children: "Sistema de Gerenciamento de Lactário • Documento Oficial"
-						})] })]
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Baby, { className: "h-12 w-12 text-black mb-3" }),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+						className: "text-2xl font-bold uppercase tracking-tight text-black leading-tight max-w-2xl mb-1.5",
+						children: "Lactário do Hospital das Clínicas da Faculdade de Medicina de Botucatu - HCFMB"
 					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "pt-4 flex justify-between items-end",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-							className: "text-3xl font-black uppercase tracking-wider text-black",
-							children: "Relatório de Prescrições"
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-							className: "text-sm text-gray-600 mt-1 font-medium",
-							children: ["Emitido em: ", emitDate]
-						})] })
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-sm text-gray-600 mb-6 font-medium",
+						children: "Sistema de Gerenciamento de Lactário • Documento Oficial"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+						className: "text-3xl font-black uppercase tracking-wider text-black mb-1",
+						children: "Relatório de Prescrições"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+						className: "text-sm text-gray-600 font-medium mb-8",
+						children: ["Emitido em: ", emitDate]
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "flex justify-between pt-4 mt-4 border-t border-gray-200 text-sm",
+						className: "flex justify-center w-full gap-12 pt-6 border-t border-gray-300 text-sm",
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex-1",
+								className: "text-center",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-gray-500 uppercase text-xs font-bold block mb-0.5",
+									className: "text-gray-500 uppercase text-xs font-bold block mb-1",
 									children: "Período"
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("strong", {
-									className: "text-black text-base",
+									className: "text-black text-lg",
 									children: [
 										start.split("-").reverse().join("/"),
 										" a",
@@ -36973,22 +36970,22 @@ function Reports() {
 								})]
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex-1 px-4 border-l border-gray-300",
+								className: "text-center px-12 border-x border-gray-300",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-gray-500 uppercase text-xs font-bold block mb-0.5",
+									className: "text-gray-500 uppercase text-xs font-bold block mb-1",
 									children: "Paciente"
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", {
-									className: "text-black text-base",
+									className: "text-black text-lg",
 									children: patientId === "all" ? "Todos" : patients.find((p) => p.id === patientId)?.name
 								})]
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex-1 pl-4 border-l border-gray-300 text-right",
+								className: "text-center",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-gray-500 uppercase text-xs font-bold block mb-0.5",
+									className: "text-gray-500 uppercase text-xs font-bold block mb-1",
 									children: "Dieta"
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", {
-									className: "text-black text-base",
+									className: "text-black text-lg",
 									children: diet === "all" ? "Todas" : diet === "milk" ? "Leite/Fórmulas" : "Refeições"
 								})]
 							})
@@ -37598,4 +37595,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-Dq9TFRA0.js.map
+//# sourceMappingURL=index-BTsarv5R.js.map
