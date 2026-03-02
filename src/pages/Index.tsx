@@ -1,16 +1,28 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useLactary } from '@/contexts/LactaryContext'
-import { Baby, Clock, Printer, AlertTriangle, FileText } from 'lucide-react'
+import { useInventory } from '@/contexts/InventoryContext'
+import {
+  Baby,
+  Clock,
+  Printer,
+  AlertTriangle,
+  FileText,
+  Package,
+} from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
+import { Badge } from '@/components/ui/badge'
 
 const Index = () => {
   const { patients, prescriptions } = useLactary()
+  const { items } = useInventory()
 
   const activePatients = patients.filter((p) => p.active).length
   const totalPrescriptions = prescriptions.length
 
-  // Mock data for dashboard logic
+  const lowStockItems = items.filter((i) => i.quantity <= i.minLevel)
+  const hasLowStock = lowStockItems.length > 0
+
   const nextTimeSlot = '11:00'
   const labelsToPrint = 15
 
@@ -24,6 +36,29 @@ const Index = () => {
           Status atual do lactário e preparos do dia.
         </p>
       </div>
+
+      {hasLowStock && (
+        <div className="bg-rose-50 border border-rose-200 rounded-lg p-4 flex items-start sm:items-center gap-4">
+          <div className="bg-rose-100 p-2 rounded-full shrink-0">
+            <AlertTriangle className="h-6 w-6 text-destructive" />
+          </div>
+          <div className="flex-1">
+            <h3 className="text-rose-800 font-bold">Atenção: Estoque Baixo</h3>
+            <p className="text-rose-700 text-sm mt-0.5">
+              Existem {lowStockItems.length} insumo(s) que atingiram o nível
+              crítico de estoque ({lowStockItems.map((i) => i.name).join(', ')}
+              ).
+            </p>
+          </div>
+          <Button
+            variant="outline"
+            className="border-rose-200 text-rose-700 hover:bg-rose-100 shrink-0"
+            asChild
+          >
+            <Link to="/estoque">Ver Estoque</Link>
+          </Button>
+        </div>
+      )}
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card className="border-l-4 border-l-primary shadow-sm">
@@ -71,17 +106,27 @@ const Index = () => {
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-destructive shadow-sm">
+        <Card
+          className={`border-l-4 shadow-sm ${hasLowStock ? 'border-l-destructive' : 'border-l-slate-300'}`}
+        >
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              Alertas Ativos
+              Insumos Monitorados
             </CardTitle>
-            <AlertTriangle className="h-4 w-4 text-destructive" />
+            <Package
+              className={`h-4 w-4 ${hasLowStock ? 'text-destructive' : 'text-slate-400'}`}
+            />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">2</div>
-            <p className="text-xs text-muted-foreground mt-1">
-              Atenção a alergias (PLV)
+            <div className="text-2xl font-bold">{items.length}</div>
+            <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
+              {hasLowStock ? (
+                <span className="text-destructive font-semibold">
+                  {lowStockItems.length} em nível crítico
+                </span>
+              ) : (
+                <span>Todos os níveis adequados</span>
+              )}
             </p>
           </CardContent>
         </Card>

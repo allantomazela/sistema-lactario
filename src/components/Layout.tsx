@@ -21,6 +21,7 @@ import {
   Baby,
   ShieldCheck,
   LogOut,
+  Package,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/contexts/AuthContext'
@@ -38,6 +39,7 @@ export default function Layout() {
     { title: 'Pacientes', path: '/pacientes', icon: Users },
     { title: 'Prescrições', path: '/prescricoes', icon: FileText },
     { title: 'Gerar Etiquetas', path: '/etiquetas', icon: Tags },
+    { title: 'Estoque', path: '/estoque', icon: Package },
   ]
 
   if (currentUser.role === 'admin') {

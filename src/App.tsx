@@ -15,9 +15,11 @@ import Users from './pages/Users'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import ForgotPassword from './pages/ForgotPassword'
+import Inventory from './pages/Inventory'
 import { LactaryProvider } from './contexts/LactaryContext'
 import { AuthProvider } from './contexts/AuthContext'
 import { SettingsProvider } from './contexts/SettingsContext'
+import { InventoryProvider } from './contexts/InventoryContext'
 
 const App = () => (
   <BrowserRouter
@@ -26,29 +28,32 @@ const App = () => (
     <AuthProvider>
       <LactaryProvider>
         <SettingsProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <Routes>
-              <Route element={<AuthLayout />}>
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
-              </Route>
+          <InventoryProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <Routes>
+                <Route element={<AuthLayout />}>
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/forgot-password" element={<ForgotPassword />} />
+                </Route>
 
-              <Route element={<Layout />}>
-                <Route path="/" element={<Index />} />
-                <Route path="/pacientes" element={<Patients />} />
-                <Route path="/pacientes/:id" element={<PatientProfile />} />
-                <Route path="/prescricoes" element={<Prescriptions />} />
-                <Route path="/etiquetas" element={<Labels />} />
-                <Route path="/configuracoes" element={<Settings />} />
-                <Route path="/usuarios" element={<Users />} />
-              </Route>
+                <Route element={<Layout />}>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/pacientes" element={<Patients />} />
+                  <Route path="/pacientes/:id" element={<PatientProfile />} />
+                  <Route path="/prescricoes" element={<Prescriptions />} />
+                  <Route path="/etiquetas" element={<Labels />} />
+                  <Route path="/estoque" element={<Inventory />} />
+                  <Route path="/configuracoes" element={<Settings />} />
+                  <Route path="/usuarios" element={<Users />} />
+                </Route>
 
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </TooltipProvider>
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </TooltipProvider>
+          </InventoryProvider>
         </SettingsProvider>
       </LactaryProvider>
     </AuthProvider>

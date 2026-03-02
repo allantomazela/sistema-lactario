@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useLactary } from '@/contexts/LactaryContext'
+import { useLactary, Template } from '@/contexts/LactaryContext'
 import {
   Card,
   CardContent,
@@ -17,6 +17,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectGroup,
+  SelectLabel,
+  SelectSeparator,
 } from '@/components/ui/select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
@@ -25,10 +28,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
+  DialogDescription,
 } from '@/components/ui/dialog'
 import { Checkbox } from '@/components/ui/checkbox'
 import { useToast } from '@/hooks/use-toast'
-import { Check, Info, Plus } from 'lucide-react'
+import { Check, Info, Plus, Save, Bookmark } from 'lucide-react'
 import { getLocalYYYYMMDD } from '@/lib/utils'
 
 const PREDEFINED_TIMES = [
@@ -49,7 +53,14 @@ const PREDEFINED_TIMES = [
 ]
 
 const Prescriptions = () => {
-  const { patients, addPrescription, addPatient } = useLactary()
+  const {
+    patients,
+    addPrescription,
+    addPatient,
+    templates,
+    addTemplate,
+    deleteTemplate,
+  } = useLactary()
   const { toast } = useToast()
 
   const [selectedPatient, setSelectedPatient] = useState<string>('')
@@ -78,6 +89,9 @@ const Prescriptions = () => {
     birthDate: '',
   })
 
+  const [isTemplateDialogOpen, setIsTemplateDialogOpen] = useState(false)
+  const [templateName, setTemplateName] = useState('')
+
   const patient = patients.find((p) => p.id === selectedPatient)
 
   const handleToggleTime = (time: string) => {
@@ -86,6 +100,27 @@ const Prescriptions = () => {
         ? prev.filter((t) => t !== time)
         : [...prev, time].sort(),
     )
+  }
+
+  const handleLoadTemplate = (templateId: string) => {
+    const t = templates.find((x) => x.id === templateId)
+    if (!t) return
+
+    setType(t.type)
+    if (t.type === 'milk') {
+      setMilkType(t.milkType || 'Fórmula Infantil')
+      setVolume(t.volume?.toString() || '100')
+    } else {
+      setDescription(t.description || '')
+    }
+    setObservations(t.observations || '')
+    setRestrictions(t.restrictions || '')
+    setSelectedTimes([...t.times])
+
+    toast({
+      title: 'Template Carregado',
+      description: `Configurações de "${t.name}" aplicadas.`,
+    })
   }
 
   const handleSavePrescription = () => {
@@ -131,6 +166,36 @@ const Prescriptions = () => {
     setObservations('')
     setRestrictions('')
     setSelectedTimes(['08:00', '11:00', '14:00', '17:00', '20:00', '23:00'])
+  }
+
+  const handleSaveTemplate = () => {
+    if (!templateName.trim()) {
+      toast({
+        title: 'Nome Obrigatório',
+        description: 'Dê um nome para o template.',
+        variant: 'destructive',
+      })
+      return
+    }
+
+    addTemplate({
+      name: templateName,
+      type,
+      milkType: type === 'milk' ? milkType : undefined,
+      volume: type === 'milk' ? Number(volume) : undefined,
+      description: type === 'meal' ? description : undefined,
+      observations: observations.trim() || undefined,
+      restrictions: restrictions.trim() || undefined,
+      times: selectedTimes,
+      expiryHours: type === 'milk' ? 24 : 6,
+    })
+
+    toast({
+      title: 'Template Salvo',
+      description: 'Agora você pode usar esta configuração rapidamente.',
+    })
+    setIsTemplateDialogOpen(false)
+    setTemplateName('')
   }
 
   const handleSavePatient = () => {
@@ -179,11 +244,34 @@ const Prescriptions = () => {
 
   return (
     <div className="space-y-6 animate-slide-up max-w-4xl mx-auto">
-      <div>
-        <h2 className="text-3xl font-bold tracking-tight">Nova Prescrição</h2>
-        <p className="text-muted-foreground mt-1">
-          Defina o plano nutricional diário do paciente.
-        </p>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h2 className="text-3xl font-bold tracking-tight">Nova Prescrição</h2>
+          <p className="text-muted-foreground mt-1">
+            Defina o plano nutricional diário do paciente.
+          </p>
+        </div>
+        <Select onValueChange={handleLoadTemplate}>
+          <SelectTrigger className="w-[250px] bg-primary/5 border-primary/20 text-primary font-medium">
+            <SelectValue placeholder="Carregar Template..." />
+          </SelectTrigger>
+          <SelectContent>
+            {templates.length === 0 ? (
+              <div className="p-2 text-sm text-muted-foreground">
+                Nenhum template salvo.
+              </div>
+            ) : (
+              <SelectGroup>
+                <SelectLabel>Meus Templates</SelectLabel>
+                {templates.map((t) => (
+                  <SelectItem key={t.id} value={t.id}>
+                    {t.name}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            )}
+          </SelectContent>
+        </Select>
       </div>
 
       <Card className="shadow-md border-t-4 border-t-primary">
@@ -332,9 +420,6 @@ const Prescriptions = () => {
                     className="bg-white resize-none"
                     rows={2}
                   />
-                  <p className="text-[11px] text-muted-foreground">
-                    Instruções críticas que exigem atenção extra.
-                  </p>
                 </div>
                 <div className="space-y-2">
                   <Label>Observações</Label>
@@ -345,9 +430,6 @@ const Prescriptions = () => {
                     className="bg-white resize-none"
                     rows={2}
                   />
-                  <p className="text-[11px] text-muted-foreground">
-                    Instruções de preparo ou administração.
-                  </p>
                 </div>
               </div>
             </div>
@@ -371,20 +453,64 @@ const Prescriptions = () => {
                   </div>
                 ))}
               </div>
-              <p className="text-xs text-muted-foreground mt-2">
-                Selecione os horários em que esta dieta será entregue.
-              </p>
             </div>
           </Tabs>
         </CardContent>
       </Card>
 
-      <div className="flex justify-end gap-4">
-        <Button variant="outline">Cancelar</Button>
-        <Button onClick={handleSavePrescription} className="px-8 font-semibold">
-          Salvar Prescrição
+      <div className="flex justify-between items-center bg-slate-50 p-4 border rounded-lg shadow-sm">
+        <Button
+          variant="ghost"
+          onClick={() => setIsTemplateDialogOpen(true)}
+          className="gap-2 text-primary font-medium"
+        >
+          <Bookmark className="h-4 w-4" />
+          Salvar como Template
         </Button>
+        <div className="flex gap-4">
+          <Button variant="outline">Cancelar</Button>
+          <Button
+            onClick={handleSavePrescription}
+            className="px-8 font-semibold"
+          >
+            Salvar Prescrição
+          </Button>
+        </div>
       </div>
+
+      <Dialog
+        open={isTemplateDialogOpen}
+        onOpenChange={setIsTemplateDialogOpen}
+      >
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Salvar Template</DialogTitle>
+            <DialogDescription>
+              Dê um nome para esta configuração. Ela ficará disponível para uso
+              rápido.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-4 space-y-4">
+            <div className="space-y-2">
+              <Label>Nome do Template</Label>
+              <Input
+                placeholder="Ex: Dieta Padrão 100ml 3/3h"
+                value={templateName}
+                onChange={(e) => setTemplateName(e.target.value)}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setIsTemplateDialogOpen(false)}
+            >
+              Cancelar
+            </Button>
+            <Button onClick={handleSaveTemplate}>Salvar Template</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       <Dialog open={isAddPatientOpen} onOpenChange={setIsAddPatientOpen}>
         <DialogContent className="sm:max-w-[425px]">
@@ -396,7 +522,6 @@ const Prescriptions = () => {
               <Label htmlFor="name">Nome do Paciente *</Label>
               <Input
                 id="name"
-                placeholder="Nome completo da criança"
                 value={patientFormData.name}
                 onChange={(e) =>
                   setPatientFormData({
@@ -411,7 +536,6 @@ const Prescriptions = () => {
                 <Label htmlFor="ward">Ala / Quarto *</Label>
                 <Input
                   id="ward"
-                  placeholder="Ex: Pediatria"
                   value={patientFormData.ward}
                   onChange={(e) =>
                     setPatientFormData({
@@ -425,7 +549,6 @@ const Prescriptions = () => {
                 <Label htmlFor="bed">Leito *</Label>
                 <Input
                   id="bed"
-                  placeholder="Ex: 12A"
                   value={patientFormData.bed}
                   onChange={(e) =>
                     setPatientFormData({
@@ -441,7 +564,6 @@ const Prescriptions = () => {
                 <Label htmlFor="recordId">Prontuário / ID</Label>
                 <Input
                   id="recordId"
-                  placeholder="Opcional"
                   value={patientFormData.recordId}
                   onChange={(e) =>
                     setPatientFormData({

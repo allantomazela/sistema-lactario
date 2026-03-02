@@ -6,6 +6,10 @@ export interface LabelSettings {
   width: number
   height: number
   unit: LabelUnit
+  marginTop: number
+  marginBottom: number
+  marginLeft: number
+  marginRight: number
 }
 
 interface SettingsContextType {
@@ -17,6 +21,10 @@ const defaultSettings: LabelSettings = {
   width: 10.5,
   height: 4,
   unit: 'cm',
+  marginTop: 0.2,
+  marginBottom: 0.2,
+  marginLeft: 0.2,
+  marginRight: 0.2,
 }
 
 const SettingsContext = createContext<SettingsContextType | undefined>(
@@ -26,7 +34,11 @@ const SettingsContext = createContext<SettingsContextType | undefined>(
 export function SettingsProvider({ children }: { children: ReactNode }) {
   const [labelSettings, setLabelSettings] = useState<LabelSettings>(() => {
     const stored = localStorage.getItem('labelSettings')
-    return stored ? JSON.parse(stored) : defaultSettings
+    if (stored) {
+      const parsed = JSON.parse(stored)
+      return { ...defaultSettings, ...parsed } // Merge missing keys like new margins
+    }
+    return defaultSettings
   })
 
   const updateLabelSettings = (settings: LabelSettings) => {

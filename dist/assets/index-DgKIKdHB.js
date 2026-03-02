@@ -1109,7 +1109,7 @@ var require_react_dom_development = /* @__PURE__ */ __commonJSMin(((exports) => 
 			return dispatcher;
 		}
 		"undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-		var React$32 = require_react(), Internals = {
+		var React$33 = require_react(), Internals = {
 			d: {
 				f: noop,
 				r: function() {
@@ -1125,7 +1125,7 @@ var require_react_dom_development = /* @__PURE__ */ __commonJSMin(((exports) => 
 			},
 			p: 0,
 			findDOMNode: null
-		}, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React$32.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+		}, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React$33.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
 		"function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error("React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills");
 		exports.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE = Internals;
 		exports.createPortal = function(children, container) {
@@ -2365,7 +2365,7 @@ var require_react_dom_client_development = /* @__PURE__ */ __commonJSMin(((expor
 			"number" === type && getActiveElement(node.ownerDocument) === node || node.defaultValue === "" + value || (node.defaultValue = "" + value);
 		}
 		function validateOptionProps(element, props) {
-			props.value ?? ("object" === typeof props.children && null !== props.children ? React$32.Children.forEach(props.children, function(child) {
+			props.value ?? ("object" === typeof props.children && null !== props.children ? React$33.Children.forEach(props.children, function(child) {
 				null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = !0, console.error("Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."));
 			}) : null == props.dangerouslySetInnerHTML || didWarnInvalidInnerHTML || (didWarnInvalidInnerHTML = !0, console.error("Pass a `value` prop if you set dangerouslyInnerHTML so React knows which value should be selected.")));
 			null == props.selected || didWarnSelectedSetOnOption || (console.error("Use the `defaultValue` or `value` props on <select> instead of setting `selected` on <option>."), didWarnSelectedSetOnOption = !0);
@@ -12656,10 +12656,10 @@ var require_react_dom_client_development = /* @__PURE__ */ __commonJSMin(((expor
 			container[internalContainerInstanceKey] && (container._reactRootContainer ? console.error("You are calling ReactDOMClient.createRoot() on a container that was previously passed to ReactDOM.render(). This is not supported.") : console.error("You are calling ReactDOMClient.createRoot() on a container that has already been passed to createRoot() before. Instead, call root.render() on the existing root instead if you want to update it."));
 		}
 		"undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-		var Scheduler = require_scheduler(), React$32 = require_react(), ReactDOM$2 = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = Symbol.for("react.element"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE$1 = Symbol.for("react.lazy");
+		var Scheduler = require_scheduler(), React$33 = require_react(), ReactDOM$2 = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = Symbol.for("react.element"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE$1 = Symbol.for("react.lazy");
 		var REACT_ACTIVITY_TYPE = Symbol.for("react.activity");
 		var REACT_MEMO_CACHE_SENTINEL = Symbol.for("react.memo_cache_sentinel");
-		var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React$32.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM$2.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+		var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React$33.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM$2.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
 			pending: !1,
 			data: null,
 			method: null,
@@ -15281,7 +15281,7 @@ var require_react_dom_client_development = /* @__PURE__ */ __commonJSMin(((expor
 			}
 		};
 		(function() {
-			var isomorphicReactPackageVersion = React$32.version;
+			var isomorphicReactPackageVersion = React$33.version;
 			if ("19.2.4" !== isomorphicReactPackageVersion) throw Error("Incompatible React versions: The \"react\" and \"react-dom\" packages must have the exact same version. Instead got:\n  - react:      " + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.4\nLearn more: https://react.dev/warnings/version-mismatch"));
 		})();
 		"function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error("React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://react.dev/link/react-polyfills");
@@ -17566,15 +17566,15 @@ var require_react_jsx_runtime_development = /* @__PURE__ */ __commonJSMin(((expo
 		function isValidElement(object) {
 			return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
 		}
-		var React$32 = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE$1 = Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), ReactSharedInternals = React$32.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+		var React$33 = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE$1 = Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), ReactSharedInternals = React$33.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
 			return null;
 		};
-		React$32 = { react_stack_bottom_frame: function(callStackForError) {
+		React$33 = { react_stack_bottom_frame: function(callStackForError) {
 			return callStackForError();
 		} };
 		var specialPropKeyWarningShown;
 		var didWarnAboutElementRef = {};
-		var unknownOwnerDebugStack = React$32.react_stack_bottom_frame.bind(React$32, UnknownOwner)();
+		var unknownOwnerDebugStack = React$33.react_stack_bottom_frame.bind(React$33, UnknownOwner)();
 		var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
 		var didWarnAboutKeySpread = {};
 		exports.Fragment = REACT_FRAGMENT_TYPE;
@@ -18956,6 +18956,10 @@ var Baby = createLucideIcon("baby", [
 		key: "157uk2"
 	}]
 ]);
+var Bookmark = createLucideIcon("bookmark", [["path", {
+	d: "M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z",
+	key: "oz39mx"
+}]]);
 var Calendar$1 = createLucideIcon("calendar", [
 	["path", {
 		d: "M8 2v4",
@@ -19174,6 +19178,24 @@ var Milk = createLucideIcon("milk", [
 	["path", {
 		d: "M7 15a6.472 6.472 0 0 1 5 0 6.47 6.47 0 0 0 5 0",
 		key: "ygeh44"
+	}]
+]);
+var Package = createLucideIcon("package", [
+	["path", {
+		d: "M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z",
+		key: "1a0edw"
+	}],
+	["path", {
+		d: "M12 22V12",
+		key: "d0xqtd"
+	}],
+	["polyline", {
+		points: "3.29 7 12 12 20.71 7",
+		key: "ousv84"
+	}],
+	["path", {
+		d: "m7.5 4.27 9 5.15",
+		key: "1c824w"
 	}]
 ]);
 var PanelLeft = createLucideIcon("panel-left", [["rect", {
@@ -25450,7 +25472,7 @@ var DialogTitle$1 = import_react.forwardRef((props, forwardedRef) => {
 });
 DialogTitle$1.displayName = TITLE_NAME$1;
 var DESCRIPTION_NAME$1 = "DialogDescription";
-var DialogDescription$1 = import_react.forwardRef((props, forwardedRef) => {
+var DialogDescription$2 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeDialog, ...descriptionProps } = props;
 	const context = useDialogContext(DESCRIPTION_NAME$1, __scopeDialog);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive.p, {
@@ -25459,7 +25481,7 @@ var DialogDescription$1 = import_react.forwardRef((props, forwardedRef) => {
 		ref: forwardedRef
 	});
 });
-DialogDescription$1.displayName = DESCRIPTION_NAME$1;
+DialogDescription$2.displayName = DESCRIPTION_NAME$1;
 var CLOSE_NAME$1 = "DialogClose";
 var DialogClose$1 = import_react.forwardRef((props, forwardedRef) => {
 	const { __scopeDialog, ...closeProps } = props;
@@ -25516,7 +25538,7 @@ var Portal$3 = DialogPortal$1;
 var Overlay = DialogOverlay$1;
 var Content$1 = DialogContent$1;
 var Title = DialogTitle$1;
-var Description = DialogDescription$1;
+var Description = DialogDescription$2;
 var Close = DialogClose$1;
 var Sheet = Root$4;
 var SheetPortal = Portal$3;
@@ -26062,6 +26084,11 @@ function Layout() {
 			title: "Gerar Etiquetas",
 			path: "/etiquetas",
 			icon: Tags
+		},
+		{
+			title: "Estoque",
+			path: "/estoque",
+			icon: Package
 		}
 	];
 	if (currentUser.role === "admin") {
@@ -26300,10 +26327,36 @@ var mockPrescriptions = [
 		date: todayStr
 	}
 ];
+var mockTemplates = [{
+	id: "t1",
+	name: "Fórmula Padrão 100ml (3/3h)",
+	type: "milk",
+	milkType: "Fórmula Infantil",
+	volume: 100,
+	times: [
+		"06:00",
+		"09:00",
+		"12:00",
+		"15:00",
+		"18:00",
+		"21:00",
+		"00:00",
+		"03:00"
+	],
+	expiryHours: 24
+}, {
+	id: "t2",
+	name: "Dieta Pastosa Almoço/Jantar",
+	type: "meal",
+	description: "Papinha de Legumes Liquidificada",
+	times: ["11:00", "17:00"],
+	expiryHours: 6
+}];
 var LactaryContext = (0, import_react.createContext)(void 0);
 function LactaryProvider({ children }) {
 	const [patients, setPatients] = (0, import_react.useState)(mockPatients);
 	const [prescriptions, setPrescriptions] = (0, import_react.useState)(mockPrescriptions);
+	const [templates, setTemplates] = (0, import_react.useState)(mockTemplates);
 	const addPatient = (patient) => {
 		setPatients((prev) => [...prev, patient]);
 	};
@@ -26326,15 +26379,27 @@ function LactaryProvider({ children }) {
 		}]);
 	};
 	const getPatient = (id) => patients.find((p) => p.id === id);
+	const addTemplate = (template) => {
+		setTemplates((prev) => [...prev, {
+			...template,
+			id: crypto.randomUUID()
+		}]);
+	};
+	const deleteTemplate = (id) => {
+		setTemplates((prev) => prev.filter((t) => t.id !== id));
+	};
 	return import_react.createElement(LactaryContext.Provider, { value: {
 		patients,
 		prescriptions,
+		templates,
 		addPatient,
 		addPatients,
 		updatePatient,
 		deletePatient,
 		addPrescription,
-		getPatient
+		getPatient,
+		addTemplate,
+		deleteTemplate
 	} }, children);
 }
 function useLactary() {
@@ -26342,10 +26407,80 @@ function useLactary() {
 	if (context === void 0) throw new Error("useLactary must be used within a LactaryProvider");
 	return context;
 }
+var mockItems = [
+	{
+		id: "i1",
+		name: "Fórmula Infantil Padrão",
+		quantity: 5,
+		minLevel: 10,
+		unit: "latas"
+	},
+	{
+		id: "i2",
+		name: "Fórmula Especial HA",
+		quantity: 15,
+		minLevel: 5,
+		unit: "latas"
+	},
+	{
+		id: "i3",
+		name: "Espessante Alimentar",
+		quantity: 2,
+		minLevel: 5,
+		unit: "unid"
+	},
+	{
+		id: "i4",
+		name: "Frascos Estéreis 100ml",
+		quantity: 120,
+		minLevel: 50,
+		unit: "unid"
+	},
+	{
+		id: "i5",
+		name: "Leite Materno Pasteurizado",
+		quantity: 8,
+		minLevel: 15,
+		unit: "frascos"
+	}
+];
+var InventoryContext = (0, import_react.createContext)(void 0);
+function InventoryProvider({ children }) {
+	const [items, setItems] = (0, import_react.useState)(mockItems);
+	const addItem = (item) => {
+		setItems((prev) => [...prev, {
+			...item,
+			id: crypto.randomUUID()
+		}]);
+	};
+	const updateItem = (id, updates) => {
+		setItems((prev) => prev.map((item) => item.id === id ? {
+			...item,
+			...updates
+		} : item));
+	};
+	const deleteItem = (id) => {
+		setItems((prev) => prev.filter((item) => item.id !== id));
+	};
+	return import_react.createElement(InventoryContext.Provider, { value: {
+		items,
+		addItem,
+		updateItem,
+		deleteItem
+	} }, children);
+}
+function useInventory() {
+	const context = (0, import_react.useContext)(InventoryContext);
+	if (context === void 0) throw new Error("useInventory must be used within an InventoryProvider");
+	return context;
+}
 var Index = () => {
 	const { patients, prescriptions } = useLactary();
+	const { items } = useInventory();
 	const activePatients = patients.filter((p) => p.active).length;
 	prescriptions.length;
+	const lowStockItems = items.filter((i) => i.quantity <= i.minLevel);
+	const hasLowStock = lowStockItems.length > 0;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "space-y-8 animate-slide-up",
 		children: [
@@ -26356,6 +26491,40 @@ var Index = () => {
 				className: "text-muted-foreground mt-1",
 				children: "Status atual do lactário e preparos do dia."
 			})] }),
+			hasLowStock && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "bg-rose-50 border border-rose-200 rounded-lg p-4 flex items-start sm:items-center gap-4",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "bg-rose-100 p-2 rounded-full shrink-0",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TriangleAlert, { className: "h-6 w-6 text-destructive" })
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex-1",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+							className: "text-rose-800 font-bold",
+							children: "Atenção: Estoque Baixo"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+							className: "text-rose-700 text-sm mt-0.5",
+							children: [
+								"Existem ",
+								lowStockItems.length,
+								" insumo(s) que atingiram o nível crítico de estoque (",
+								lowStockItems.map((i) => i.name).join(", "),
+								")."
+							]
+						})]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						variant: "outline",
+						className: "border-rose-200 text-rose-700 hover:bg-rose-100 shrink-0",
+						asChild: true,
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+							to: "/estoque",
+							children: "Ver Estoque"
+						})
+					})
+				]
+			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "grid gap-4 md:grid-cols-2 lg:grid-cols-4",
 				children: [
@@ -26412,19 +26581,22 @@ var Index = () => {
 						})] })]
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
-						className: "border-l-4 border-l-destructive shadow-sm",
+						className: `border-l-4 shadow-sm ${hasLowStock ? "border-l-destructive" : "border-l-slate-300"}`,
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardHeader, {
 							className: "flex flex-row items-center justify-between pb-2",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, {
 								className: "text-sm font-medium text-muted-foreground",
-								children: "Alertas Ativos"
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TriangleAlert, { className: "h-4 w-4 text-destructive" })]
+								children: "Insumos Monitorados"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Package, { className: `h-4 w-4 ${hasLowStock ? "text-destructive" : "text-slate-400"}` })]
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 							className: "text-2xl font-bold",
-							children: "2"
+							children: items.length
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "text-xs text-muted-foreground mt-1",
-							children: "Atenção a alergias (PLV)"
+							className: "text-xs text-muted-foreground mt-1 flex items-center gap-1",
+							children: hasLowStock ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "text-destructive font-semibold",
+								children: [lowStockItems.length, " em nível crítico"]
+							}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Todos os níveis adequados" })
 						})] })]
 					})
 				]
@@ -26652,12 +26824,12 @@ var DialogTitle = import_react.forwardRef(({ className, ...props }, ref) => /* @
 	...props
 }));
 DialogTitle.displayName = Title.displayName;
-var DialogDescription = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Description, {
+var DialogDescription$1 = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Description, {
 	ref,
 	className: cn("text-sm text-muted-foreground", className),
 	...props
 }));
-DialogDescription.displayName = Description.displayName;
+DialogDescription$1.displayName = Description.displayName;
 var NAME = "Label";
 var Label$2 = import_react.forwardRef((props, forwardedRef) => {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.label, {
@@ -27125,7 +27297,7 @@ var Patients = () => {
 var Patients_default = Patients;
 var Textarea = import_react.forwardRef(({ className, ...props }, ref) => {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("textarea", {
-		className: cn("flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm", className),
+		className: cn("flex min-h-[60px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm", className),
 		ref,
 		...props
 	});
@@ -28771,6 +28943,7 @@ var Icon = SelectIcon;
 var Portal$2 = SelectPortal;
 var Content2$1 = SelectContent$1;
 var Viewport = SelectViewport;
+var Group = SelectGroup$1;
 var Label$1 = SelectLabel$1;
 var Item$1 = SelectItem$1;
 var ItemText = SelectItemText;
@@ -28779,6 +28952,7 @@ var ScrollUpButton = SelectScrollUpButton$1;
 var ScrollDownButton = SelectScrollDownButton$1;
 var Separator = SelectSeparator$1;
 var Select = Root2$2;
+var SelectGroup = Group;
 var SelectValue = Value;
 var SelectTrigger = import_react.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Trigger$2, {
 	ref,
@@ -29372,7 +29546,7 @@ var PREDEFINED_TIMES = [
 	"03:00"
 ];
 var Prescriptions = () => {
-	const { patients, addPrescription, addPatient } = useLactary();
+	const { patients, addPrescription, addPatient, templates, addTemplate, deleteTemplate } = useLactary();
 	const { toast: toast$2 } = useToast();
 	const [selectedPatient, setSelectedPatient] = (0, import_react.useState)("");
 	const [type, setType] = (0, import_react.useState)("milk");
@@ -29397,9 +29571,27 @@ var Prescriptions = () => {
 		recordId: "",
 		birthDate: ""
 	});
+	const [isTemplateDialogOpen, setIsTemplateDialogOpen] = (0, import_react.useState)(false);
+	const [templateName, setTemplateName] = (0, import_react.useState)("");
 	const patient = patients.find((p) => p.id === selectedPatient);
 	const handleToggleTime = (time) => {
 		setSelectedTimes((prev) => prev.includes(time) ? prev.filter((t) => t !== time) : [...prev, time].sort());
+	};
+	const handleLoadTemplate = (templateId) => {
+		const t = templates.find((x$1) => x$1.id === templateId);
+		if (!t) return;
+		setType(t.type);
+		if (t.type === "milk") {
+			setMilkType(t.milkType || "Fórmula Infantil");
+			setVolume(t.volume?.toString() || "100");
+		} else setDescription(t.description || "");
+		setObservations(t.observations || "");
+		setRestrictions(t.restrictions || "");
+		setSelectedTimes([...t.times]);
+		toast$2({
+			title: "Template Carregado",
+			description: `Configurações de "${t.name}" aplicadas.`
+		});
 	};
 	const handleSavePrescription = () => {
 		if (!selectedPatient) {
@@ -29448,6 +29640,33 @@ var Prescriptions = () => {
 			"23:00"
 		]);
 	};
+	const handleSaveTemplate = () => {
+		if (!templateName.trim()) {
+			toast$2({
+				title: "Nome Obrigatório",
+				description: "Dê um nome para o template.",
+				variant: "destructive"
+			});
+			return;
+		}
+		addTemplate({
+			name: templateName,
+			type,
+			milkType: type === "milk" ? milkType : void 0,
+			volume: type === "milk" ? Number(volume) : void 0,
+			description: type === "meal" ? description : void 0,
+			observations: observations.trim() || void 0,
+			restrictions: restrictions.trim() || void 0,
+			times: selectedTimes,
+			expiryHours: type === "milk" ? 24 : 6
+		});
+		toast$2({
+			title: "Template Salvo",
+			description: "Agora você pode usar esta configuração rapidamente."
+		});
+		setIsTemplateDialogOpen(false);
+		setTemplateName("");
+	};
 	const handleSavePatient = () => {
 		if (!patientFormData.name.trim() || !patientFormData.ward.trim() || !patientFormData.bed.trim()) {
 			toast$2({
@@ -29486,13 +29705,28 @@ var Prescriptions = () => {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "space-y-6 animate-slide-up max-w-4xl mx-auto",
 		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-				className: "text-3xl font-bold tracking-tight",
-				children: "Nova Prescrição"
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-				className: "text-muted-foreground mt-1",
-				children: "Defina o plano nutricional diário do paciente."
-			})] }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+					className: "text-3xl font-bold tracking-tight",
+					children: "Nova Prescrição"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-muted-foreground mt-1",
+					children: "Defina o plano nutricional diário do paciente."
+				})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+					onValueChange: handleLoadTemplate,
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectTrigger, {
+						className: "w-[250px] bg-primary/5 border-primary/20 text-primary font-medium",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectValue, { placeholder: "Carregar Template..." })
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectContent, { children: templates.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "p-2 text-sm text-muted-foreground",
+						children: "Nenhum template salvo."
+					}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SelectGroup, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectLabel, { children: "Meus Templates" }), templates.map((t) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
+						value: t.id,
+						children: t.name
+					}, t.id))] }) })]
+				})]
+			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
 				className: "shadow-md border-t-4 border-t-primary",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardHeader, {
@@ -29649,78 +29883,94 @@ var Prescriptions = () => {
 									className: "grid grid-cols-1 md:grid-cols-2 gap-6",
 									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 										className: "space-y-2",
-										children: [
-											/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Restrições" }),
-											/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Textarea, {
-												placeholder: "Ex: Alergia a PLV, Não usar bico ortodôntico...",
-												value: restrictions,
-												onChange: (e) => setRestrictions(e.target.value),
-												className: "bg-white resize-none",
-												rows: 2
-											}),
-											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-												className: "text-[11px] text-muted-foreground",
-												children: "Instruções críticas que exigem atenção extra."
-											})
-										]
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Restrições" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Textarea, {
+											placeholder: "Ex: Alergia a PLV, Não usar bico ortodôntico...",
+											value: restrictions,
+											onChange: (e) => setRestrictions(e.target.value),
+											className: "bg-white resize-none",
+											rows: 2
+										})]
 									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 										className: "space-y-2",
-										children: [
-											/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Observações" }),
-											/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Textarea, {
-												placeholder: "Ex: Aquecer a 37°C, Espessante 2g...",
-												value: observations,
-												onChange: (e) => setObservations(e.target.value),
-												className: "bg-white resize-none",
-												rows: 2
-											}),
-											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-												className: "text-[11px] text-muted-foreground",
-												children: "Instruções de preparo ou administração."
-											})
-										]
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Observações" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Textarea, {
+											placeholder: "Ex: Aquecer a 37°C, Espessante 2g...",
+											value: observations,
+											onChange: (e) => setObservations(e.target.value),
+											className: "bg-white resize-none",
+											rows: 2
+										})]
 									})]
 								})]
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 								className: "mt-8 space-y-4 pt-6 border-t",
-								children: [
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Horários de Entrega" }),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-										className: "grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-4",
-										children: PREDEFINED_TIMES.map((time) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-											className: "flex items-center space-x-2",
-											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Checkbox, {
-												id: `time-${time}`,
-												checked: selectedTimes.includes(time),
-												onCheckedChange: () => handleToggleTime(time)
-											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", {
-												htmlFor: `time-${time}`,
-												className: "text-sm font-medium leading-none cursor-pointer",
-												children: time
-											})]
-										}, time))
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-										className: "text-xs text-muted-foreground mt-2",
-										children: "Selecione os horários em que esta dieta será entregue."
-									})
-								]
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Horários de Entrega" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-4",
+									children: PREDEFINED_TIMES.map((time) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "flex items-center space-x-2",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Checkbox, {
+											id: `time-${time}`,
+											checked: selectedTimes.includes(time),
+											onCheckedChange: () => handleToggleTime(time)
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", {
+											htmlFor: `time-${time}`,
+											className: "text-sm font-medium leading-none cursor-pointer",
+											children: time
+										})]
+									}, time))
+								})]
 							})
 						]
 					})
 				})]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "flex justify-end gap-4",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-					variant: "outline",
-					children: "Cancelar"
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-					onClick: handleSavePrescription,
-					className: "px-8 font-semibold",
-					children: "Salvar Prescrição"
+				className: "flex justify-between items-center bg-slate-50 p-4 border rounded-lg shadow-sm",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+					variant: "ghost",
+					onClick: () => setIsTemplateDialogOpen(true),
+					className: "gap-2 text-primary font-medium",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bookmark, { className: "h-4 w-4" }), "Salvar como Template"]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex gap-4",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						variant: "outline",
+						children: "Cancelar"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						onClick: handleSavePrescription,
+						className: "px-8 font-semibold",
+						children: "Salvar Prescrição"
+					})]
 				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Dialog, {
+				open: isTemplateDialogOpen,
+				onOpenChange: setIsTemplateDialogOpen,
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogContent, {
+					className: "sm:max-w-[425px]",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogTitle, { children: "Salvar Template" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogDescription$1, { children: "Dê um nome para esta configuração. Ela ficará disponível para uso rápido." })] }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "py-4 space-y-4",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "space-y-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Nome do Template" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+									placeholder: "Ex: Dieta Padrão 100ml 3/3h",
+									value: templateName,
+									onChange: (e) => setTemplateName(e.target.value)
+								})]
+							})
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogFooter, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+							variant: "outline",
+							onClick: () => setIsTemplateDialogOpen(false),
+							children: "Cancelar"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+							onClick: handleSaveTemplate,
+							children: "Salvar Template"
+						})] })
+					]
+				})
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Dialog, {
 				open: isAddPatientOpen,
@@ -29739,7 +29989,6 @@ var Prescriptions = () => {
 										children: "Nome do Paciente *"
 									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
 										id: "name",
-										placeholder: "Nome completo da criança",
 										value: patientFormData.name,
 										onChange: (e) => setPatientFormData({
 											...patientFormData,
@@ -29756,7 +30005,6 @@ var Prescriptions = () => {
 											children: "Ala / Quarto *"
 										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
 											id: "ward",
-											placeholder: "Ex: Pediatria",
 											value: patientFormData.ward,
 											onChange: (e) => setPatientFormData({
 												...patientFormData,
@@ -29770,7 +30018,6 @@ var Prescriptions = () => {
 											children: "Leito *"
 										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
 											id: "bed",
-											placeholder: "Ex: 12A",
 											value: patientFormData.bed,
 											onChange: (e) => setPatientFormData({
 												...patientFormData,
@@ -29788,7 +30035,6 @@ var Prescriptions = () => {
 											children: "Prontuário / ID"
 										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
 											id: "recordId",
-											placeholder: "Opcional",
 											value: patientFormData.recordId,
 											onChange: (e) => setPatientFormData({
 												...patientFormData,
@@ -29831,13 +30077,24 @@ var Prescriptions_default = Prescriptions;
 var defaultSettings = {
 	width: 10.5,
 	height: 4,
-	unit: "cm"
+	unit: "cm",
+	marginTop: .2,
+	marginBottom: .2,
+	marginLeft: .2,
+	marginRight: .2
 };
 var SettingsContext = (0, import_react.createContext)(void 0);
 function SettingsProvider({ children }) {
 	const [labelSettings, setLabelSettings] = (0, import_react.useState)(() => {
 		const stored = localStorage.getItem("labelSettings");
-		return stored ? JSON.parse(stored) : defaultSettings;
+		if (stored) {
+			const parsed = JSON.parse(stored);
+			return {
+				...defaultSettings,
+				...parsed
+			};
+		}
+		return defaultSettings;
 	});
 	const updateLabelSettings = (settings) => {
 		setLabelSettings(settings);
@@ -33865,7 +34122,7 @@ var Labels = () => {
 		minute: "2-digit"
 	});
 	const userInitialsOrName = currentUser?.name.split(" ")[0] || "___";
-	const { width, height, unit } = labelSettings;
+	const { width, height, unit, marginTop, marginBottom, marginLeft, marginRight } = labelSettings;
 	const renderLabel = (label, index$1) => {
 		const isMilk = label.type === "milk";
 		const expDate = new Date(today.getTime() + label.expiryHours * 60 * 60 * 1e3);
@@ -33879,166 +34136,172 @@ var Labels = () => {
 		});
 		const birthDateStr = label.patient?.birthDate ? label.patient.birthDate.split("-").reverse().join("/") : null;
 		const textClampClass = !!(label.restrictions && (label.observations || label.additives)) ? "line-clamp-2" : "line-clamp-3";
-		return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "thermal-label relative box-border bg-white text-black overflow-hidden flex flex-col shadow-sm border border-gray-300",
+		return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "thermal-label relative box-border bg-white text-black overflow-hidden flex flex-col shadow-sm border border-gray-300 print:border-none print:shadow-none",
 			style: {
 				width: `${width}${unit}`,
 				height: `${height}${unit}`,
-				padding: "2mm"
+				paddingTop: `${marginTop}${unit}`,
+				paddingBottom: `${marginBottom}${unit}`,
+				paddingLeft: `${marginLeft}${unit}`,
+				paddingRight: `${marginRight}${unit}`
 			},
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "flex justify-between items-center border-b-[1.5px] border-black pb-[1mm] mb-[1mm] shrink-0",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex flex-col h-full w-full",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "flex items-center gap-[1.5mm]",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-						className: "text-[2.5mm] font-black uppercase leading-none tracking-tight",
-						children: "HCFMB"
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-						className: "text-[2mm] font-bold leading-none border-l-[1.5px] border-black pl-[1.5mm]",
-						children: "Lactário"
+					className: "flex justify-between items-center border-b-[1.5px] border-black pb-[1mm] mb-[1mm] shrink-0",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex items-center gap-[1.5mm]",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "text-[2.5mm] font-black uppercase leading-none tracking-tight",
+							children: "HCFMB"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "text-[2mm] font-bold leading-none border-l-[1.5px] border-black pl-[1.5mm]",
+							children: "Lactário"
+						})]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "text-[1.8mm] font-bold leading-none flex items-center gap-[1.5mm]",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+							"Prep: ",
+							prepDate,
+							" ",
+							prepTime,
+							" (",
+							userInitialsOrName,
+							")"
+						] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+							className: "bg-black text-white px-[1.2mm] py-[0.8mm] rounded-[0.5mm] font-black flex items-center gap-[0.8mm]",
+							children: [
+								"Val: ",
+								label.expiryHours,
+								"h",
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+									className: "font-semibold text-[1.5mm] opacity-90",
+									children: [
+										"(",
+										expDateStr,
+										" ",
+										expTimeStr,
+										")"
+									]
+								})
+							]
+						})]
 					})]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "text-[1.8mm] font-bold leading-none flex items-center gap-[1.5mm]",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
-						"Prep: ",
-						prepDate,
-						" ",
-						prepTime,
-						" (",
-						userInitialsOrName,
-						")"
-					] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-						className: "bg-black text-white px-[1.2mm] py-[0.8mm] rounded-[0.5mm] font-black flex items-center gap-[0.8mm]",
+					className: "flex flex-1 min-h-0 gap-[2.5mm]",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex-[0.55] flex flex-col min-h-0 border-r-[1.5px] border-black pr-[2.5mm]",
 						children: [
-							"Val: ",
-							label.expiryHours,
-							"h",
-							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-								className: "font-semibold text-[1.5mm] opacity-90",
-								children: [
-									"(",
-									expDateStr,
-									" ",
-									expTimeStr,
-									")"
-								]
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex justify-between items-end mb-[0.8mm] shrink-0",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "text-[1.8mm] font-black uppercase text-gray-500 leading-none tracking-wider",
+									children: "Paciente"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+									className: "text-[1.8mm] font-bold leading-none text-gray-700",
+									children: [
+										"ID: ",
+										label.patient?.recordId || "--",
+										birthDateStr && ` | DN: ${birthDateStr}`
+									]
+								})]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "text-[3.5mm] font-black uppercase leading-[1.1] line-clamp-2 text-ellipsis overflow-hidden mb-[1mm]",
+								children: label.patient?.name
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex justify-between items-end mt-auto shrink-0 pt-[1mm]",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex flex-col min-w-0 pr-[1mm]",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "text-[1.8mm] font-black uppercase text-gray-500 leading-none mb-[0.8mm] tracking-wider block",
+										children: "Leito / Ala"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "font-black leading-none flex items-baseline gap-[1mm] truncate",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											className: "text-[3.8mm] shrink-0",
+											children: label.patient?.bed
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											className: "text-[2.2mm] truncate",
+											children: label.patient?.ward
+										})]
+									})]
+								}), label.patient && label.patient.allergies.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "bg-black text-white px-[1.5mm] py-[1mm] rounded-[0.5mm] flex flex-col items-center justify-center border-[1px] border-black max-w-[20mm] shrink-0",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "text-[1.5mm] uppercase font-black leading-none tracking-widest mb-[0.4mm]",
+										children: "Alergia"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "font-black text-[2mm] uppercase leading-[1] text-center line-clamp-2",
+										children: label.patient.allergies.join(", ")
+									})]
+								})]
+							})
+						]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex-[0.45] flex flex-col min-h-0",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center gap-[1.2mm] mb-[1mm] shrink-0 text-gray-800",
+								children: [isMilk ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Milk, {
+									className: "h-[2.5mm] w-[2.5mm]",
+									strokeWidth: 2.5
+								}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Utensils, {
+									className: "h-[2.5mm] w-[2.5mm]",
+									strokeWidth: 2.5
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "font-black uppercase text-[2.2mm] leading-none mt-[0.5mm] tracking-wide",
+									children: isMilk ? "Lactário" : "Refeição"
+								})]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "text-[2.8mm] font-black leading-[1.15] line-clamp-2 text-ellipsis overflow-hidden mb-[0.5mm] shrink-0",
+								children: isMilk ? `${label.volume}ml - ${label.milkType}` : label.description
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "text-[2mm] font-bold leading-tight text-gray-700 mb-[1.5mm] line-clamp-2",
+								children: ["Horários: ", label.times.join(", ")]
+							}),
+							label.observations || label.restrictions || label.additives ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex-1 mt-auto flex flex-col gap-[1mm] overflow-hidden justify-end min-h-0 pt-[1mm]",
+								children: [label.restrictions && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex flex-col border-[1.5px] border-black rounded-[0.8mm] overflow-hidden shrink-0",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "bg-black text-white px-[1.2mm] py-[0.6mm] text-[1.6mm] font-black uppercase tracking-widest flex justify-between items-center leading-none",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Restrições" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TriangleAlert, { className: "h-[1.5mm] w-[1.5mm]" })]
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										className: "bg-white px-[1.2mm] py-[0.6mm] flex items-center text-left",
+										children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											className: `text-[1.8mm] font-black leading-[1.1] text-black ${textClampClass}`,
+											children: label.restrictions
+										})
+									})]
+								}), (label.observations || label.additives) && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex flex-col border-[1.5px] border-black rounded-[0.8mm] overflow-hidden shrink-0",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "bg-gray-200 border-b-[1.5px] border-black text-black px-[1.2mm] py-[0.6mm] text-[1.6mm] font-black uppercase tracking-widest flex justify-between items-center leading-none",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Observações" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Info, { className: "h-[1.5mm] w-[1.5mm]" })]
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										className: "bg-white px-[1.2mm] py-[0.6mm] flex items-center text-left",
+										children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											className: `text-[1.8mm] font-bold leading-[1.1] text-black ${textClampClass}`,
+											children: label.observations || label.additives
+										})
+									})]
+								})]
+							}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "flex-1 mt-auto flex items-center justify-center border-[1.5px] border-dashed border-gray-400 rounded-[1mm] opacity-70 min-h-[10mm] bg-gray-50/50",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "text-[2mm] font-bold uppercase text-gray-500 tracking-wider",
+									children: "Sem Restrições / Obs"
+								})
 							})
 						]
 					})]
 				})]
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "flex flex-1 min-h-0 gap-[2.5mm]",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "flex-[0.55] flex flex-col min-h-0 border-r-[1.5px] border-black pr-[2.5mm]",
-					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "flex justify-between items-end mb-[0.8mm] shrink-0",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "text-[1.8mm] font-black uppercase text-gray-500 leading-none tracking-wider",
-								children: "Paciente"
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-								className: "text-[1.8mm] font-bold leading-none text-gray-700",
-								children: [
-									"ID: ",
-									label.patient?.recordId || "--",
-									birthDateStr && ` | DN: ${birthDateStr}`
-								]
-							})]
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: "text-[3.5mm] font-black uppercase leading-[1.1] line-clamp-2 text-ellipsis overflow-hidden mb-[1mm]",
-							children: label.patient?.name
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "flex justify-between items-end mt-auto shrink-0 pt-[1mm]",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex flex-col min-w-0 pr-[1mm]",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-[1.8mm] font-black uppercase text-gray-500 leading-none mb-[0.8mm] tracking-wider block",
-									children: "Leito / Ala"
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "font-black leading-none flex items-baseline gap-[1mm] truncate",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: "text-[3.8mm] shrink-0",
-										children: label.patient?.bed
-									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: "text-[2.2mm] truncate",
-										children: label.patient?.ward
-									})]
-								})]
-							}), label.patient && label.patient.allergies.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "bg-black text-white px-[1.5mm] py-[1mm] rounded-[0.5mm] flex flex-col items-center justify-center border-[1px] border-black max-w-[20mm] shrink-0",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-[1.5mm] uppercase font-black leading-none tracking-widest mb-[0.4mm]",
-									children: "Alergia"
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "font-black text-[2mm] uppercase leading-[1] text-center line-clamp-2",
-									children: label.patient.allergies.join(", ")
-								})]
-							})]
-						})
-					]
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "flex-[0.45] flex flex-col min-h-0",
-					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "flex items-center gap-[1.2mm] mb-[1mm] shrink-0 text-gray-800",
-							children: [isMilk ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Milk, {
-								className: "h-[2.5mm] w-[2.5mm]",
-								strokeWidth: 2.5
-							}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Utensils, {
-								className: "h-[2.5mm] w-[2.5mm]",
-								strokeWidth: 2.5
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "font-black uppercase text-[2.2mm] leading-none mt-[0.5mm] tracking-wide",
-								children: isMilk ? "Lactário" : "Refeição"
-							})]
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: "text-[2.8mm] font-black leading-[1.15] line-clamp-2 text-ellipsis overflow-hidden mb-[0.5mm] shrink-0",
-							children: isMilk ? `${label.volume}ml - ${label.milkType}` : label.description
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "text-[2mm] font-bold leading-tight text-gray-700 mb-[1.5mm] line-clamp-2",
-							children: ["Horários: ", label.times.join(", ")]
-						}),
-						label.observations || label.restrictions || label.additives ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "flex-1 mt-auto flex flex-col gap-[1mm] overflow-hidden justify-end min-h-0 pt-[1mm]",
-							children: [label.restrictions && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex flex-col border-[1.5px] border-black rounded-[0.8mm] overflow-hidden shrink-0",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "bg-black text-white px-[1.2mm] py-[0.6mm] text-[1.6mm] font-black uppercase tracking-widest flex justify-between items-center leading-none",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Restrições" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TriangleAlert, { className: "h-[1.5mm] w-[1.5mm]" })]
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									className: "bg-white px-[1.2mm] py-[0.6mm] flex items-center text-left",
-									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: `text-[1.8mm] font-black leading-[1.1] text-black ${textClampClass}`,
-										children: label.restrictions
-									})
-								})]
-							}), (label.observations || label.additives) && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex flex-col border-[1.5px] border-black rounded-[0.8mm] overflow-hidden shrink-0",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "bg-gray-200 border-b-[1.5px] border-black text-black px-[1.2mm] py-[0.6mm] text-[1.6mm] font-black uppercase tracking-widest flex justify-between items-center leading-none",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Observações" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Info, { className: "h-[1.5mm] w-[1.5mm]" })]
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									className: "bg-white px-[1.2mm] py-[0.6mm] flex items-center text-left",
-									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: `text-[1.8mm] font-bold leading-[1.1] text-black ${textClampClass}`,
-										children: label.observations || label.additives
-									})
-								})]
-							})]
-						}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: "flex-1 mt-auto flex items-center justify-center border-[1.5px] border-dashed border-gray-400 rounded-[1mm] opacity-70 min-h-[10mm] bg-gray-50/50",
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "text-[2mm] font-bold uppercase text-gray-500 tracking-wider",
-								children: "Sem Restrições / Obs"
-							})
-						})
-					]
-				})]
-			})]
+			})
 		}, index$1);
 	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -34065,13 +34328,13 @@ var Labels = () => {
             max-width: ${width}${unit} !important;
             max-height: ${height}${unit} !important;
             margin: 0 !important;
-            padding: 2mm !important;
             page-break-after: always;
             border: none !important;
             border-radius: 0 !important;
             box-shadow: none !important;
             background: white !important;
             overflow: hidden !important;
+            box-sizing: border-box !important;
           }
           @media print {
             body {
@@ -34415,6 +34678,7 @@ var Settings = () => {
 	const { currentUser } = useAuth();
 	const { toast: toast$2 } = useToast();
 	const { labelSettings, updateLabelSettings } = useSettings();
+	const { templates, deleteTemplate } = useLactary();
 	const [apiBaseUrl, setApiBaseUrl] = (0, import_react.useState)("https://api.mv.com.br/v1");
 	const [apiToken, setApiToken] = (0, import_react.useState)("************************");
 	const [clientId, setClientId] = (0, import_react.useState)("HCFMB-01");
@@ -34422,6 +34686,10 @@ var Settings = () => {
 	const [labelWidth, setLabelWidth] = (0, import_react.useState)(labelSettings.width.toString());
 	const [labelHeight, setLabelHeight] = (0, import_react.useState)(labelSettings.height.toString());
 	const [labelUnit, setLabelUnit] = (0, import_react.useState)(labelSettings.unit);
+	const [marginTop, setMarginTop] = (0, import_react.useState)(labelSettings.marginTop.toString());
+	const [marginBottom, setMarginBottom] = (0, import_react.useState)(labelSettings.marginBottom.toString());
+	const [marginLeft, setMarginLeft] = (0, import_react.useState)(labelSettings.marginLeft.toString());
+	const [marginRight, setMarginRight] = (0, import_react.useState)(labelSettings.marginRight.toString());
 	if (currentUser?.role !== "admin") return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Navigate, {
 		to: "/",
 		replace: true
@@ -34432,15 +34700,13 @@ var Settings = () => {
 			description: "As configurações de integração foram atualizadas com sucesso."
 		});
 	};
-	const handleSaveGeneral = () => {
-		toast$2({
-			title: "Configurações Salvas",
-			description: "As preferências do sistema foram atualizadas."
-		});
-	};
 	const handleSaveLabels = () => {
 		const w = parseFloat(labelWidth);
 		const h = parseFloat(labelHeight);
+		const mt = parseFloat(marginTop);
+		const mb = parseFloat(marginBottom);
+		const ml = parseFloat(marginLeft);
+		const mr = parseFloat(marginRight);
 		if (isNaN(w) || isNaN(h) || w <= 0 || h <= 0) {
 			toast$2({
 				title: "Valores Inválidos",
@@ -34452,53 +34718,67 @@ var Settings = () => {
 		updateLabelSettings({
 			width: w,
 			height: h,
-			unit: labelUnit
+			unit: labelUnit,
+			marginTop: isNaN(mt) ? 0 : mt,
+			marginBottom: isNaN(mb) ? 0 : mb,
+			marginLeft: isNaN(ml) ? 0 : ml,
+			marginRight: isNaN(mr) ? 0 : mr
 		});
 		toast$2({
 			title: "Padrões de Impressão Salvos",
-			description: "As dimensões das etiquetas foram atualizadas."
+			description: "As dimensões e margens das etiquetas foram atualizadas."
 		});
 	};
 	const handleRestoreLabelDefaults = () => {
 		setLabelWidth("10.5");
 		setLabelHeight("4");
 		setLabelUnit("cm");
+		setMarginTop("0.2");
+		setMarginBottom("0.2");
+		setMarginLeft("0.2");
+		setMarginRight("0.2");
 	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: "space-y-6 animate-fade-in max-w-4xl",
+		className: "space-y-6 animate-fade-in max-w-5xl",
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
 			className: "text-3xl font-bold tracking-tight",
 			children: "Configurações"
 		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 			className: "text-muted-foreground mt-1",
-			children: "Gerencie as preferências e integrações do sistema do lactário."
+			children: "Gerencie as preferências, impressões e templates do sistema."
 		})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Tabs, {
-			defaultValue: "general",
+			defaultValue: "labels",
 			className: "w-full",
 			children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsList, {
-					className: "grid w-full md:w-[600px] grid-cols-3 mb-6",
+					className: "grid w-full md:w-auto md:inline-grid grid-cols-2 md:grid-cols-4 mb-6 h-auto p-1",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsTrigger, {
 							value: "general",
+							className: "py-2",
 							children: "Geral"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsTrigger, {
 							value: "labels",
-							className: "gap-2",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tags, { className: "h-4 w-4" }), "Padrões de Impressão"]
+							className: "gap-2 py-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tags, { className: "h-4 w-4 hidden sm:block" }), "Impressão"]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsTrigger, {
+							value: "templates",
+							className: "gap-2 py-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bookmark, { className: "h-4 w-4 hidden sm:block" }), "Templates"]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsTrigger, {
 							value: "integrations",
-							className: "gap-2",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link2, { className: "h-4 w-4" }), "Integrações"]
+							className: "gap-2 py-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link2, { className: "h-4 w-4 hidden sm:block" }), "Integrações"]
 						})
 					]
 				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsContent, {
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
 					value: "general",
 					className: "space-y-6",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, { children: "Regras de Validade" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardDescription, { children: "Defina o tempo padrão de validade para cada tipo de preparo." })] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, { children: "Regras de Validade" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardDescription, { children: "Defina o tempo padrão de validade para cada tipo de preparo." })] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
 						className: "space-y-4",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: "flex items-center justify-between border-b pb-4",
@@ -34531,199 +34811,204 @@ var Settings = () => {
 								children: "12 horas"
 							})]
 						})]
-					})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, { children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, { children: "Preferências de Impressão" }) }),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
-							className: "space-y-6",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex items-center justify-between",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "space-y-0.5",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-										className: "text-base",
-										children: "Impressão Automática"
-									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-										className: "text-sm text-muted-foreground",
-										children: "Enviar diretamente para a impressora padrão ao clicar em imprimir lote."
-									})]
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Switch, { defaultChecked: true })]
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex items-center justify-between",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "space-y-0.5",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-										className: "text-base",
-										children: "Destacar Alergias"
-									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-										className: "text-sm text-muted-foreground",
-										children: "Imprimir tarja preta invertida para pacientes com restrições."
-									})]
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Switch, { defaultChecked: true })]
-							})]
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardFooter, {
-							className: "flex justify-end border-t pt-6 bg-slate-50/50 rounded-b-lg",
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
-								onClick: handleSaveGeneral,
-								className: "gap-2",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Save, { className: "h-4 w-4" }), "Salvar Alterações"]
-							})
-						})
-					] })]
+					})] })
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
 					value: "labels",
 					className: "space-y-6",
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, { children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, { children: "Padrões de Impressão de Etiquetas" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardDescription, { children: "Configure as dimensões físicas das etiquetas para a impressora térmica." })] }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, { children: "Padrões e Margens de Impressão" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardDescription, { children: "Configure as dimensões físicas das etiquetas e as margens para ajuste perfeito no rolo da impressora." })] }),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
-							className: "space-y-6",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "grid grid-cols-1 md:grid-cols-3 gap-4",
-								children: [
-									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "space-y-2",
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-											htmlFor: "labelWidth",
-											children: "Comprimento (Largura)"
-										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-											id: "labelWidth",
-											type: "number",
-											step: "0.1",
-											min: "0.1",
-											value: labelWidth,
-											onChange: (e) => setLabelWidth(e.target.value),
-											className: "bg-white"
-										})]
+							className: "space-y-8",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+									className: "text-sm font-semibold text-slate-800 uppercase tracking-wider mb-4 border-b pb-2",
+									children: "Dimensões do Rolo"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "grid grid-cols-1 md:grid-cols-3 gap-6",
+									children: [
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "space-y-2",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Comprimento (Largura)" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+												type: "number",
+												step: "0.1",
+												value: labelWidth,
+												onChange: (e) => setLabelWidth(e.target.value)
+											})]
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "space-y-2",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Altura" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+												type: "number",
+												step: "0.1",
+												value: labelHeight,
+												onChange: (e) => setLabelHeight(e.target.value)
+											})]
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "space-y-2",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Unidade" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+												value: labelUnit,
+												onValueChange: (v) => setLabelUnit(v),
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectTrigger, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectValue, {}) }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SelectContent, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
+													value: "cm",
+													children: "Centímetros (cm)"
+												}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
+													value: "mm",
+													children: "Milímetros (mm)"
+												})] })]
+											})]
+										})
+									]
+								})] }),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+										className: "text-sm font-semibold text-slate-800 uppercase tracking-wider mb-4 border-b pb-2",
+										children: "Margens de Impressão"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "space-y-2",
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-											htmlFor: "labelHeight",
-											children: "Altura"
-										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-											id: "labelHeight",
-											type: "number",
-											step: "0.1",
-											min: "0.1",
-											value: labelHeight,
-											onChange: (e) => setLabelHeight(e.target.value),
-											className: "bg-white"
-										})]
+										className: "grid grid-cols-2 md:grid-cols-4 gap-6",
+										children: [
+											/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+												className: "space-y-2",
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Superior" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+													type: "number",
+													step: "0.1",
+													value: marginTop,
+													onChange: (e) => setMarginTop(e.target.value)
+												})]
+											}),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+												className: "space-y-2",
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Inferior" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+													type: "number",
+													step: "0.1",
+													value: marginBottom,
+													onChange: (e) => setMarginBottom(e.target.value)
+												})]
+											}),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+												className: "space-y-2",
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Esquerda" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+													type: "number",
+													step: "0.1",
+													value: marginLeft,
+													onChange: (e) => setMarginLeft(e.target.value)
+												})]
+											}),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+												className: "space-y-2",
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Direita" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+													type: "number",
+													step: "0.1",
+													value: marginRight,
+													onChange: (e) => setMarginRight(e.target.value)
+												})]
+											})
+										]
 									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "space-y-2",
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Unidade de Medida" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
-											value: labelUnit,
-											onValueChange: (v) => setLabelUnit(v),
-											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectTrigger, {
-												className: "bg-white",
-												children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectValue, {})
-											}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SelectContent, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
-												value: "cm",
-												children: "Centímetros (cm)"
-											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
-												value: "mm",
-												children: "Milímetros (mm)"
-											})] })]
-										})]
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+										className: "text-xs text-muted-foreground mt-3",
+										children: [
+											"As margens são aplicadas para evitar que o texto seja cortado nas bordas da etiqueta. Unidade:",
+											" ",
+											labelUnit === "cm" ? "cm" : "mm",
+											"."
+										]
 									})
-								]
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								className: "flex justify-end pt-2",
-								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-									variant: "outline",
-									onClick: handleRestoreLabelDefaults,
-									children: "Restaurar Padrão (10.5cm x 4cm)"
+								] }),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "flex justify-end pt-2",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+										variant: "outline",
+										onClick: handleRestoreLabelDefaults,
+										children: "Restaurar Padrão de Margens"
+									})
 								})
-							})]
+							]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardFooter, {
 							className: "flex justify-end border-t pt-6 bg-slate-50/50 rounded-b-lg",
 							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
 								onClick: handleSaveLabels,
 								className: "gap-2",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Save, { className: "h-4 w-4" }), "Salvar Padrões"]
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Save, { className: "h-4 w-4" }), "Salvar Configurações"]
 							})
 						})
 					] })
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
+					value: "templates",
+					className: "space-y-6",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, { children: "Meus Templates" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardDescription, { children: "Gerencie as dietas pré-configuradas salvas no sistema." })] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardContent, { children: templates.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "text-center py-12 text-muted-foreground bg-slate-50 rounded-lg border border-dashed",
+						children: "Nenhum template salvo. Crie templates durante o registro de novas prescrições."
+					}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "grid gap-4 md:grid-cols-2",
+						children: templates.map((template) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "border rounded-lg p-4 bg-white shadow-sm flex justify-between items-start",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "space-y-1",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
+										className: "font-semibold text-slate-800",
+										children: template.name
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										className: "text-sm text-muted-foreground",
+										children: template.type === "milk" ? template.milkType : template.description
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "text-xs bg-slate-100 inline-flex px-2 py-0.5 rounded text-slate-600 font-medium mt-2",
+										children: [
+											template.times.length,
+											" horários (",
+											template.times.slice(0, 3).join(", "),
+											template.times.length > 3 ? "..." : "",
+											")"
+										]
+									})
+								]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+								variant: "ghost",
+								size: "icon",
+								className: "text-destructive hover:bg-destructive/10",
+								onClick: () => {
+									deleteTemplate(template.id);
+									toast$2({ title: "Template removido" });
+								},
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash2, { className: "h-4 w-4" })
+							})]
+						}, template.id))
+					}) })] })
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsContent, {
 					value: "integrations",
 					className: "space-y-6",
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, { children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, { children: "Integração Sistema MV" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardDescription, { children: "Configure a conexão com o prontuário eletrônico MV para sincronização automática de pacientes e prescrições." })] }),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, { children: "Integração Sistema MV" }) }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardContent, {
 							className: "space-y-6",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 								className: "flex items-center justify-between p-4 bg-slate-50 border rounded-lg",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 									className: "space-y-0.5",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
 										className: "text-base font-semibold",
 										children: "Status da Integração"
-									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-										className: "text-sm text-muted-foreground",
-										children: "Ativar ou desativar a sincronização com o MV."
-									})]
+									})
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Switch, {
 									checked: integrationEnabled,
 									onCheckedChange: setIntegrationEnabled
 								})]
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "space-y-4 pt-2",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "space-y-2",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-										htmlFor: "apiUrl",
-										children: "URL Base da API"
-									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-										id: "apiUrl",
-										value: apiBaseUrl,
-										onChange: (e) => setApiBaseUrl(e.target.value),
-										placeholder: "https://api.hospital.com.br/mv/v1",
-										disabled: !integrationEnabled,
-										className: "bg-white"
-									})]
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "grid grid-cols-1 md:grid-cols-2 gap-4",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "space-y-2",
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-											htmlFor: "apiToken",
-											children: "Token de Autenticação"
-										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-											id: "apiToken",
-											type: "password",
-											value: apiToken,
-											onChange: (e) => setApiToken(e.target.value),
-											placeholder: "Insira o Bearer Token ou API Key",
-											disabled: !integrationEnabled,
-											className: "bg-white"
-										})]
-									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "space-y-2",
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-											htmlFor: "clientId",
-											children: "Identificador do Sistema (Client ID)"
-										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-											id: "clientId",
-											value: clientId,
-											onChange: (e) => setClientId(e.target.value),
-											placeholder: "Ex: HCFMB-LACTARIO",
-											disabled: !integrationEnabled,
-											className: "bg-white"
-										})]
-									})]
-								})]
-							})]
+							})
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardFooter, {
 							className: "flex justify-end border-t pt-6 bg-slate-50/50 rounded-b-lg",
 							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
 								onClick: handleSaveIntegration,
 								className: "gap-2",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Save, { className: "h-4 w-4" }), "Salvar Integrações"]
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Save, { className: "h-4 w-4" }), " Salvar Integrações"]
 							})
 						})
 					] })
@@ -35272,12 +35557,262 @@ function ForgotPassword() {
 		]
 	});
 }
+function Inventory() {
+	const { items, addItem, updateItem, deleteItem } = useInventory();
+	const { toast: toast$2 } = useToast();
+	const [searchTerm, setSearchTerm] = (0, import_react.useState)("");
+	const [isDialogOpen, setIsDialogOpen] = (0, import_react.useState)(false);
+	const [editingItem, setEditingItem] = (0, import_react.useState)(null);
+	const [formData, setFormData] = (0, import_react.useState)({
+		name: "",
+		quantity: "",
+		minLevel: "",
+		unit: "unid"
+	});
+	const filteredItems = items.filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
+	const handleOpenDialog = (item) => {
+		if (item) {
+			setEditingItem(item);
+			setFormData({
+				name: item.name,
+				quantity: item.quantity.toString(),
+				minLevel: item.minLevel.toString(),
+				unit: item.unit
+			});
+		} else {
+			setEditingItem(null);
+			setFormData({
+				name: "",
+				quantity: "",
+				minLevel: "",
+				unit: "unid"
+			});
+		}
+		setIsDialogOpen(true);
+	};
+	const handleSave = () => {
+		if (!formData.name || !formData.quantity || !formData.minLevel) {
+			toast$2({
+				title: "Campos obrigatórios",
+				description: "Preencha o nome e as quantidades.",
+				variant: "destructive"
+			});
+			return;
+		}
+		const payload = {
+			name: formData.name,
+			quantity: Number(formData.quantity),
+			minLevel: Number(formData.minLevel),
+			unit: formData.unit
+		};
+		if (editingItem) {
+			updateItem(editingItem.id, payload);
+			toast$2({ title: "Item atualizado com sucesso" });
+		} else {
+			addItem(payload);
+			toast$2({ title: "Item adicionado ao estoque" });
+		}
+		setIsDialogOpen(false);
+	};
+	const handleDelete = (id) => {
+		deleteItem(id);
+		toast$2({ title: "Item removido do estoque" });
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "space-y-6 animate-slide-up",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+					className: "text-3xl font-bold tracking-tight",
+					children: "Estoque de Insumos"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-muted-foreground mt-1",
+					children: "Monitore os níveis de fórmulas, suplementos e frascos."
+				})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+					onClick: () => handleOpenDialog(),
+					className: "gap-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { className: "h-4 w-4" }), "Novo Item"]
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Card, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
+				className: "p-0",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "p-4 border-b flex items-center gap-4 bg-slate-50/50 rounded-t-xl",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "relative flex-1 max-w-sm",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Search, { className: "absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+							placeholder: "Buscar insumo...",
+							className: "pl-9 bg-white",
+							value: searchTerm,
+							onChange: (e) => setSearchTerm(e.target.value)
+						})]
+					})
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Table, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHeader, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, {
+					className: "bg-slate-50/50",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Insumo" }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
+							className: "text-right",
+							children: "Quantidade Atual"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
+							className: "text-right",
+							children: "Nível Mínimo"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Status" }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
+							className: "text-right",
+							children: "Ações"
+						})
+					]
+				}) }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableBody, { children: filteredItems.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableRow, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+					colSpan: 5,
+					className: "text-center py-8 text-muted-foreground",
+					children: "Nenhum item encontrado no estoque."
+				}) }) : filteredItems.map((item) => {
+					const isLow = item.quantity <= item.minLevel;
+					return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, { children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableCell, {
+							className: "font-medium flex items-center gap-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Package, { className: "h-4 w-4 text-muted-foreground" }), item.name]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableCell, {
+							className: "text-right font-semibold",
+							children: [
+								item.quantity,
+								" ",
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "text-muted-foreground text-xs font-normal",
+									children: item.unit
+								})
+							]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableCell, {
+							className: "text-right text-muted-foreground",
+							children: [
+								item.minLevel,
+								" ",
+								item.unit
+							]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, { children: isLow ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Badge, {
+							variant: "destructive",
+							className: "gap-1",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TriangleAlert, { className: "h-3 w-3" }), "Estoque Baixo"]
+						}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Badge, {
+							variant: "secondary",
+							className: "bg-success/10 text-success hover:bg-success/20",
+							children: "Adequado"
+						}) }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableCell, {
+							className: "text-right",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+								variant: "ghost",
+								size: "icon",
+								onClick: () => handleOpenDialog(item),
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SquarePen, { className: "h-4 w-4" })
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+								variant: "ghost",
+								size: "icon",
+								onClick: () => handleDelete(item.id),
+								className: "text-destructive hover:text-destructive",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash2, { className: "h-4 w-4" })
+							})]
+						})
+					] }, item.id);
+				}) })] })]
+			}) }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Dialog, {
+				open: isDialogOpen,
+				onOpenChange: setIsDialogOpen,
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogContent, {
+					className: "sm:max-w-[425px]",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogTitle, { children: editingItem ? "Editar Item" : "Novo Item" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogDescription, { children: "Configure os níveis de alerta para ser avisado quando o estoque estiver baixo." })] }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "grid gap-4 py-4",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "space-y-2",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Nome do Insumo" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+										placeholder: "Ex: Fórmula HA",
+										value: formData.name,
+										onChange: (e) => setFormData({
+											...formData,
+											name: e.target.value
+										})
+									})]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "grid grid-cols-3 gap-4",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "space-y-2 col-span-2",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Quantidade Atual" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+											type: "number",
+											min: "0",
+											value: formData.quantity,
+											onChange: (e) => setFormData({
+												...formData,
+												quantity: e.target.value
+											})
+										})]
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "space-y-2",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Unidade" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+											placeholder: "latas, ml...",
+											value: formData.unit,
+											onChange: (e) => setFormData({
+												...formData,
+												unit: e.target.value
+											})
+										})]
+									})]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "space-y-2",
+									children: [
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+											className: "text-amber-600 font-semibold",
+											children: "Nível Mínimo (Alerta)"
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+											type: "number",
+											min: "0",
+											value: formData.minLevel,
+											onChange: (e) => setFormData({
+												...formData,
+												minLevel: e.target.value
+											})
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+											className: "text-xs text-muted-foreground",
+											children: "O sistema avisará quando a quantidade atingir este valor ou for menor."
+										})
+									]
+								})
+							]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogFooter, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+							variant: "outline",
+							onClick: () => setIsDialogOpen(false),
+							children: "Cancelar"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+							onClick: handleSave,
+							children: "Salvar"
+						})] })
+					]
+				})
+			})
+		]
+	});
+}
 var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 	future: {
 		v7_startTransition: false,
 		v7_relativeSplatPath: false
 	},
-	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LactaryProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SettingsProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TooltipProvider, { children: [
+	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LactaryProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SettingsProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(InventoryProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TooltipProvider, { children: [
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toaster, {}),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toaster$1, {}),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Routes, { children: [
@@ -35322,6 +35857,10 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 						element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Labels_default, {})
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
+						path: "/estoque",
+						element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Inventory, {})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
 						path: "/configuracoes",
 						element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Settings_default, {})
 					}),
@@ -35336,9 +35875,9 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 				element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NotFound_default, {})
 			})
 		] })
-	] }) }) }) })
+	] }) }) }) }) })
 });
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-kT4XShQH.js.map
+//# sourceMappingURL=index-DgKIKdHB.js.map

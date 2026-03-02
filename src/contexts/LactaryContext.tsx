@@ -33,15 +33,32 @@ export type Prescription = {
   date: string
 }
 
+export type Template = {
+  id: string
+  name: string
+  type: PrescriptionType
+  milkType?: string
+  volume?: number
+  additives?: string
+  description?: string
+  observations?: string
+  restrictions?: string
+  times: string[]
+  expiryHours: number
+}
+
 interface LactaryContextType {
   patients: Patient[]
   prescriptions: Prescription[]
+  templates: Template[]
   addPatient: (patient: Patient) => void
   addPatients: (patients: Patient[]) => void
   updatePatient: (id: string, updates: Partial<Patient>) => void
   deletePatient: (id: string) => void
   addPrescription: (prescription: Omit<Prescription, 'id'>) => void
   getPatient: (id: string) => Patient | undefined
+  addTemplate: (template: Omit<Template, 'id'>) => void
+  deleteTemplate: (id: string) => void
 }
 
 const mockPatients: Patient[] = [
@@ -120,12 +137,42 @@ const mockPrescriptions: Prescription[] = [
   },
 ]
 
+const mockTemplates: Template[] = [
+  {
+    id: 't1',
+    name: 'Fórmula Padrão 100ml (3/3h)',
+    type: 'milk',
+    milkType: 'Fórmula Infantil',
+    volume: 100,
+    times: [
+      '06:00',
+      '09:00',
+      '12:00',
+      '15:00',
+      '18:00',
+      '21:00',
+      '00:00',
+      '03:00',
+    ],
+    expiryHours: 24,
+  },
+  {
+    id: 't2',
+    name: 'Dieta Pastosa Almoço/Jantar',
+    type: 'meal',
+    description: 'Papinha de Legumes Liquidificada',
+    times: ['11:00', '17:00'],
+    expiryHours: 6,
+  },
+]
+
 const LactaryContext = createContext<LactaryContextType | undefined>(undefined)
 
 export function LactaryProvider({ children }: { children: ReactNode }) {
   const [patients, setPatients] = useState<Patient[]>(mockPatients)
   const [prescriptions, setPrescriptions] =
     useState<Prescription[]>(mockPrescriptions)
+  const [templates, setTemplates] = useState<Template[]>(mockTemplates)
 
   const addPatient = (patient: Patient) => {
     setPatients((prev) => [...prev, patient])
@@ -154,18 +201,29 @@ export function LactaryProvider({ children }: { children: ReactNode }) {
 
   const getPatient = (id: string) => patients.find((p) => p.id === id)
 
+  const addTemplate = (template: Omit<Template, 'id'>) => {
+    setTemplates((prev) => [...prev, { ...template, id: crypto.randomUUID() }])
+  }
+
+  const deleteTemplate = (id: string) => {
+    setTemplates((prev) => prev.filter((t) => t.id !== id))
+  }
+
   return React.createElement(
     LactaryContext.Provider,
     {
       value: {
         patients,
         prescriptions,
+        templates,
         addPatient,
         addPatients,
         updatePatient,
         deletePatient,
         addPrescription,
         getPatient,
+        addTemplate,
+        deleteTemplate,
       },
     },
     children,
