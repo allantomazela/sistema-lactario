@@ -1,11 +1,6 @@
 import { useState, useMemo } from 'react'
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from '@/components/ui/card'
+import { useLactary } from '@/contexts/LactaryContext'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Table,
   TableBody,
@@ -23,309 +18,263 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Switch } from '@/components/ui/switch'
+import { Button } from '@/components/ui/button'
+import { Printer, FileText } from 'lucide-react'
 import { getLocalYYYYMMDD } from '@/lib/utils'
-import { TrendingUp, TrendingDown, Minus } from 'lucide-react'
-
-// Enhanced mock data to support advanced filtering
-const MOCK_CONSUMPTION = (() => {
-  const data = []
-  const items = [
-    {
-      name: 'Fórmula Infantil Padrão',
-      cat: 'Leite',
-      batches: ['L-101', 'L-102'],
-    },
-    {
-      name: 'Leite Materno Pasteurizado',
-      cat: 'Leite',
-      batches: ['LMP-A', 'LMP-B'],
-    },
-    { name: 'Papinha de Legumes e Carne', cat: 'Refeição', batches: ['P-99'] },
-    { name: 'Dieta Pastosa Almoço', cat: 'Refeição', batches: ['P-100'] },
-    { name: 'Fórmula Especial HA', cat: 'Leite', batches: ['HA-22'] },
-  ]
-  const today = new Date()
-  for (let i = 0; i < 90; i++) {
-    const d = new Date(today)
-    d.setDate(d.getDate() - i)
-    const dateStr = getLocalYYYYMMDD(d)
-    const count = Math.floor(Math.random() * 4) + 1
-    for (let j = 0; j < count; j++) {
-      const it = items[Math.floor(Math.random() * items.length)]
-      data.push({
-        id: crypto.randomUUID(),
-        date: dateStr,
-        itemName: it.name,
-        category: it.cat,
-        batch: it.batches[Math.floor(Math.random() * it.batches.length)],
-        quantity: Math.floor(Math.random() * 5) + 1,
-      })
-    }
-  }
-  return data
-})()
 
 export default function Reports() {
-  const [startDate, setStartDate] = useState(() => {
-    const d = new Date()
-    d.setDate(d.getDate() - 30)
-    return getLocalYYYYMMDD(d)
-  })
-  const [endDate, setEndDate] = useState(() => getLocalYYYYMMDD(new Date()))
-
-  const [compMode, setCompMode] = useState(false)
-  const [compStartDate, setCompStartDate] = useState(() => {
-    const d = new Date()
-    d.setDate(d.getDate() - 60)
-    return getLocalYYYYMMDD(d)
-  })
-  const [compEndDate, setCompEndDate] = useState(() => {
-    const d = new Date()
-    d.setDate(d.getDate() - 31)
-    return getLocalYYYYMMDD(d)
-  })
-
-  const [batchFilter, setBatchFilter] = useState('all')
-
-  const allBatches = useMemo(
-    () => Array.from(new Set(MOCK_CONSUMPTION.map((d) => d.batch))),
-    [],
+  const { prescriptions, patients } = useLactary()
+  const d = new Date()
+  const today = getLocalYYYYMMDD(d)
+  const firstDayMonth = getLocalYYYYMMDD(
+    new Date(d.getFullYear(), d.getMonth(), 1),
   )
-
-  const p1Data = useMemo(
-    () =>
-      MOCK_CONSUMPTION.filter(
-        (d) =>
-          d.date >= startDate &&
-          d.date <= endDate &&
-          (batchFilter === 'all' || d.batch === batchFilter),
-      ),
-    [startDate, endDate, batchFilter],
+  const lastDayMonth = getLocalYYYYMMDD(
+    new Date(d.getFullYear(), d.getMonth() + 1, 0),
   )
-  const p2Data = useMemo(
-    () =>
-      compMode
-        ? MOCK_CONSUMPTION.filter(
-            (d) =>
-              d.date >= compStartDate &&
-              d.date <= compEndDate &&
-              (batchFilter === 'all' || d.batch === batchFilter),
-          )
-        : [],
-    [compMode, compStartDate, compEndDate, batchFilter],
+  const firstDayYear = getLocalYYYYMMDD(new Date(d.getFullYear(), 0, 1))
+  const lastDayYear = getLocalYYYYMMDD(new Date(d.getFullYear(), 11, 31))
+
+  const [preset, setPreset] = useState<'today' | 'month' | 'year' | 'custom'>(
+    'month',
   )
+  const [start, setStart] = useState(firstDayMonth)
+  const [end, setEnd] = useState(lastDayMonth)
+  const [patientId, setPatientId] = useState('all')
+  const [diet, setDiet] = useState('all')
 
-  const summaryData = useMemo(() => {
-    const map = new Map<
-      string,
-      { itemName: string; batch: string; p1Total: number; p2Total: number }
-    >()
-    p1Data.forEach((d) => {
-      const k = `${d.itemName}-${d.batch}`
-      if (!map.has(k))
-        map.set(k, {
-          itemName: d.itemName,
-          batch: d.batch,
-          p1Total: 0,
-          p2Total: 0,
-        })
-      map.get(k)!.p1Total += d.quantity
-    })
-    p2Data.forEach((d) => {
-      const k = `${d.itemName}-${d.batch}`
-      if (!map.has(k))
-        map.set(k, {
-          itemName: d.itemName,
-          batch: d.batch,
-          p1Total: 0,
-          p2Total: 0,
-        })
-      map.get(k)!.p2Total += d.quantity
-    })
-    const totalAllP1 = Array.from(map.values()).reduce(
-      (sum, item) => sum + item.p1Total,
-      0,
-    )
+  const setRange = (p: 'today' | 'month' | 'year', s: string, e: string) => {
+    setPreset(p)
+    setStart(s)
+    setEnd(e)
+  }
 
-    return Array.from(map.values())
-      .map((item) => ({
-        ...item,
-        delta: item.p1Total - item.p2Total,
-        percentage:
-          totalAllP1 > 0
-            ? ((item.p1Total / totalAllP1) * 100).toFixed(1)
-            : '0.0',
+  const reportData = useMemo(() => {
+    return prescriptions
+      .filter((p) => p.date >= start && p.date <= end)
+      .filter((p) => patientId === 'all' || p.patientId === patientId)
+      .filter((p) => diet === 'all' || p.type === diet)
+      .map((p) => ({
+        ...p,
+        patient: patients.find((pat) => pat.id === p.patientId),
       }))
-      .sort((a, b) => b.p1Total - a.p1Total)
-  }, [p1Data, p2Data])
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  }, [prescriptions, patients, start, end, patientId, diet])
+
+  const handlePrint = () => window.print()
 
   return (
-    <div className="space-y-6 animate-slide-up">
-      <div>
-        <h2 className="text-3xl font-bold tracking-tight">
-          Relatórios de Consumo
-        </h2>
-        <p className="text-muted-foreground mt-1">
-          Análise detalhada de consumo com filtros avançados e modo de
-          comparação.
-        </p>
+    <div className="space-y-6 animate-slide-up" id="print-area">
+      <style type="text/css" media="print">{`
+        @page { size: A4 portrait; margin: 15mm; }
+        body * { visibility: hidden; }
+        #print-area, #print-area * { visibility: visible; }
+        #print-area { position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 0; }
+        .no-print { display: none !important; }
+      `}</style>
+
+      <div className="no-print flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h2 className="text-3xl font-bold tracking-tight">
+            Relatórios de Prescrições
+          </h2>
+          <p className="text-muted-foreground mt-1">
+            Gere e imprima relatórios detalhados de dietas e lactário.
+          </p>
+        </div>
       </div>
 
-      <Card className="bg-slate-50 border-dashed">
+      <div className="hidden print:block mb-8 border-b-2 border-black pb-4">
+        <h1 className="text-2xl font-black uppercase tracking-wider text-center">
+          Relatório de Prescrições
+        </h1>
+        <div className="flex justify-between text-sm mt-4 font-medium text-gray-800">
+          <span>
+            Período: {start.split('-').reverse().join('/')} a{' '}
+            {end.split('-').reverse().join('/')}
+          </span>
+          <span>
+            Paciente:{' '}
+            {patientId === 'all'
+              ? 'Todos'
+              : patients.find((p) => p.id === patientId)?.name}
+          </span>
+          <span>
+            Dieta:{' '}
+            {diet === 'all'
+              ? 'Todas'
+              : diet === 'milk'
+                ? 'Fórmulas/Leite'
+                : 'Refeições'}
+          </span>
+        </div>
+      </div>
+
+      <Card className="no-print bg-slate-50 border-dashed">
         <CardContent className="p-4 space-y-4">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <Switch
-                checked={compMode}
-                onCheckedChange={setCompMode}
-                id="comp-mode"
-              />
-              <Label
-                htmlFor="comp-mode"
-                className="font-semibold text-slate-700"
-              >
-                Ativar Modo Comparação
-              </Label>
+          <div className="flex flex-wrap items-end gap-4">
+            <div className="space-y-1.5 flex-1 min-w-[200px]">
+              <Label>Período Rápido</Label>
+              <div className="flex gap-2">
+                <Button
+                  variant={preset === 'today' ? 'default' : 'outline'}
+                  onClick={() => setRange('today', today, today)}
+                  size="sm"
+                >
+                  Hoje
+                </Button>
+                <Button
+                  variant={preset === 'month' ? 'default' : 'outline'}
+                  onClick={() => setRange('month', firstDayMonth, lastDayMonth)}
+                  size="sm"
+                >
+                  Este Mês
+                </Button>
+                <Button
+                  variant={preset === 'year' ? 'default' : 'outline'}
+                  onClick={() => setRange('year', firstDayYear, lastDayYear)}
+                  size="sm"
+                >
+                  Este Ano
+                </Button>
+              </div>
             </div>
-            <div className="w-full sm:w-64">
-              <Select value={batchFilter} onValueChange={setBatchFilter}>
-                <SelectTrigger className="bg-white">
-                  <SelectValue placeholder="Filtrar por Lote" />
+            <div className="space-y-1.5">
+              <Label>Data Inicial</Label>
+              <Input
+                type="date"
+                value={start}
+                onChange={(e) => {
+                  setStart(e.target.value)
+                  setPreset('custom')
+                }}
+                className="h-9 bg-white"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label>Data Final</Label>
+              <Input
+                type="date"
+                value={end}
+                onChange={(e) => {
+                  setEnd(e.target.value)
+                  setPreset('custom')
+                }}
+                className="h-9 bg-white"
+              />
+            </div>
+          </div>
+          <div className="flex flex-wrap items-end gap-4 pt-4 border-t">
+            <div className="space-y-1.5 flex-1 min-w-[200px]">
+              <Label>Filtrar por Paciente</Label>
+              <Select value={patientId} onValueChange={setPatientId}>
+                <SelectTrigger className="bg-white h-9">
+                  <SelectValue placeholder="Todos os pacientes" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Todos os Lotes</SelectItem>
-                  {allBatches.map((b) => (
-                    <SelectItem key={b} value={b}>
-                      {b}
-                    </SelectItem>
-                  ))}
+                  <SelectItem value="all">Todos os Pacientes</SelectItem>
+                  {patients
+                    .filter((p) => p.active)
+                    .map((p) => (
+                      <SelectItem key={p.id} value={p.id}>
+                        {p.name}
+                      </SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1.5 flex-1 min-w-[200px]">
+              <Label>Tipo de Dieta</Label>
+              <Select value={diet} onValueChange={setDiet}>
+                <SelectTrigger className="bg-white h-9">
+                  <SelectValue placeholder="Todas as dietas" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Todas as Dietas</SelectItem>
+                  <SelectItem value="milk">Fórmulas e Leite Materno</SelectItem>
+                  <SelectItem value="meal">
+                    Refeições Sólidas/Pastosas
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 border-t">
-            <div className="space-y-1.5">
-              <Label>Data Inicial (Período 1)</Label>
-              <Input
-                type="date"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-                className="bg-white"
-              />
-            </div>
-            <div className="space-y-1.5">
-              <Label>Data Final (Período 1)</Label>
-              <Input
-                type="date"
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-                className="bg-white"
-              />
-            </div>
-            {compMode && (
-              <>
-                <div className="space-y-1.5">
-                  <Label className="text-amber-600">
-                    Data Inicial (Período 2)
-                  </Label>
-                  <Input
-                    type="date"
-                    value={compStartDate}
-                    onChange={(e) => setCompStartDate(e.target.value)}
-                    className="bg-amber-50"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <Label className="text-amber-600">
-                    Data Final (Período 2)
-                  </Label>
-                  <Input
-                    type="date"
-                    value={compEndDate}
-                    onChange={(e) => setCompEndDate(e.target.value)}
-                    className="bg-amber-50"
-                  />
-                </div>
-              </>
-            )}
-          </div>
         </CardContent>
       </Card>
 
-      <Card className="shadow-sm">
-        <CardHeader>
-          <CardTitle>Resumo de Consumo</CardTitle>
-          <CardDescription>
-            Volume total de preparações realizadas no lactário com base nos
-            filtros.
-          </CardDescription>
+      <Card className="shadow-sm print:shadow-none print:border-none">
+        <CardHeader className="no-print flex flex-row items-center justify-between py-4 border-b">
+          <CardTitle className="text-lg flex items-center gap-2">
+            <FileText className="h-5 w-5 text-primary" /> Resultados da Busca
+          </CardTitle>
+          <Button
+            onClick={handlePrint}
+            disabled={reportData.length === 0}
+            className="gap-2"
+          >
+            <Printer className="h-4 w-4" /> Imprimir Relatório
+          </Button>
         </CardHeader>
-        <CardContent className="p-0">
-          <Table>
-            <TableHeader className="bg-slate-50">
-              <TableRow>
-                <TableHead>Insumo / Refeição</TableHead>
-                <TableHead>Lote</TableHead>
-                <TableHead className="text-right">Total (P1)</TableHead>
-                <TableHead className="text-right">% do Período</TableHead>
-                {compMode && (
-                  <TableHead className="text-right">Total (P2)</TableHead>
-                )}
-                {compMode && (
-                  <TableHead className="text-center">Variação</TableHead>
-                )}
+        <CardContent className="p-0 print:p-0">
+          <Table className="print:text-sm">
+            <TableHeader className="bg-slate-50 print:bg-transparent">
+              <TableRow className="print:border-b-2 print:border-black">
+                <TableHead className="w-[100px] print:text-black">
+                  Data
+                </TableHead>
+                <TableHead className="print:text-black">Paciente</TableHead>
+                <TableHead className="print:text-black">Tipo</TableHead>
+                <TableHead className="print:text-black">
+                  Fórmula / Descrição
+                </TableHead>
+                <TableHead className="text-right print:text-black">
+                  Horários (Vol)
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {summaryData.length === 0 ? (
+              {reportData.length === 0 ? (
                 <TableRow>
                   <TableCell
-                    colSpan={compMode ? 6 : 4}
-                    className="text-center py-8 text-muted-foreground"
+                    colSpan={5}
+                    className="text-center py-12 text-muted-foreground"
                   >
-                    Nenhum dado encontrado para o período selecionado.
+                    Nenhuma prescrição encontrada para os filtros selecionados.
                   </TableCell>
                 </TableRow>
               ) : (
-                summaryData.map((row, idx) => (
-                  <TableRow key={idx}>
-                    <TableCell className="font-medium">
-                      {row.itemName}
+                reportData.map((p) => (
+                  <TableRow
+                    key={p.id}
+                    className="print:border-b print:border-gray-300"
+                  >
+                    <TableCell className="font-medium whitespace-nowrap print:text-black">
+                      {p.date.split('-').reverse().join('/')}
                     </TableCell>
-                    <TableCell className="text-muted-foreground text-sm">
-                      {row.batch}
+                    <TableCell className="font-semibold print:text-black">
+                      {p.patient?.name || 'Registro Removido'}
                     </TableCell>
-                    <TableCell className="text-right font-bold">
-                      {row.p1Total}
+                    <TableCell className="print:text-black">
+                      {p.type === 'milk' ? 'Leite/Fórmula' : 'Refeição'}
                     </TableCell>
-                    <TableCell className="text-right text-muted-foreground">
-                      {row.percentage}%
+                    <TableCell className="print:text-black">
+                      <div className="font-medium">
+                        {p.type === 'milk' ? p.milkType : p.description}
+                      </div>
+                      {p.restrictions && (
+                        <div className="text-xs text-destructive print:text-gray-600 mt-0.5 font-semibold">
+                          Restrições: {p.restrictions}
+                        </div>
+                      )}
                     </TableCell>
-                    {compMode && (
-                      <TableCell className="text-right text-muted-foreground">
-                        {row.p2Total}
-                      </TableCell>
-                    )}
-                    {compMode && (
-                      <TableCell className="text-center">
-                        {row.delta > 0 ? (
-                          <span className="flex items-center justify-center text-success font-medium">
-                            <TrendingUp className="h-4 w-4 mr-1" /> +{row.delta}
-                          </span>
-                        ) : row.delta < 0 ? (
-                          <span className="flex items-center justify-center text-destructive font-medium">
-                            <TrendingDown className="h-4 w-4 mr-1" />{' '}
-                            {row.delta}
-                          </span>
-                        ) : (
-                          <span className="flex items-center justify-center text-muted-foreground">
-                            <Minus className="h-4 w-4 mr-1" /> 0
-                          </span>
-                        )}
-                      </TableCell>
-                    )}
+                    <TableCell className="text-right print:text-black">
+                      <span className="font-bold">{p.times.length} unid.</span>
+                      {p.type === 'milk' && (
+                        <span className="text-xs text-muted-foreground print:text-gray-600 ml-1">
+                          ({p.volume}ml)
+                        </span>
+                      )}
+                    </TableCell>
                   </TableRow>
                 ))
               )}

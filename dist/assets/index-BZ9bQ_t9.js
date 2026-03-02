@@ -19205,10 +19205,6 @@ var Milk = createLucideIcon("milk", [
 		key: "ygeh44"
 	}]
 ]);
-var Minus = createLucideIcon("minus", [["path", {
-	d: "M5 12h14",
-	key: "1ays0h"
-}]]);
 var Package = createLucideIcon("package", [
 	["path", {
 		d: "M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z",
@@ -19416,20 +19412,6 @@ var Trash2 = createLucideIcon("trash-2", [
 		key: "e791ji"
 	}]
 ]);
-var TrendingDown = createLucideIcon("trending-down", [["path", {
-	d: "M16 17h6v-6",
-	key: "t6n2it"
-}], ["path", {
-	d: "m22 17-8.5-8.5-5 5L2 7",
-	key: "x473p"
-}]]);
-var TrendingUp = createLucideIcon("trending-up", [["path", {
-	d: "M16 7h6v6",
-	key: "box55l"
-}], ["path", {
-	d: "m22 7-8.5 8.5-5-5L2 17",
-	key: "1t1m79"
-}]]);
 var TriangleAlert = createLucideIcon("triangle-alert", [
 	["path", {
 		d: "m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3",
@@ -36888,280 +36870,284 @@ function Inventory() {
 		]
 	});
 }
-var MOCK_CONSUMPTION = (() => {
-	const data = [];
-	const items = [
-		{
-			name: "Fórmula Infantil Padrão",
-			cat: "Leite",
-			batches: ["L-101", "L-102"]
-		},
-		{
-			name: "Leite Materno Pasteurizado",
-			cat: "Leite",
-			batches: ["LMP-A", "LMP-B"]
-		},
-		{
-			name: "Papinha de Legumes e Carne",
-			cat: "Refeição",
-			batches: ["P-99"]
-		},
-		{
-			name: "Dieta Pastosa Almoço",
-			cat: "Refeição",
-			batches: ["P-100"]
-		},
-		{
-			name: "Fórmula Especial HA",
-			cat: "Leite",
-			batches: ["HA-22"]
-		}
-	];
-	const today = /* @__PURE__ */ new Date();
-	for (let i = 0; i < 90; i++) {
-		const d = new Date(today);
-		d.setDate(d.getDate() - i);
-		const dateStr = getLocalYYYYMMDD(d);
-		const count$3 = Math.floor(Math.random() * 4) + 1;
-		for (let j = 0; j < count$3; j++) {
-			const it = items[Math.floor(Math.random() * items.length)];
-			data.push({
-				id: crypto.randomUUID(),
-				date: dateStr,
-				itemName: it.name,
-				category: it.cat,
-				batch: it.batches[Math.floor(Math.random() * it.batches.length)],
-				quantity: Math.floor(Math.random() * 5) + 1
-			});
-		}
-	}
-	return data;
-})();
 function Reports() {
-	const [startDate, setStartDate] = (0, import_react.useState)(() => {
-		const d = /* @__PURE__ */ new Date();
-		d.setDate(d.getDate() - 30);
-		return getLocalYYYYMMDD(d);
-	});
-	const [endDate, setEndDate] = (0, import_react.useState)(() => getLocalYYYYMMDD(/* @__PURE__ */ new Date()));
-	const [compMode, setCompMode] = (0, import_react.useState)(false);
-	const [compStartDate, setCompStartDate] = (0, import_react.useState)(() => {
-		const d = /* @__PURE__ */ new Date();
-		d.setDate(d.getDate() - 60);
-		return getLocalYYYYMMDD(d);
-	});
-	const [compEndDate, setCompEndDate] = (0, import_react.useState)(() => {
-		const d = /* @__PURE__ */ new Date();
-		d.setDate(d.getDate() - 31);
-		return getLocalYYYYMMDD(d);
-	});
-	const [batchFilter, setBatchFilter] = (0, import_react.useState)("all");
-	const allBatches = (0, import_react.useMemo)(() => Array.from(new Set(MOCK_CONSUMPTION.map((d) => d.batch))), []);
-	const p1Data = (0, import_react.useMemo)(() => MOCK_CONSUMPTION.filter((d) => d.date >= startDate && d.date <= endDate && (batchFilter === "all" || d.batch === batchFilter)), [
-		startDate,
-		endDate,
-		batchFilter
+	const { prescriptions, patients } = useLactary();
+	const d = /* @__PURE__ */ new Date();
+	const today = getLocalYYYYMMDD(d);
+	const firstDayMonth = getLocalYYYYMMDD(new Date(d.getFullYear(), d.getMonth(), 1));
+	const lastDayMonth = getLocalYYYYMMDD(new Date(d.getFullYear(), d.getMonth() + 1, 0));
+	const firstDayYear = getLocalYYYYMMDD(new Date(d.getFullYear(), 0, 1));
+	const lastDayYear = getLocalYYYYMMDD(new Date(d.getFullYear(), 11, 31));
+	const [preset, setPreset] = (0, import_react.useState)("month");
+	const [start, setStart] = (0, import_react.useState)(firstDayMonth);
+	const [end, setEnd] = (0, import_react.useState)(lastDayMonth);
+	const [patientId, setPatientId] = (0, import_react.useState)("all");
+	const [diet, setDiet] = (0, import_react.useState)("all");
+	const setRange = (p, s, e) => {
+		setPreset(p);
+		setStart(s);
+		setEnd(e);
+	};
+	const reportData = (0, import_react.useMemo)(() => {
+		return prescriptions.filter((p) => p.date >= start && p.date <= end).filter((p) => patientId === "all" || p.patientId === patientId).filter((p) => diet === "all" || p.type === diet).map((p) => ({
+			...p,
+			patient: patients.find((pat) => pat.id === p.patientId)
+		})).sort((a, b$1) => new Date(b$1.date).getTime() - new Date(a.date).getTime());
+	}, [
+		prescriptions,
+		patients,
+		start,
+		end,
+		patientId,
+		diet
 	]);
-	const p2Data = (0, import_react.useMemo)(() => compMode ? MOCK_CONSUMPTION.filter((d) => d.date >= compStartDate && d.date <= compEndDate && (batchFilter === "all" || d.batch === batchFilter)) : [], [
-		compMode,
-		compStartDate,
-		compEndDate,
-		batchFilter
-	]);
-	const summaryData = (0, import_react.useMemo)(() => {
-		const map = /* @__PURE__ */ new Map();
-		p1Data.forEach((d) => {
-			const k = `${d.itemName}-${d.batch}`;
-			if (!map.has(k)) map.set(k, {
-				itemName: d.itemName,
-				batch: d.batch,
-				p1Total: 0,
-				p2Total: 0
-			});
-			map.get(k).p1Total += d.quantity;
-		});
-		p2Data.forEach((d) => {
-			const k = `${d.itemName}-${d.batch}`;
-			if (!map.has(k)) map.set(k, {
-				itemName: d.itemName,
-				batch: d.batch,
-				p1Total: 0,
-				p2Total: 0
-			});
-			map.get(k).p2Total += d.quantity;
-		});
-		const totalAllP1 = Array.from(map.values()).reduce((sum, item) => sum + item.p1Total, 0);
-		return Array.from(map.values()).map((item) => ({
-			...item,
-			delta: item.p1Total - item.p2Total,
-			percentage: totalAllP1 > 0 ? (item.p1Total / totalAllP1 * 100).toFixed(1) : "0.0"
-		})).sort((a, b$1) => b$1.p1Total - a.p1Total);
-	}, [p1Data, p2Data]);
+	const handlePrint = () => window.print();
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "space-y-6 animate-slide-up",
+		id: "print-area",
 		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-				className: "text-3xl font-bold tracking-tight",
-				children: "Relatórios de Consumo"
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-				className: "text-muted-foreground mt-1",
-				children: "Análise detalhada de consumo com filtros avançados e modo de comparação."
-			})] }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("style", {
+				type: "text/css",
+				media: "print",
+				children: `
+        @page { size: A4 portrait; margin: 15mm; }
+        body * { visibility: hidden; }
+        #print-area, #print-area * { visibility: visible; }
+        #print-area { position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 0; }
+        .no-print { display: none !important; }
+      `
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "no-print flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+					className: "text-3xl font-bold tracking-tight",
+					children: "Relatórios de Prescrições"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-muted-foreground mt-1",
+					children: "Gere e imprima relatórios detalhados de dietas e lactário."
+				})] })
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "hidden print:block mb-8 border-b-2 border-black pb-4",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+					className: "text-2xl font-black uppercase tracking-wider text-center",
+					children: "Relatório de Prescrições"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex justify-between text-sm mt-4 font-medium text-gray-800",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+							"Período: ",
+							start.split("-").reverse().join("/"),
+							" a",
+							" ",
+							end.split("-").reverse().join("/")
+						] }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+							"Paciente:",
+							" ",
+							patientId === "all" ? "Todos" : patients.find((p) => p.id === patientId)?.name
+						] }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+							"Dieta:",
+							" ",
+							diet === "all" ? "Todas" : diet === "milk" ? "Fórmulas/Leite" : "Refeições"
+						] })
+					]
+				})]
+			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Card, {
-				className: "bg-slate-50 border-dashed",
+				className: "no-print bg-slate-50 border-dashed",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
 					className: "p-4 space-y-4",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "flex items-center gap-3",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Switch, {
-								checked: compMode,
-								onCheckedChange: setCompMode,
-								id: "comp-mode"
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-								htmlFor: "comp-mode",
-								className: "font-semibold text-slate-700",
-								children: "Ativar Modo Comparação"
-							})]
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: "w-full sm:w-64",
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
-								value: batchFilter,
-								onValueChange: setBatchFilter,
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectTrigger, {
-									className: "bg-white",
-									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectValue, { placeholder: "Filtrar por Lote" })
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SelectContent, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
-									value: "all",
-									children: "Todos os Lotes"
-								}), allBatches.map((b$1) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
-									value: b$1,
-									children: b$1
-								}, b$1))] })]
-							})
-						})]
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 border-t",
+						className: "flex flex-wrap items-end gap-4",
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "space-y-1.5",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Data Inicial (Período 1)" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-									type: "date",
-									value: startDate,
-									onChange: (e) => setStartDate(e.target.value),
-									className: "bg-white"
+								className: "space-y-1.5 flex-1 min-w-[200px]",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Período Rápido" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex gap-2",
+									children: [
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+											variant: preset === "today" ? "default" : "outline",
+											onClick: () => setRange("today", today, today),
+											size: "sm",
+											children: "Hoje"
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+											variant: preset === "month" ? "default" : "outline",
+											onClick: () => setRange("month", firstDayMonth, lastDayMonth),
+											size: "sm",
+											children: "Este Mês"
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+											variant: preset === "year" ? "default" : "outline",
+											onClick: () => setRange("year", firstDayYear, lastDayYear),
+											size: "sm",
+											children: "Este Ano"
+										})
+									]
 								})]
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 								className: "space-y-1.5",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Data Final (Período 1)" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Data Inicial" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
 									type: "date",
-									value: endDate,
-									onChange: (e) => setEndDate(e.target.value),
-									className: "bg-white"
+									value: start,
+									onChange: (e) => {
+										setStart(e.target.value);
+										setPreset("custom");
+									},
+									className: "h-9 bg-white"
 								})]
 							}),
-							compMode && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 								className: "space-y-1.5",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-									className: "text-amber-600",
-									children: "Data Inicial (Período 2)"
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Data Final" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
 									type: "date",
-									value: compStartDate,
-									onChange: (e) => setCompStartDate(e.target.value),
-									className: "bg-amber-50"
+									value: end,
+									onChange: (e) => {
+										setEnd(e.target.value);
+										setPreset("custom");
+									},
+									className: "h-9 bg-white"
 								})]
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "space-y-1.5",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-									className: "text-amber-600",
-									children: "Data Final (Período 2)"
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-									type: "date",
-									value: compEndDate,
-									onChange: (e) => setCompEndDate(e.target.value),
-									className: "bg-amber-50"
-								})]
-							})] })
+							})
 						]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex flex-wrap items-end gap-4 pt-4 border-t",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "space-y-1.5 flex-1 min-w-[200px]",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Filtrar por Paciente" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+								value: patientId,
+								onValueChange: setPatientId,
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectTrigger, {
+									className: "bg-white h-9",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectValue, { placeholder: "Todos os pacientes" })
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SelectContent, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
+									value: "all",
+									children: "Todos os Pacientes"
+								}), patients.filter((p) => p.active).map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
+									value: p.id,
+									children: p.name
+								}, p.id))] })]
+							})]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "space-y-1.5 flex-1 min-w-[200px]",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, { children: "Tipo de Dieta" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+								value: diet,
+								onValueChange: setDiet,
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectTrigger, {
+									className: "bg-white h-9",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectValue, { placeholder: "Todas as dietas" })
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SelectContent, { children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
+										value: "all",
+										children: "Todas as Dietas"
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
+										value: "milk",
+										children: "Fórmulas e Leite Materno"
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
+										value: "meal",
+										children: "Refeições Sólidas/Pastosas"
+									})
+								] })]
+							})]
+						})]
 					})]
 				})
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
-				className: "shadow-sm",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardTitle, { children: "Resumo de Consumo" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardDescription, { children: "Volume total de preparações realizadas no lactário com base nos filtros." })] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardContent, {
-					className: "p-0",
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Table, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHeader, {
-						className: "bg-slate-50",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, { children: [
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Insumo / Refeição" }),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, { children: "Lote" }),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
-								className: "text-right",
-								children: "Total (P1)"
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
-								className: "text-right",
-								children: "% do Período"
-							}),
-							compMode && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
-								className: "text-right",
-								children: "Total (P2)"
-							}),
-							compMode && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
-								className: "text-center",
-								children: "Variação"
-							})
-						] })
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableBody, { children: summaryData.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableRow, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
-						colSpan: compMode ? 6 : 4,
-						className: "text-center py-8 text-muted-foreground",
-						children: "Nenhum dado encontrado para o período selecionado."
-					}) }) : summaryData.map((row, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, { children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
-							className: "font-medium",
-							children: row.itemName
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
-							className: "text-muted-foreground text-sm",
-							children: row.batch
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
-							className: "text-right font-bold",
-							children: row.p1Total
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableCell, {
-							className: "text-right text-muted-foreground",
-							children: [row.percentage, "%"]
-						}),
-						compMode && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
-							className: "text-right text-muted-foreground",
-							children: row.p2Total
-						}),
-						compMode && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
-							className: "text-center",
-							children: row.delta > 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-								className: "flex items-center justify-center text-success font-medium",
+				className: "shadow-sm print:shadow-none print:border-none",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardHeader, {
+					className: "no-print flex flex-row items-center justify-between py-4 border-b",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardTitle, {
+						className: "text-lg flex items-center gap-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FileText, { className: "h-5 w-5 text-primary" }), " Resultados da Busca"]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+						onClick: handlePrint,
+						disabled: reportData.length === 0,
+						className: "gap-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Printer, { className: "h-4 w-4" }), " Imprimir Relatório"]
+					})]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CardContent, {
+					className: "p-0 print:p-0",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Table, {
+						className: "print:text-sm",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHeader, {
+							className: "bg-slate-50 print:bg-transparent",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, {
+								className: "print:border-b-2 print:border-black",
 								children: [
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TrendingUp, { className: "h-4 w-4 mr-1" }),
-									" +",
-									row.delta
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
+										className: "w-[100px] print:text-black",
+										children: "Data"
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
+										className: "print:text-black",
+										children: "Paciente"
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
+										className: "print:text-black",
+										children: "Tipo"
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
+										className: "print:text-black",
+										children: "Fórmula / Descrição"
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableHead, {
+										className: "text-right print:text-black",
+										children: "Horários (Vol)"
+									})
 								]
-							}) : row.delta < 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-								className: "flex items-center justify-center text-destructive font-medium",
-								children: [
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TrendingDown, { className: "h-4 w-4 mr-1" }),
-									" ",
-									row.delta
-								]
-							}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-								className: "flex items-center justify-center text-muted-foreground",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Minus, { className: "h-4 w-4 mr-1" }), " 0"]
 							})
-						})
-					] }, idx)) })] })
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableBody, { children: reportData.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableRow, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+							colSpan: 5,
+							className: "text-center py-12 text-muted-foreground",
+							children: "Nenhuma prescrição encontrada para os filtros selecionados."
+						}) }) : reportData.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableRow, {
+							className: "print:border-b print:border-gray-300",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+									className: "font-medium whitespace-nowrap print:text-black",
+									children: p.date.split("-").reverse().join("/")
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+									className: "font-semibold print:text-black",
+									children: p.patient?.name || "Registro Removido"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TableCell, {
+									className: "print:text-black",
+									children: p.type === "milk" ? "Leite/Fórmula" : "Refeição"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableCell, {
+									className: "print:text-black",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										className: "font-medium",
+										children: p.type === "milk" ? p.milkType : p.description
+									}), p.restrictions && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "text-xs text-destructive print:text-gray-600 mt-0.5 font-semibold",
+										children: ["Restrições: ", p.restrictions]
+									})]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TableCell, {
+									className: "text-right print:text-black",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+										className: "font-bold",
+										children: [p.times.length, " unid."]
+									}), p.type === "milk" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+										className: "text-xs text-muted-foreground print:text-gray-600 ml-1",
+										children: [
+											"(",
+											p.volume,
+											"ml)"
+										]
+									})]
+								})
+							]
+						}, p.id)) })]
+					})
 				})]
 			})
 		]
@@ -37571,4 +37557,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 var App_default = App;
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App_default, {}));
 
-//# sourceMappingURL=index-CjqHo8PV.js.map
+//# sourceMappingURL=index-BZ9bQ_t9.js.map

@@ -855,6 +855,10 @@ section[aria-label='Notifications alt+T'] {
   margin-bottom: 1.5rem;
 }
 
+.mb-8{
+  margin-bottom: 2rem;
+}
+
 .mb-\[0\.4mm\]{
   margin-bottom: 0.4mm;
 }
@@ -1857,6 +1861,10 @@ section[aria-label='Notifications alt+T'] {
 
 .border-b{
   border-bottom-width: 1px;
+}
+
+.border-b-2{
+  border-bottom-width: 2px;
 }
 
 .border-b-\[1\.5px\]{
@@ -4266,10 +4274,6 @@ section[aria-label='Notifications alt+T'] {
     width: 14rem;
   }
 
-  .sm\:w-64{
-    width: 16rem;
-  }
-
   .sm\:max-w-\[425px\]{
     max-width: 425px;
   }
@@ -4445,12 +4449,57 @@ section[aria-label='Notifications alt+T'] {
 
 @media print{
 
+  .print\:block{
+    display: block;
+  }
+
   .print\:hidden{
     display: none;
   }
 
+  .print\:border-b{
+    border-bottom-width: 1px;
+  }
+
+  .print\:border-b-2{
+    border-bottom-width: 2px;
+  }
+
   .print\:border-none{
     border-style: none;
+  }
+
+  .print\:border-black{
+    --tw-border-opacity: 1;
+    border-color: rgb(0 0 0 / var(--tw-border-opacity, 1));
+  }
+
+  .print\:border-gray-300{
+    --tw-border-opacity: 1;
+    border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
+  }
+
+  .print\:bg-transparent{
+    background-color: transparent;
+  }
+
+  .print\:p-0{
+    padding: 0px;
+  }
+
+  .print\:text-sm{
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .print\:text-black{
+    --tw-text-opacity: 1;
+    color: rgb(0 0 0 / var(--tw-text-opacity, 1));
+  }
+
+  .print\:text-gray-600{
+    --tw-text-opacity: 1;
+    color: rgb(75 85 99 / var(--tw-text-opacity, 1));
   }
 
   .print\:shadow-none{
